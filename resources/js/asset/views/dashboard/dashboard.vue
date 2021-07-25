@@ -5,7 +5,6 @@
       <div class="_1side_menu" >
         <div class="_1side_menu_logo">
           <h3 style="text-align:center;">Logo Image</h3>
-          <!--<img src="/img/logo.jpg" style="width: 108px;margin-left: 68px;"/>-->
         </div>
 
         <!--~~~~~~~~ MENU CONTENT ~~~~~~~~-->
@@ -25,22 +24,15 @@
               <li><router-link to="code" ><Icon type="ios-speedometer"  /> Mã đăng ký</router-link></li>
 
             </ul>
-          </div>
+          </div> 
         </div>
       </div>
       <!--========== ADMIN SIDE MENU ========-->
 
       <!--========= HEADER ==========-->
-      <div class="header">
+      <div class="header" style="">
         <div class="_2menu _box_shadow">
-          <div class="_2menu_logo">
-            <ul class="open_button">
-              <li>
-                <Icon type="ios-list" />
-              </li>
-              <!--<li><Icon type="ios-albums" /></li>-->
-            </ul>
-          </div>
+         
         </div>
       </div>
       <!--========= HEADER ==========-->
