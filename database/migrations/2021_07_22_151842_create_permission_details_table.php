@@ -19,7 +19,9 @@ class CreatePermissionDetailsTable extends Migration
             $table->string('actionName'); 
             $table->string('actionCode'); 
             $table->string('check'); 
-            $table->timestamps();
+
+
+            // $table->foreign('idPermisson')->references('id')->on('permissions');
         });
     }
 

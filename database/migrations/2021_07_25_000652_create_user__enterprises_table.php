@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEnterpriseCustomersTable extends Migration
+class CreateUserEnterprisesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateEnterpriseCustomersTable extends Migration
      */
     public function up()
     {
-        Schema::create('enterprise_customers', function (Blueprint $table) {
+        Schema::create('user_enterprises', function (Blueprint $table) {
+            $table->integer('idUser');
             $table->integer('idEnterprise');
-            $table->integer('idCustomer');
 
+            // $table->foreign('idUser')->references('id')->on('users');
             // $table->foreign('idEnterprise')->references('id')->on('enterprises');
-            // $table->foreign('idCustomer')->references('id')->on('customers');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateEnterpriseCustomersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('enterprise__customers');
+        Schema::dropIfExists('user__enterprises');
     }
 }

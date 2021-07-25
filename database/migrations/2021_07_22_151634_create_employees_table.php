@@ -23,6 +23,11 @@ class CreateEmployeesTable extends Migration
             $table->integer('idEmployeeType');
             $table->integer('idEmterprise');
             $table->timestamps();
+
+            // $table->foreign('idEmployeeType')->references('id')->on('users');
+            // $table->foreign('idEnterprise')->references('id')->on('enterprises');
+
+
         });
     }
 

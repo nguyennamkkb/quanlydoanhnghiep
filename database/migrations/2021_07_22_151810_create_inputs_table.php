@@ -17,10 +17,14 @@ class CreateInputsTable extends Migration
             $table->id();
             $table->dateTime('date'); 
             $table->integer('idSupblie'); 
-            $table->string('total weight'); 
+            $table->string('totalweight'); 
             $table->integer('idImporter'); 
             $table->integer('idCarrier'); 
             $table->timestamps();
+
+            // $table->foreign('idImporter')->references('id')->on('users');
+            // $table->foreign('idCarrier')->references('id')->on('users');
+            // $table->foreign('idSupblie')->references('id')->on('suppliers');
         });
     }
 

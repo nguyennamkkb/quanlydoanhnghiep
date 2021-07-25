@@ -21,6 +21,8 @@ class CreateCustomersTable extends Migration
             $table->string('email')->nullable();
             $table->integer('idCustomerType');
             $table->timestamps();
+
+            // $table->foreign('idCustomerType')->references('id')->on('customer_types');
         });
     }
 

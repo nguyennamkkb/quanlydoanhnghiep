@@ -15,10 +15,13 @@ class CreateEnterprisesTable extends Migration
     {
         Schema::create('enterprises', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name'); 
             $table->string('shortName')->nullable();
             $table->integer('employees')->nullable();
+            $table->integer('idUser')->nullable();
             $table->timestamps();
+
+            // $table->foreign('idUser')->references('id')->on('users');
         });
     }
 

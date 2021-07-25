@@ -14,13 +14,17 @@ class CreateCodesTable extends Migration
     public function up()
     {
         Schema::create('codes', function (Blueprint $table) {
+            // ma dang ky tai
             $table->id();
             $table->string('code');
             $table->boolean('isUsed')->default(false);
-            $table->integer('idCompany')->nullable();
+            $table->integer('idEnterprise')->nullable();
             $table->dateTime('startTime')->nullable();
             $table->dateTime('endTime')->nullable();
             $table->timestamps();
+
+            // $table->foreign('idEnterprise')->references('id')->on('enterprises');
+
         });
     }
 

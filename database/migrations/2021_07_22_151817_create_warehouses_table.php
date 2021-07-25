@@ -21,6 +21,9 @@ class CreateWarehousesTable extends Migration
             $table->float('amount'); 
             $table->float('price'); 
             $table->timestamps();
+
+            // $table->foreign('idCategory')->references('id')->on('categories');
+
         });
     }
 

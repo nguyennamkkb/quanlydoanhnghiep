@@ -21,6 +21,10 @@ class CreateProductsTable extends Migration
             $table->string('barcode');
             $table->string('qrcode');
             $table->timestamps();
+
+            // $table->foreign('idUnit')->references('id')->on('enterprises');
+            // $table->foreign('idSupplie')->references('id')->on('enterprises');
+
         });
     }
 
