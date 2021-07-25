@@ -71,7 +71,6 @@
 							</Table>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -96,7 +95,7 @@
                     {
                         title: 'Action',
                         slot: 'action',
-              
+                        width: 150,
                         align: 'center'
                     }
                 ],
