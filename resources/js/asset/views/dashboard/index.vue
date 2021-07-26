@@ -11,7 +11,6 @@
 								<p class="_1adminOverveiw_card_left_title">Today's News</p>
 							</div>
 							<div class="_1adminOverveiw_card_right">
-								<Icon type="ios-paper" />
 							</div>
 						</div>
 					</div>
@@ -24,7 +23,6 @@
 								<p class="_1adminOverveiw_card_left_title">Total News</p>
 							</div>
 							<div class="_1adminOverveiw_card_right">
-								<Icon type="ios-paper-outline" />
 							</div>
 						</div>
 					</div>
@@ -37,7 +35,6 @@
 								<p class="_1adminOverveiw_card_left_title">Features News</p>
 							</div>
 							<div class="_1adminOverveiw_card_right">
-								<Icon type="md-copy" />
 							</div>
 						</div>
 					</div>
@@ -50,7 +47,6 @@
 								<p class="_1adminOverveiw_card_left_title">Card News</p>
 							</div>
 							<div class="_1adminOverveiw_card_right">
-								<Icon type="md-list-box" />
 							</div>
 						</div>
 					</div>

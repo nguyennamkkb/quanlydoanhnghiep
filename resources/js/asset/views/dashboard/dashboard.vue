@@ -19,9 +19,9 @@
             <ul class="_1side_menu_list_ul">
               <!-- <li><router-link to="{{asset('ddashboard/index')}}"><Icon type="ios-speedometer"  /> Overview</router-link></li>
               <li><router-link to="{{asset('ddashboard/user')}}" ><Icon type="ios-speedometer"  /> Tài khoản</router-link></li> -->
-              <li><router-link to="index"><Icon type="ios-speedometer"  /> Overview</router-link></li>
-              <li><router-link to="user" ><Icon type="ios-speedometer"  /> Tài khoản</router-link></li>
-              <li><router-link to="code" ><Icon type="ios-speedometer"  /> Mã đăng ký</router-link></li>
+              <li><router-link to="index"> Overview</router-link></li>
+              <li><router-link to="user" > Tài khoản</router-link></li>
+              <li><router-link to="code" >Mã đăng ký</router-link></li>
 
             </ul>
           </div> 

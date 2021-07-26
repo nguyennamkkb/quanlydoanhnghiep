@@ -68,28 +68,46 @@
           <p class="_title0">
             Thông tin má đăng ký tài khoản
             <Button type="primary" @click="modal1 = true"
-              ><Icon type="md-add" /> Thêm mới mã đăng ký</Button
+              > Thêm mới mã đăng ký</Button
             >
           </p>
-
+<!-- 
           <div class="">
-            <Table border :columns="columns" :data="codes.results">
-              <template slot-scope="{ row }" slot="name">
-                <strong>{{ row.name }}</strong>
-              </template>
-              <template slot-scope="{ row, index }" slot="action">
-                <Button
-                  type="primary"
-                  size="small"
-                  style="margin-right: 5px"
-                  @click="showEdit(row)"
-                  >Sửa</Button
-                >
-                <Button type="error" size="small" @click="confirmDelete(row)"
-                  >Xóa</Button
-                >
-              </template>
-            </Table>
+            <el-table
+              :data="
+                tableData.filter(
+                  (data) =>
+                    !search ||
+                    data.name.toLowerCase().includes(search.toLowerCase())
+                )
+              "
+              style="width: 100%"
+            >
+              <el-table-column label="Date" prop="date"> </el-table-column>
+              <el-table-column label="Name" prop="name"> </el-table-column>
+              <el-table-column align="right">
+                <template slot="header" slot-scope="scope">
+                  <el-input
+                    v-model="search"
+                    size="mini"
+                    placeholder="Type to search"
+                  />
+                </template>
+                <template slot-scope="scope">
+                  <el-button
+                    size="mini"
+                    @click="handleEdit(scope.$index, scope.row)"
+                    >Edit</el-button
+                  >
+                  <el-button
+                    size="mini"
+                    type="danger"
+                    @click="handleDelete(scope.$index, scope.row)"
+                    >Delete</el-button
+                  >
+                </template>
+              </el-table-column>
+            </el-table>
             <Modal
               v-model="modal1"
               Title="Thông báo"
@@ -122,7 +140,7 @@
             >
               <p>Bạn muốn xóa mã đăng ký</p>
             </Modal>
-			<Modal
+            <Modal
               v-model="modaledit"
               draggable
               sticky
@@ -130,12 +148,11 @@
               title="Thêm mới mã đăng ký"
               :mask-closable="false"
               @on-ok="deleteCode"
-
               okText="Đồng ý"
               cancelText="Hủy"
             >
               <p>Bạn muốn xóa mã đăng ký</p>
-            </Modal>
+            </Modal> -->
           </div>
         </div>
       </div>
@@ -174,10 +191,10 @@ export default {
         { title: "Ngày kết thúc", key: "endTime" },
         { title: "Thao tác", slot: "action", width: 150, align: "center" },
       ],
-	  modalTitle:'',
+      modalTitle: "",
       modal1: false,
       modal2: false,
-	  modaledit: false,
+      modaledit: false,
       modal_loading: false,
       loading: true,
       dataCode: {
@@ -238,9 +255,9 @@ export default {
       const data = await CodeRepository.delete(this.dataCode.id);
       this.checkStatus(data.data);
     },
-	showEdit: function(){
-		this.modaledit = true
-	}
+    showEdit: function () {
+      this.modaledit = true;
+    },
   },
 };
 </script>

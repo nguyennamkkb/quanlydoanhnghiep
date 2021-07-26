@@ -175,6 +175,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODULE_1__.default.get("codes");
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -218,7 +235,7 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
         width: 150,
         align: "center"
       }],
-      modalTitle: '',
+      modalTitle: "",
       modal1: false,
       modal2: false,
       modaledit: false,
@@ -1321,155 +1338,7 @@ var render = function() {
                       }
                     }
                   },
-                  [
-                    _c("Icon", { attrs: { type: "md-add" } }),
-                    _vm._v(" Thêm mới mã đăng ký")
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {},
-              [
-                _c("Table", {
-                  attrs: {
-                    border: "",
-                    columns: _vm.columns,
-                    data: _vm.codes.results
-                  },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "name",
-                      fn: function(ref) {
-                        var row = ref.row
-                        return [_c("strong", [_vm._v(_vm._s(row.name))])]
-                      }
-                    },
-                    {
-                      key: "action",
-                      fn: function(ref) {
-                        var row = ref.row
-                        var index = ref.index
-                        return [
-                          _c(
-                            "Button",
-                            {
-                              staticStyle: { "margin-right": "5px" },
-                              attrs: { type: "primary", size: "small" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.showEdit(row)
-                                }
-                              }
-                            },
-                            [_vm._v("Sửa")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "Button",
-                            {
-                              attrs: { type: "error", size: "small" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.confirmDelete(row)
-                                }
-                              }
-                            },
-                            [_vm._v("Xóa")]
-                          )
-                        ]
-                      }
-                    }
-                  ])
-                }),
-                _vm._v(" "),
-                _c(
-                  "Modal",
-                  {
-                    attrs: {
-                      Title: "Thông báo",
-                      draggable: "",
-                      sticky: "",
-                      scrollable: "",
-                      "mask-closable": false,
-                      okText: "Đồng ý",
-                      cancelText: "Hủy"
-                    },
-                    on: { "on-ok": _vm.createCode },
-                    model: {
-                      value: _vm.modal1,
-                      callback: function($$v) {
-                        _vm.modal1 = $$v
-                      },
-                      expression: "modal1"
-                    }
-                  },
-                  [
-                    _c("div", [_vm._v("Thông báo")]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _vm._v(
-                        "\n                Bạn muốn tạo mới mã đăng ký, mã này được sử dụng khi dăng ký tài\n                khoản mới\n              "
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "Modal",
-                  {
-                    attrs: {
-                      draggable: "",
-                      sticky: "",
-                      scrollable: "",
-                      title: "Thông báo",
-                      "mask-closable": false,
-                      okText: "Đồng ý",
-                      cancelText: "Hủy"
-                    },
-                    on: {
-                      "on-ok": _vm.deleteCode,
-                      "on-cancel": function($event) {
-                        this.modal2 = false
-                      }
-                    },
-                    model: {
-                      value: _vm.modal2,
-                      callback: function($$v) {
-                        _vm.modal2 = $$v
-                      },
-                      expression: "modal2"
-                    }
-                  },
-                  [_c("p", [_vm._v("Bạn muốn xóa mã đăng ký")])]
-                ),
-                _vm._v(" "),
-                _c(
-                  "Modal",
-                  {
-                    attrs: {
-                      draggable: "",
-                      sticky: "",
-                      scrollable: "",
-                      title: "Thêm mới mã đăng ký",
-                      "mask-closable": false,
-                      okText: "Đồng ý",
-                      cancelText: "Hủy"
-                    },
-                    on: { "on-ok": _vm.deleteCode },
-                    model: {
-                      value: _vm.modaledit,
-                      callback: function($$v) {
-                        _vm.modaledit = $$v
-                      },
-                      expression: "modaledit"
-                    }
-                  },
-                  [_c("p", [_vm._v("Bạn muốn xóa mã đăng ký")])]
+                  [_vm._v(" Thêm mới mã đăng ký")]
                 )
               ],
               1
