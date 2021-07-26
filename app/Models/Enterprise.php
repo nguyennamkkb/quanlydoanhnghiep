@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Enterprise extends Model
 {
     use HasFactory;
+    protected $table = 'enterprises';
+
+    // public function code()
+    // {
+    //     return $this->belongsTo(Enterprise::class, 'idEnterprise', 'id');
+    // }
 }

@@ -7,6 +7,7 @@ use App\Interfaces\CodeInterface;
 use App\Traits\ResponseAPI;
 use App\Models\Code;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\CodeResource;
 
 class CodeRepository implements CodeInterface
 {
@@ -17,7 +18,7 @@ class CodeRepository implements CodeInterface
     {
         try {
             $codes = Code::all();
-            return $this->success("All Codes", $codes);
+            return $this->success("All Codes",CodeResource::collection($codes));
         } catch(\Exception $e) {
             return $this->error($e->getMessage(), $e->getCode());
         }

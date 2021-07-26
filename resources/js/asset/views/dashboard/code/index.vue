@@ -153,7 +153,7 @@
             >
               <p>Bạn muốn xóa mã đăng ký</p>
             </Modal> -->
-          </div>
+          <!-- </div> -->
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ use App\Http\Requests\CodeRequest;
 use App\Interfaces\CodeInterface;
 use App\Models\Code;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\CodeResource;
 class CodeController extends Controller
 {
     protected $codeInterface;
