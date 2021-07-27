@@ -6,14 +6,19 @@ use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
+    protected static $repositories = [
+        'code' => [
+            \App\Repositories\Code\CodeRepositoryInterface::class,
+            \App\Repositories\Code\CodeRepositoryEloquent::class,
+        ],
+    ];
     public function register()
     {
-        // Register Interface and Repository in here
-        // You must place Interface in first place
-        // If you dont, the Repository will not get readed.
-        $this->app->bind(
-            'App\Interfaces\CodeInterface',
-            'App\Repositories\CodeRepository'
-        );
+        foreach (static::$repositories as $repository) {
+            $this->app->bind(
+                $repository[0],
+                $repository[1]
+            );
+        }
     }
 }

@@ -10,8 +10,8 @@ class Code extends Model
 {
     use HasFactory;
     protected $table = 'codes';
-    public function enterprise()
-    {
-        return $this->belongsTo(Enterprise::class, 'idEnterprise');
-    }
+    // public function enterprise()
+    // {
+    //     return $this->belongsTo(Enterprise::class, 'idEnterprise');
+    // }
 }

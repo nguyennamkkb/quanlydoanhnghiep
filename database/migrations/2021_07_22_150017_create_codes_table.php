@@ -18,7 +18,7 @@ class CreateCodesTable extends Migration
             $table->id();
             $table->string('code');
             $table->boolean('isUsed')->default(false);
-            $table->integer('idEnterprise')->nullable();
+            $table->integer('enterprise_id')->nullable();
             $table->dateTime('startTime')->nullable();
             $table->dateTime('endTime')->nullable();
             $table->timestamps();

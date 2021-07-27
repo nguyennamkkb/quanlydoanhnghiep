@@ -16,7 +16,7 @@ class CodeResource extends JsonResource
      */
     public function toArray($request)
     {
-        $enterprises = $this->whenLoaded('enterprises');
+
         return [
             'id' => $this->id,
             'code' => $this->code,
@@ -25,7 +25,7 @@ class CodeResource extends JsonResource
             'endTime' => $this->endTime,
             'created_at' => (string)$this->created_at,
             'updated_at' => (string)$this->updated_at,
-            'enterprises' => new EnterpriseResource($this->enterprises),
+            'enterprise' => EnterpriseResource::collection($this->enterprises),
             
         ];
     }

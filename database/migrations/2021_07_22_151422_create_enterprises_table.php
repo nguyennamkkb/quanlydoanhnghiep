@@ -18,7 +18,7 @@ class CreateEnterprisesTable extends Migration
             $table->string('name'); 
             $table->string('shortName')->nullable();
             $table->integer('employees')->nullable();
-            $table->integer('idUser')->nullable();
+            $table->integer('user_id')->nullable();
             $table->timestamps();
 
             // $table->foreign('idUser')->references('id')->on('users');

@@ -9,21 +9,22 @@ use App\Interfaces\CodeInterface;
 use App\Models\Code;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\CodeResource;
+use App\Repositories\Code\CodeRepositoryInterface;
 class CodeController extends Controller
 {
-    protected $codeInterface;
+    protected $codeRepository;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(CodeInterface $codeInterface)
+    public function __construct(CodeRepositoryInterface $codeRepository)
     {
-        $this->codeInterface = $codeInterface;
+        $this->codeRepository = $codeRepository;
     }
     public function index()
     {
-        return $this->codeInterface->getAllCodes();
+        return $this->codeRepository->getAll();
     }
 
     /**

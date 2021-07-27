@@ -17,8 +17,8 @@ class CodeRepository implements CodeInterface
     public function getAllCodes()
     {
         try {
-            $codes = Code::all();
-            return $this->success("All Codes",CodeResource::collection($codes));
+            $codes = CodeResource::collection(Code::all());
+            return $this->success("All Codes",$codes);
         } catch(\Exception $e) {
             return $this->error($e->getMessage(), $e->getCode());
         }
