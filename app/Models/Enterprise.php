@@ -4,14 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Code;
 class Enterprise extends Model
 {
     use HasFactory;
     protected $table = 'enterprises';
 
-    // public function code()
-    // {
-    //     return $this->belongsTo(Enterprise::class, 'idEnterprise', 'id');
-    // }
 }

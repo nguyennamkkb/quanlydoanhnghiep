@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/home/{slug}', function () { // home app trang chu
-//     return view('');
-// });
 
 Route::any('/ddashboard/{slug}', function(){ // dashboard app trang quanr tri
     return view('dashboard.index');

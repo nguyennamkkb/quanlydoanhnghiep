@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use app\Models\Code;
+use App\Models\Code;
 use App\Http\Resources\EnterpriseResource;
 
 class CodeResource extends JsonResource
@@ -23,10 +23,10 @@ class CodeResource extends JsonResource
             'isUsed' => $this->isUsed,
             'startTime' => $this->startTime,
             'endTime' => $this->endTime,
-            'created_at' => (string)$this->created_at,
-            'updated_at' => (string)$this->updated_at,
-            // 'enterprise_id' => EnterpriseResource::collection($this->enterprise_id),
-            'enterprise' =>  EnterpriseResource::collection($this->enterprise),
+            // 'created_at' => (string)$this->created_at,
+            // 'updated_at' => (string)$this->updated_at,
+            'enterprise_id' => new EnterpriseResource($this->enterprises),
+            // 'enterprise' =>  $this->enterprises,
             
         ];
     }
