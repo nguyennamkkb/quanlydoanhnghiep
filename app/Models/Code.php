@@ -12,6 +12,6 @@ class Code extends Model
     protected $table = 'codes';
     // public function enterprise()
     // {
-    //     return $this->belongsTo(Enterprise::class, 'idEnterprise');
+    //     return $this->belongsTo(Enterprise::class, 'enterprise_id');
     // }
 }

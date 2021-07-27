@@ -24,7 +24,7 @@ class CodeController extends Controller
     }
     public function index()
     {
-        return $this->codeRepository->getAll();
+        return  CodeResource::collection($this->codeRepository->getAll());
     }
 
     /**

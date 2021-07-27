@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Repositories\Code;
 
-use app\Repositories\Code\CodeRepositoryInterface;
-use app\Repositories\Eloquent\RepositoryEloquent;
+use App\Repositories\Eloquent\RepositoryEloquent;
+use App\Repositories\Code\CodeRepositoryInterface;
+use App\Models\Code;
 use App\Traits\ResponseAPI;
-
+use App\Http\Resources\CodeResource;
 
 
 class CodeRepositoryEloquent extends RepositoryEloquent implements CodeRepositoryInterface
@@ -25,16 +27,30 @@ class CodeRepositoryEloquent extends RepositoryEloquent implements CodeRepositor
         // if(!empty($slide)) {
         //     $query = $this->model->where('slide', $slide);
         // }
-        if(!empty($keyword)) {
+        if (!empty($keyword)) {
             $query = $this->model->where('code', 'like', "%$keyword%");
         }
 
         return $query;
     }
-    public function getAll(){
-        $result = $this->_model->all();
+    public function getAll()
+    {
+        $query = $this->model->all();
 
-        return $result;
+        
+        // try {
+        //     $query = CodeResource::collection($query);
+        //     return $this->success("All Codes", $query);
+        // } catch (\Exception $e) {
+        //     return $this->error($e->getMessage(), $e->getCode());
+        // }
+        return $query;
     }
-
 }
+
+// try {
+//     $codes = CodeResource::collection(Code::all());
+//     return $this->success("All Codes",$codes);
+// } catch(\Exception $e) {
+//     return $this->error($e->getMessage(), $e->getCode());
+// }

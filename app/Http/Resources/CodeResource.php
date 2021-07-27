@@ -25,7 +25,8 @@ class CodeResource extends JsonResource
             'endTime' => $this->endTime,
             'created_at' => (string)$this->created_at,
             'updated_at' => (string)$this->updated_at,
-            'enterprise' => EnterpriseResource::collection($this->enterprises),
+            // 'enterprise_id' => EnterpriseResource::collection($this->enterprise_id),
+            'enterprise' =>  EnterpriseResource::collection($this->enterprise),
             
         ];
     }
