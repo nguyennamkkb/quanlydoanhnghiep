@@ -66,7 +66,7 @@
           "
         >
           <p class="_title0">
-            Thông tin má đăng ký tài khoản
+            Thông tin má đăng ký tài khoảnq
             <Button type="primary" @click="modal1 = true"
               > Thêm mới mã đăng ký</Button
             >
