@@ -1,5 +1,5 @@
 import Client from '../Client';
-const resource = '/auth';
+const resource = '';
 
 export default {
     login(payload) {
@@ -10,6 +10,10 @@ export default {
     },
     logout() {
         return Client.post(`${resource}/logout`);
+    },
+    getlistUser() {
+        return Client.get(`${resource}/users`);
     }
+
 
 };

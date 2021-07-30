@@ -15,31 +15,21 @@
               <span style="margin-left: 10px">{{ scope.row.id }}</span>
             </template>
           </el-table-column>
+          <el-table-column label="Tên">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.name }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="Email">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.email }}</span>
+            </template>
+          </el-table-column>
+          
+          </el-table-column>
           <el-table-column label="Mã đăng ký">
             <template slot-scope="scope">
-              <span style="margin-left: 10px">{{ scope.row.User }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="Trạng thái">
-            <template slot-scope="scope">
-              <span style="margin-left: 10px">{{ scope.row.isUsed }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="Doanh nghiệp">
-            <template slot-scope="scope">
-              <span style="margin-left: 10px">{{
-                scope.row.enterprise ? scope.row.enterprise.name : ""
-              }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="Ngày bắt đầu">
-            <template slot-scope="scope">
-              <span style="margin-left: 10px">{{ scope.row.startTime }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="Ngày kết thúc">
-            <template slot-scope="scope">
-              <span style="margin-left: 10px">{{ scope.row.endTime }}</span>
+              <span style="margin-left: 10px">{{ scope.row.code }}</span>
             </template>
           </el-table-column>
 
@@ -83,6 +73,26 @@
           <el-button type="primary" @click="deleteUser()">Đồng ý</el-button>
         </span>
       </el-dialog>
+      
+
+
+      <el-dialog title="Shipping address" :visible.sync="creatUserDL">
+        <el-form :model="form">
+          <el-form-item label="Promotion name" :label-width="formLabelWidth">
+            <el-input v-model="form.name" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="Zones" :label-width="formLabelWidth">
+            <el-select v-model="form.region" placeholder="Please select a zone">
+              <el-option label="Zone No.1" value="shanghai"></el-option>
+              <el-option label="Zone No.2" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="creatUserDL = false">Cancel</el-button>
+          <el-button type="primary" @click="creatUserDL = false">Confirm</el-button>
+        </span>
+      </el-dialog>
     </div>
   </div>
 
@@ -98,6 +108,7 @@ export default {
   components: {},
   data() {
     return {
+      creatUserDL: false,
       createUserDL: false,
       deleteUserDL: false,
       users: {
@@ -123,7 +134,7 @@ export default {
       loading: true,
       tableData: {
         id: 0,
-        User: "Nguyennasdasdam",
+        name: "Nguyennasdasdam",
         isUsed: null,
         idEnterprise: null,
         startTime: null,
@@ -168,7 +179,7 @@ export default {
         });
     },
     getusers: async function () {
-      const { data } = await UserRepository.get();
+      const { data } = await UserRepository.getlistUser();
       this.users = data;
     },
     success() {

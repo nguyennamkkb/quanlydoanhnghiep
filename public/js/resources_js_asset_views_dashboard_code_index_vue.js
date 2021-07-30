@@ -391,13 +391,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _CodeRepository__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CodeRepository */ "./resources/js/asset/api/repositories/CodeRepository.js");
+/* harmony import */ var _UserRepository__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserRepository */ "./resources/js/asset/api/repositories/UserRepository.js");
+
 
 var repositories = {
-  'codes': _CodeRepository__WEBPACK_IMPORTED_MODULE_0__.default
+  'codes': _CodeRepository__WEBPACK_IMPORTED_MODULE_0__.default,
+  'users': _UserRepository__WEBPACK_IMPORTED_MODULE_1__.default
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   get: function get(name) {
     return repositories[name];
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/asset/api/repositories/UserRepository.js":
+/*!***************************************************************!*\
+  !*** ./resources/js/asset/api/repositories/UserRepository.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Client */ "./resources/js/asset/api/Client.js");
+
+var resource = '';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  login: function login(payload) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/login"), payload);
+  },
+  register: function register(payload) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/register"), payload);
+  },
+  logout: function logout() {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/logout"));
+  },
+  getlistUser: function getlistUser() {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("".concat(resource, "/users"));
   }
 });
 

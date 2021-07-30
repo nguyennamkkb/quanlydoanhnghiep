@@ -123,6 +123,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var loadingInstance;
@@ -131,6 +141,7 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
   components: {},
   data: function data() {
     return {
+      creatUserDL: false,
       createUserDL: false,
       deleteUserDL: false,
       users: {
@@ -154,7 +165,7 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
       loading: true,
       tableData: {
         id: 0,
-        User: "Nguyennasdasdam",
+        name: "Nguyennasdasdam",
         isUsed: null,
         idEnterprise: null,
         startTime: null,
@@ -202,7 +213,7 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return UserRepository.get();
+                return UserRepository.getlistUser();
 
               case 2:
                 _yield$UserRepository = _context.sent;
@@ -391,13 +402,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _CodeRepository__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CodeRepository */ "./resources/js/asset/api/repositories/CodeRepository.js");
+/* harmony import */ var _UserRepository__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserRepository */ "./resources/js/asset/api/repositories/UserRepository.js");
+
 
 var repositories = {
-  'codes': _CodeRepository__WEBPACK_IMPORTED_MODULE_0__.default
+  'codes': _CodeRepository__WEBPACK_IMPORTED_MODULE_0__.default,
+  'users': _UserRepository__WEBPACK_IMPORTED_MODULE_1__.default
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   get: function get(name) {
     return repositories[name];
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/asset/api/repositories/UserRepository.js":
+/*!***************************************************************!*\
+  !*** ./resources/js/asset/api/repositories/UserRepository.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Client */ "./resources/js/asset/api/Client.js");
+
+var resource = '';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  login: function login(payload) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/login"), payload);
+  },
+  register: function register(payload) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/register"), payload);
+  },
+  logout: function logout() {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/logout"));
+  },
+  getlistUser: function getlistUser() {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("".concat(resource, "/users"));
   }
 });
 
@@ -1298,6 +1343,38 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("el-table-column", {
+                attrs: { label: "Tên" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _c("span", { staticStyle: { "margin-left": "10px" } }, [
+                          _vm._v(_vm._s(scope.row.name))
+                        ])
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "Email" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _c("span", { staticStyle: { "margin-left": "10px" } }, [
+                          _vm._v(_vm._s(scope.row.email))
+                        ])
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
                 attrs: { label: "Mã đăng ký" },
                 scopedSlots: _vm._u([
                   {
@@ -1305,77 +1382,7 @@ var render = function() {
                     fn: function(scope) {
                       return [
                         _c("span", { staticStyle: { "margin-left": "10px" } }, [
-                          _vm._v(_vm._s(scope.row.User))
-                        ])
-                      ]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "Trạng thái" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [
-                        _c("span", { staticStyle: { "margin-left": "10px" } }, [
-                          _vm._v(_vm._s(scope.row.isUsed))
-                        ])
-                      ]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "Doanh nghiệp" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [
-                        _c("span", { staticStyle: { "margin-left": "10px" } }, [
-                          _vm._v(
-                            _vm._s(
-                              scope.row.enterprise
-                                ? scope.row.enterprise.name
-                                : ""
-                            )
-                          )
-                        ])
-                      ]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "Ngày bắt đầu" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [
-                        _c("span", { staticStyle: { "margin-left": "10px" } }, [
-                          _vm._v(_vm._s(scope.row.startTime))
-                        ])
-                      ]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "Ngày kết thúc" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [
-                        _c("span", { staticStyle: { "margin-left": "10px" } }, [
-                          _vm._v(_vm._s(scope.row.endTime))
+                          _vm._v(_vm._s(scope.row.code))
                         ])
                       ]
                     }
@@ -1528,6 +1535,119 @@ var render = function() {
               1
             )
           ]
+        ),
+        _vm._v(" "),
+        _c(
+          "el-dialog",
+          {
+            attrs: { title: "Shipping address", visible: _vm.creatUserDL },
+            on: {
+              "update:visible": function($event) {
+                _vm.creatUserDL = $event
+              }
+            }
+          },
+          [
+            _c(
+              "el-form",
+              { attrs: { model: _vm.form } },
+              [
+                _c(
+                  "el-form-item",
+                  {
+                    attrs: {
+                      label: "Promotion name",
+                      "label-width": _vm.formLabelWidth
+                    }
+                  },
+                  [
+                    _c("el-input", {
+                      attrs: { autocomplete: "off" },
+                      model: {
+                        value: _vm.form.name,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "name", $$v)
+                        },
+                        expression: "form.name"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-form-item",
+                  {
+                    attrs: { label: "Zones", "label-width": _vm.formLabelWidth }
+                  },
+                  [
+                    _c(
+                      "el-select",
+                      {
+                        attrs: { placeholder: "Please select a zone" },
+                        model: {
+                          value: _vm.form.region,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "region", $$v)
+                          },
+                          expression: "form.region"
+                        }
+                      },
+                      [
+                        _c("el-option", {
+                          attrs: { label: "Zone No.1", value: "shanghai" }
+                        }),
+                        _vm._v(" "),
+                        _c("el-option", {
+                          attrs: { label: "Zone No.2", value: "beijing" }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                staticClass: "dialog-footer",
+                attrs: { slot: "footer" },
+                slot: "footer"
+              },
+              [
+                _c(
+                  "el-button",
+                  {
+                    on: {
+                      click: function($event) {
+                        _vm.creatUserDL = false
+                      }
+                    }
+                  },
+                  [_vm._v("Cancel")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-button",
+                  {
+                    attrs: { type: "primary" },
+                    on: {
+                      click: function($event) {
+                        _vm.creatUserDL = false
+                      }
+                    }
+                  },
+                  [_vm._v("Confirm")]
+                )
+              ],
+              1
+            )
+          ],
+          1
         )
       ],
       1
