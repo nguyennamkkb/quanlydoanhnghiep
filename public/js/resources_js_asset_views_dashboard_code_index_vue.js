@@ -123,6 +123,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 var loadingInstance;
@@ -147,8 +150,6 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
         }]
       },
       modalTitle: "",
-      modal1: false,
-      modal2: false,
       modaledit: false,
       modal_loading: false,
       loading: true,
@@ -174,29 +175,9 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
     this.getCodes();
   },
   methods: {
-    open: function open() {
-      var _this = this;
-
-      this.$confirm("This will permanently delete the file. Continue?", "Warning", {
-        confirmButtonText: "OK",
-        cancelButtonText: "Cancel",
-        type: "warning"
-      }).then(function () {
-        _this.$message({
-          type: "success",
-          message: "Delete completed"
-        });
-      })["catch"](function () {
-        _this.$message({
-          type: "info",
-          message: "Delete canceled"
-        });
-      });
-    },
     getCodes: function () {
       var _getCodes = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _yield$CodeRepository, data;
-
+        var data;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -205,11 +186,14 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
                 return CodeRepository.get();
 
               case 2:
-                _yield$CodeRepository = _context.sent;
-                data = _yield$CodeRepository.data;
-                this.codes = data;
+                data = _context.sent;
 
-              case 5:
+                // console.log(data.data);
+                if (data.data.code == 200) {
+                  this.codes = data.data;
+                }
+
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -225,12 +209,15 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
     }(),
     success: function success() {
       this.createCodeDL = false;
+      loadingInstance.close();
       this.$message({
         type: "success",
         message: "Thành công"
       });
     },
     error: function error() {
+      this.createCodeDL = false;
+      loadingInstance.close();
       this.$message({
         type: "error",
         message: "Không thành công"
@@ -240,7 +227,6 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
       if (!data.error) {
         this.getCodes();
         this.success();
-        loadingInstance.close();
       } else {
         this.error();
       }
@@ -432,6 +418,9 @@ var resource = '';
   },
   getlistUser: function getlistUser() {
     return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("".concat(resource, "/users"));
+  },
+  updateUser: function updateUser(id, payload) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.put("".concat(resource, "/users/").concat(id), payload);
   }
 });
 
@@ -1313,7 +1302,10 @@ var render = function() {
           _vm._v(" "),
           _c(
             "el-table",
-            { staticStyle: { width: "100%" }, attrs: { data: _vm.codes.data } },
+            {
+              staticStyle: { width: "100%" },
+              attrs: { data: _vm.codes.results }
+            },
             [
               _c("el-table-column", {
                 attrs: { label: "Id" },
@@ -1354,9 +1346,17 @@ var render = function() {
                     key: "default",
                     fn: function(scope) {
                       return [
-                        _c("span", { staticStyle: { "margin-left": "10px" } }, [
-                          _vm._v(_vm._s(scope.row.isUsed))
-                        ])
+                        scope.row.isUsed == false
+                          ? _c("el-tag", { attrs: { type: "danger" } }, [
+                              _vm._v("Chưa sử dụng")
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        scope.row.isUsed == true
+                          ? _c("el-tag", { attrs: { type: "success" } }, [
+                              _vm._v("Đã sử dụng")
+                            ])
+                          : _vm._e()
                       ]
                     }
                   }
@@ -1371,13 +1371,7 @@ var render = function() {
                     fn: function(scope) {
                       return [
                         _c("span", { staticStyle: { "margin-left": "10px" } }, [
-                          _vm._v(
-                            _vm._s(
-                              scope.row.enterprise
-                                ? scope.row.enterprise.name
-                                : ""
-                            )
-                          )
+                          _vm._v(_vm._s(scope.row.enterprise))
                         ])
                       ]
                     }

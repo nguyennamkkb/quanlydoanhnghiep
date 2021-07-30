@@ -29,8 +29,11 @@ class UserRepositoryEloquent extends RepositoryEloquent implements UserRepositor
     }
     public function getAll()
     {
-        $query = $this->model->all();
-
-        return $query;
+        try {
+            $query = UserResource::collection($this->model->all());
+            return $this->success("codes", $query);
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage(), $e->getCode());
+        }
     }
 }

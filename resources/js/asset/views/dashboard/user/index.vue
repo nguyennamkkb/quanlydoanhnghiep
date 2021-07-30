@@ -9,7 +9,7 @@
           <i class="el-icon-circle-plus-outline"></i>Thêm mới</el-button
         >
 
-        <el-table :data="users.data" style="width: 100%">
+        <el-table :data="users.results" style="width: 100%">
           <el-table-column label="Id">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.id }}</span>
@@ -35,6 +35,12 @@
 
           <el-table-column label="Thao tác">
             <template slot-scope="scope">
+              <el-button
+                size="mini"
+                type="warning"
+                @click="confirmUpdate(scope.row)"
+                >Sửa</el-button
+              >
               <el-button
                 size="mini"
                 type="danger"
@@ -73,10 +79,25 @@
           <el-button type="primary" @click="deleteUser()">Đồng ý</el-button>
         </span>
       </el-dialog>
-      
+      <div>
+        
+      </div>
+      <el-dialog title="Thêm mới tài khoản" :visible.sync="updateUserDL">
+        <el-form :model="userData">
+          <el-form-item label="Tên" :label-width="updateUserDLLabelWidth">
+            <el-input v-model="userData.name" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="Địa chỉ Email" :label-width="updateUserDLLabelWidth">
+            <el-input v-model="userData.email" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="updateUserDL = false">Hủy</el-button>
+          <el-button type="primary" @click="handleUpdateCode()">Xác nhận</el-button>
+        </span>
+      </el-dialog>
 
-
-      <el-dialog title="Shipping address" :visible.sync="creatUserDL">
+      <!-- <el-dialog title="Shipping address" :visible.sync="creatUserDL">
         <el-form :model="form">
           <el-form-item label="Promotion name" :label-width="formLabelWidth">
             <el-input v-model="form.name" autocomplete="off"></el-input>
@@ -92,7 +113,7 @@
           <el-button @click="creatUserDL = false">Cancel</el-button>
           <el-button type="primary" @click="creatUserDL = false">Confirm</el-button>
         </span>
-      </el-dialog>
+      </el-dialog> -->
     </div>
   </div>
 
@@ -111,20 +132,25 @@ export default {
       creatUserDL: false,
       createUserDL: false,
       deleteUserDL: false,
+      updateUserDL: false,
       users: {
         message: null,
         error: false,
         User: 0,
         results: [
           {
-            id: 0,
-            User: null,
-            isUsed: null,
-            enterprise: null,
-            startTime: null,
-            endTime: null,
+            id: null,
+            name: null,
+            email: null,
+            code: null,
           },
         ],
+      },
+      userData: {
+        id: null,
+        name: null,
+        email: null,
+        code: null,
       },
       modalTitle: "",
       modal1: false,
@@ -132,22 +158,10 @@ export default {
       modaledit: false,
       modal_loading: false,
       loading: true,
-      tableData: {
-        id: 0,
-        name: "Nguyennasdasdam",
-        isUsed: null,
-        idEnterprise: null,
-        startTime: null,
-        endTime: null,
-      },
-      resData: {
-        message: null,
-        error: null,
-        User: null,
-        results: null,
-      },
+
       mesDelete: false,
       fullscreenLoading: false,
+      updateUserDLLabelWidth: "130PX",
     };
   },
 
@@ -155,54 +169,40 @@ export default {
     this.getusers();
   },
   methods: {
-    open() {
-      this.$confirm(
-        "This will permanently delete the file. Continue?",
-        "Warning",
-        {
-          confirmButtonText: "OK",
-          cancelButtonText: "Cancel",
-          type: "warning",
-        }
-      )
-        .then(() => {
-          this.$message({
-            type: "success",
-            message: "Delete completed",
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "Delete canceled",
-          });
-        });
+    Reset() {
+      this.createUserDL = false;
+      this.deleteUserDL = false;
+      this.updateUserDL = false;
+      loadingInstance.close();
     },
     getusers: async function () {
-      const { data } = await UserRepository.getlistUser();
-      this.users = data;
+      const data = await UserRepository.getlistUser();
+      if (data.data.code == 200) {
+        this.users = data.data;
+      }
     },
     success() {
-      this.createUserDL = false;
       this.$message({
         type: "success",
         message: "Thành công",
       });
     },
     error() {
+      loadingInstance.close();
       this.$message({
         type: "error",
         message: "Không thành công",
       });
     },
     checkStatus: function (data) {
+      this.Reset();
       if (!data.error) {
         this.getusers();
         this.success();
-        loadingInstance.close();
       } else {
         this.error();
       }
+      
     },
     handleCreateUser: async function () {
       loadingInstance = Loading.service({ fullscreen: true });
@@ -219,6 +219,25 @@ export default {
       const data = await UserRepository.delete(this.dataUser.id);
       console.log(data);
       this.checkStatus(data.data);
+    },
+    confirmUpdate(row) {
+      this.userData = row;
+      console.log(this.userData)
+      this.updateUserDL = true;
+    },
+    handleUpdateCode: async function () {
+      loadingInstance = Loading.service({ fullscreen: true });
+      try {
+        const data = await UserRepository.updateUser(
+          this.userData.id,
+          this.userData
+        );
+        if (data.data.code == 200) {
+          this.users = data.data;
+        }
+      } catch (error) {
+        this.error();
+      }
     },
   },
 };

@@ -13,7 +13,11 @@ export default {
     },
     getlistUser() {
         return Client.get(`${resource}/users`);
+    },
+    updateUser(id, payload) {
+        return Client.put(`${resource}/users/${id}`, payload);
     }
+
 
 
 };

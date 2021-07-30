@@ -133,6 +133,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var loadingInstance;
@@ -144,18 +165,23 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
       creatUserDL: false,
       createUserDL: false,
       deleteUserDL: false,
+      updateUserDL: false,
       users: {
         message: null,
         error: false,
         User: 0,
         results: [{
-          id: 0,
-          User: null,
-          isUsed: null,
-          enterprise: null,
-          startTime: null,
-          endTime: null
+          id: null,
+          name: null,
+          email: null,
+          code: null
         }]
+      },
+      userData: {
+        id: null,
+        name: null,
+        email: null,
+        code: null
       },
       modalTitle: "",
       modal1: false,
@@ -163,51 +189,24 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
       modaledit: false,
       modal_loading: false,
       loading: true,
-      tableData: {
-        id: 0,
-        name: "Nguyennasdasdam",
-        isUsed: null,
-        idEnterprise: null,
-        startTime: null,
-        endTime: null
-      },
-      resData: {
-        message: null,
-        error: null,
-        User: null,
-        results: null
-      },
       mesDelete: false,
-      fullscreenLoading: false
+      fullscreenLoading: false,
+      updateUserDLLabelWidth: "130PX"
     };
   },
   created: function created() {
     this.getusers();
   },
   methods: {
-    open: function open() {
-      var _this = this;
-
-      this.$confirm("This will permanently delete the file. Continue?", "Warning", {
-        confirmButtonText: "OK",
-        cancelButtonText: "Cancel",
-        type: "warning"
-      }).then(function () {
-        _this.$message({
-          type: "success",
-          message: "Delete completed"
-        });
-      })["catch"](function () {
-        _this.$message({
-          type: "info",
-          message: "Delete canceled"
-        });
-      });
+    Reset: function Reset() {
+      this.createUserDL = false;
+      this.deleteUserDL = false;
+      this.updateUserDL = false;
+      loadingInstance.close();
     },
     getusers: function () {
       var _getusers = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _yield$UserRepository, data;
-
+        var data;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -216,11 +215,13 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
                 return UserRepository.getlistUser();
 
               case 2:
-                _yield$UserRepository = _context.sent;
-                data = _yield$UserRepository.data;
-                this.users = data;
+                data = _context.sent;
 
-              case 5:
+                if (data.data.code == 200) {
+                  this.users = data.data;
+                }
+
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -235,23 +236,24 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
       return getusers;
     }(),
     success: function success() {
-      this.createUserDL = false;
       this.$message({
         type: "success",
         message: "Thành công"
       });
     },
     error: function error() {
+      loadingInstance.close();
       this.$message({
         type: "error",
         message: "Không thành công"
       });
     },
     checkStatus: function checkStatus(data) {
+      this.Reset();
+
       if (!data.error) {
         this.getusers();
         this.success();
-        loadingInstance.close();
       } else {
         this.error();
       }
@@ -323,6 +325,54 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
       }
 
       return deleteUser;
+    }(),
+    confirmUpdate: function confirmUpdate(row) {
+      this.userData = row;
+      console.log(this.userData);
+      this.updateUserDL = true;
+    },
+    handleUpdateCode: function () {
+      var _handleUpdateCode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                loadingInstance = element_ui__WEBPACK_IMPORTED_MODULE_2__.Loading.service({
+                  fullscreen: true
+                });
+                _context4.prev = 1;
+                _context4.next = 4;
+                return UserRepository.updateUser(this.userData.id, this.userData);
+
+              case 4:
+                data = _context4.sent;
+
+                if (data.data.code == 200) {
+                  this.users = data.data;
+                }
+
+                _context4.next = 11;
+                break;
+
+              case 8:
+                _context4.prev = 8;
+                _context4.t0 = _context4["catch"](1);
+                this.error();
+
+              case 11:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this, [[1, 8]]);
+      }));
+
+      function handleUpdateCode() {
+        return _handleUpdateCode.apply(this, arguments);
+      }
+
+      return handleUpdateCode;
     }()
   }
 });
@@ -443,6 +493,9 @@ var resource = '';
   },
   getlistUser: function getlistUser() {
     return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("".concat(resource, "/users"));
+  },
+  updateUser: function updateUser(id, payload) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.put("".concat(resource, "/users/").concat(id), payload);
   }
 });
 
@@ -1324,7 +1377,10 @@ var render = function() {
           _vm._v(" "),
           _c(
             "el-table",
-            { staticStyle: { width: "100%" }, attrs: { data: _vm.users.data } },
+            {
+              staticStyle: { width: "100%" },
+              attrs: { data: _vm.users.results }
+            },
             [
               _c("el-table-column", {
                 attrs: { label: "Id" },
@@ -1397,6 +1453,19 @@ var render = function() {
                     key: "default",
                     fn: function(scope) {
                       return [
+                        _c(
+                          "el-button",
+                          {
+                            attrs: { size: "mini", type: "warning" },
+                            on: {
+                              click: function($event) {
+                                return _vm.confirmUpdate(scope.row)
+                              }
+                            }
+                          },
+                          [_vm._v("Sửa")]
+                        ),
+                        _vm._v(" "),
                         _c(
                           "el-button",
                           {
@@ -1537,38 +1606,40 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
+        _c("div"),
+        _vm._v(" "),
         _c(
           "el-dialog",
           {
-            attrs: { title: "Shipping address", visible: _vm.creatUserDL },
+            attrs: { title: "Thêm mới tài khoản", visible: _vm.updateUserDL },
             on: {
               "update:visible": function($event) {
-                _vm.creatUserDL = $event
+                _vm.updateUserDL = $event
               }
             }
           },
           [
             _c(
               "el-form",
-              { attrs: { model: _vm.form } },
+              { attrs: { model: _vm.userData } },
               [
                 _c(
                   "el-form-item",
                   {
                     attrs: {
-                      label: "Promotion name",
-                      "label-width": _vm.formLabelWidth
+                      label: "Tên",
+                      "label-width": _vm.updateUserDLLabelWidth
                     }
                   },
                   [
                     _c("el-input", {
                       attrs: { autocomplete: "off" },
                       model: {
-                        value: _vm.form.name,
+                        value: _vm.userData.name,
                         callback: function($$v) {
-                          _vm.$set(_vm.form, "name", $$v)
+                          _vm.$set(_vm.userData, "name", $$v)
                         },
-                        expression: "form.name"
+                        expression: "userData.name"
                       }
                     })
                   ],
@@ -1578,32 +1649,22 @@ var render = function() {
                 _c(
                   "el-form-item",
                   {
-                    attrs: { label: "Zones", "label-width": _vm.formLabelWidth }
+                    attrs: {
+                      label: "Địa chỉ Email",
+                      "label-width": _vm.updateUserDLLabelWidth
+                    }
                   },
                   [
-                    _c(
-                      "el-select",
-                      {
-                        attrs: { placeholder: "Please select a zone" },
-                        model: {
-                          value: _vm.form.region,
-                          callback: function($$v) {
-                            _vm.$set(_vm.form, "region", $$v)
-                          },
-                          expression: "form.region"
-                        }
-                      },
-                      [
-                        _c("el-option", {
-                          attrs: { label: "Zone No.1", value: "shanghai" }
-                        }),
-                        _vm._v(" "),
-                        _c("el-option", {
-                          attrs: { label: "Zone No.2", value: "beijing" }
-                        })
-                      ],
-                      1
-                    )
+                    _c("el-input", {
+                      attrs: { autocomplete: "off" },
+                      model: {
+                        value: _vm.userData.email,
+                        callback: function($$v) {
+                          _vm.$set(_vm.userData, "email", $$v)
+                        },
+                        expression: "userData.email"
+                      }
+                    })
                   ],
                   1
                 )
@@ -1624,11 +1685,11 @@ var render = function() {
                   {
                     on: {
                       click: function($event) {
-                        _vm.creatUserDL = false
+                        _vm.updateUserDL = false
                       }
                     }
                   },
-                  [_vm._v("Cancel")]
+                  [_vm._v("Hủy")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -1637,11 +1698,11 @@ var render = function() {
                     attrs: { type: "primary" },
                     on: {
                       click: function($event) {
-                        _vm.creatUserDL = false
+                        return _vm.handleUpdateCode()
                       }
                     }
                   },
-                  [_vm._v("Confirm")]
+                  [_vm._v("Xác nhận")]
                 )
               ],
               1

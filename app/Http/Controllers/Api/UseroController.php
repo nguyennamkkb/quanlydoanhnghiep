@@ -29,7 +29,7 @@ class UseroController extends Controller
     }
     public function index()
     {
-        return  UserResource::collection($this->userRepository->getAll());
+        return  $this->userRepository->getAll();
     }
 
     public function store(UserRequest $requets)
@@ -49,16 +49,6 @@ class UseroController extends Controller
                 'password' => Hash::make($req['password']),
                 'code' => $req['code'],
             ]);
-
-            // if (!empty($request['roles']) && $resp != NULL) {
-            //     $roleId = $rolesModel->insertGetId([
-            //         'user_id' => $resp,
-            //         'role' => $request['roles']
-            //     ]);
-            //     if (!$roleId) {
-            //         return response()->json(['message' => 'Xảy ra lỗi hệ thống khi thêm quyền người dùng!'], 422);
-            //     }
-            // }
             DB::commit();
             return new UserResource($this->userRepository->find($resp));
         } catch (\Exception $e) {
