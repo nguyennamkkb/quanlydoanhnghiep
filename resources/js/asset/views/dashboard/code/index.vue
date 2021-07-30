@@ -1,172 +1,105 @@
 <template>
   <div>
     <div class="content">
+      <br />
+      <br />
       <div class="container-fuild">
-        <!-- <div class="row">
-					<div class="col-12 col-md-3">
-						<div class="_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_one">
-							<div class="_1adminOverveiw_card_left">
-								<p class="_1adminOverveiw_card_left_num">3</p>
-
-								<p class="_1adminOverveiw_card_left_title">Today's News</p>
-							</div>
-							<div class="_1adminOverveiw_card_right">
-								<Icon type="ios-paper" />
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-md-3">
-						<div class="_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_two">
-							<div class="_1adminOverveiw_card_left">
-								<p class="_1adminOverveiw_card_left_num">29</p>
-
-								<p class="_1adminOverveiw_card_left_title">Total News</p>
-							</div>
-							<div class="_1adminOverveiw_card_right">
-								<Icon type="ios-paper-outline" />
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-md-3">
-						<div class="_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_two">
-							<div class="_1adminOverveiw_card_left">
-								<p class="_1adminOverveiw_card_left_num">29</p>
-
-								<p class="_1adminOverveiw_card_left_title">Features News</p>
-							</div>
-							<div class="_1adminOverveiw_card_right">
-								<Icon type="md-copy" />
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-md-3">
-						<div class="_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_two">
-							<div class="_1adminOverveiw_card_left">
-								<p class="_1adminOverveiw_card_left_num">29</p>
-
-								<p class="_1adminOverveiw_card_left_title">Card News</p>
-							</div>
-							<div class="_1adminOverveiw_card_right">
-								<Icon type="md-list-box" />
-							</div>
-						</div>
-					</div>
-				</div>	 -->
-        <!--~~~~~~~ TABLE ONE ~~~~~~~~~-->
-        <div
-          class="
-            _1adminOverveiw_table_recent
-            _box_shadow
-            _border_radious
-            _mar_b30
-            _p20
-          "
+        <p class="_title0">Thông tin mã đăng ký</p>
+        <el-button type="primary" @click="createCodeDL = true">
+          <i class="el-icon-circle-plus-outline"></i>Thêm mới</el-button
         >
-          <p class="_title0">
-            Thông tin má đăng ký tài khoảnq
-            <Button type="primary" @click="modal1 = true"
-              > Thêm mới mã đăng ký</Button
-            >
-          </p>
-<!-- 
-          <div class="">
-            <el-table
-              :data="
-                tableData.filter(
-                  (data) =>
-                    !search ||
-                    data.name.toLowerCase().includes(search.toLowerCase())
-                )
-              "
-              style="width: 100%"
-            >
-              <el-table-column label="Date" prop="date"> </el-table-column>
-              <el-table-column label="Name" prop="name"> </el-table-column>
-              <el-table-column align="right">
-                <template slot="header" slot-scope="scope">
-                  <el-input
-                    v-model="search"
-                    size="mini"
-                    placeholder="Type to search"
-                  />
-                </template>
-                <template slot-scope="scope">
-                  <el-button
-                    size="mini"
-                    @click="handleEdit(scope.$index, scope.row)"
-                    >Edit</el-button
-                  >
-                  <el-button
-                    size="mini"
-                    type="danger"
-                    @click="handleDelete(scope.$index, scope.row)"
-                    >Delete</el-button
-                  >
-                </template>
-              </el-table-column>
-            </el-table>
-            <Modal
-              v-model="modal1"
-              Title="Thông báo"
-              draggable
-              sticky
-              scrollable
-              :mask-closable="false"
-              okText="Đồng ý"
-              cancelText="Hủy"
-              @on-ok="createCode"
-            >
-              <div>Thông báo</div>
-              <div>
-                Bạn muốn tạo mới mã đăng ký, mã này được sử dụng khi dăng ký tài
-                khoản mới
-              </div>
-            </Modal>
 
-            <Modal
-              v-model="modal2"
-              draggable
-              sticky
-              scrollable
-              title="Thông báo"
-              :mask-closable="false"
-              @on-ok="deleteCode"
-              @on-cancel="this.modal2 = false"
-              okText="Đồng ý"
-              cancelText="Hủy"
-            >
-              <p>Bạn muốn xóa mã đăng ký</p>
-            </Modal>
-            <Modal
-              v-model="modaledit"
-              draggable
-              sticky
-              scrollable
-              title="Thêm mới mã đăng ký"
-              :mask-closable="false"
-              @on-ok="deleteCode"
-              okText="Đồng ý"
-              cancelText="Hủy"
-            >
-              <p>Bạn muốn xóa mã đăng ký</p>
-            </Modal> -->
-          <!-- </div> -->
-        </div>
+        <el-table :data="codes.data" style="width: 100%">
+          <el-table-column label="Id">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.id }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="Mã đăng ký">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.code }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="Trạng thái">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.isUsed }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="Doanh nghiệp">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{
+                scope.row.enterprise ? scope.row.enterprise.name : ""
+              }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="Ngày bắt đầu">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.startTime }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="Ngày kết thúc">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.endTime }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="Thao tác">
+            <template slot-scope="scope">
+              <el-button
+                size="mini"
+                type="danger"
+                @click="confirmDelete(scope.row)"
+                >Xóa</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table>
       </div>
     </div>
+    <div>
+      <el-dialog
+        title="Thông báo"
+        :visible.sync="createCodeDL"
+        width="20%"
+        center
+      >
+        <span>Thêm mới mã đăng ký</span>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="createCodeDL = false">Hủy</el-button>
+          <el-button type="primary" @click="handleCreateCode()"
+            >Đồng ý</el-button
+          >
+        </span>
+      </el-dialog>
+      <el-dialog
+        title="Cảnh báo"
+        :visible.sync="deleteCodeDL"
+        width="20%"
+        center
+      >
+        <span>Xóa mã đăng ký</span>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="deleteCodeDL = false">Hủy</el-button>
+          <el-button type="primary" @click="deleteCode()">Đồng ý</el-button>
+        </span>
+      </el-dialog>
+    </div>
   </div>
+
+  <!-- </div> -->
 </template>
 <script>
 import Repository from "../../../api/repositories/RepositoryFactory";
+import { Loading } from "element-ui";
+let loadingInstance;
 const CodeRepository = Repository.get("codes");
 
 export default {
   components: {},
   data() {
     return {
+      createCodeDL: false,
+      deleteCodeDL: false,
       codes: {
         message: null,
         error: false,
@@ -176,28 +109,19 @@ export default {
             id: 0,
             code: null,
             isUsed: null,
-            idEnterprise: null,
+            enterprise: null,
             startTime: null,
             endTime: null,
           },
         ],
       },
-      columns: [
-        { title: "id", key: "id" },
-        { title: "Mã đăng ký", key: "code" },
-        { title: "Trạng thái", key: "isUsed" },
-        { title: "Doanh nghiệp", key: "idEnterprise" },
-        { title: "Ngày bắt đầu", key: "startTime" },
-        { title: "Ngày kết thúc", key: "endTime" },
-        { title: "Thao tác", slot: "action", width: 150, align: "center" },
-      ],
       modalTitle: "",
       modal1: false,
       modal2: false,
       modaledit: false,
       modal_loading: false,
       loading: true,
-      dataCode: {
+      tableData: {
         id: 0,
         code: "Nguyennasdasdam",
         isUsed: null,
@@ -212,6 +136,7 @@ export default {
         results: null,
       },
       mesDelete: false,
+      fullscreenLoading: false,
     };
   },
 
@@ -219,44 +144,70 @@ export default {
     this.getCodes();
   },
   methods: {
+    open() {
+      this.$confirm(
+        "This will permanently delete the file. Continue?",
+        "Warning",
+        {
+          confirmButtonText: "OK",
+          cancelButtonText: "Cancel",
+          type: "warning",
+        }
+      )
+        .then(() => {
+          this.$message({
+            type: "success",
+            message: "Delete completed",
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "Delete canceled",
+          });
+        });
+    },
     getCodes: async function () {
       const { data } = await CodeRepository.get();
       this.codes = data;
     },
     success() {
-      this.$Message["success"]({
-        background: true,
-        content: "Thành công",
+      this.createCodeDL = false;
+      this.$message({
+        type: "success",
+        message: "Thành công",
       });
     },
     error() {
-      this.$Message["error"]({
-        background: true,
-        content: "Không thành công",
+      this.$message({
+        type: "error",
+        message: "Không thành công",
       });
     },
     checkStatus: function (data) {
       if (!data.error) {
-        this.success();
         this.getCodes();
+        this.success();
+        loadingInstance.close();
       } else {
         this.error();
       }
     },
-    createCode: async function () {
-      const data = await CodeRepository.create(this.dataCode);
+    handleCreateCode: async function () {
+      loadingInstance = Loading.service({ fullscreen: true });
+      const data = await CodeRepository.create();
       this.checkStatus(data.data);
     },
     confirmDelete(row) {
       this.dataCode = row;
-      this.modal2 = true;
+      this.deleteCodeDL = true;
     },
     deleteCode: async function () {
+      this.deleteCodeDL = false;
+      loadingInstance = Loading.service({ fullscreen: true });
       const data = await CodeRepository.delete(this.dataCode.id);
+      console.log(data);
       this.checkStatus(data.data);
-    },
-    showEdit: function () {
-      this.modaledit = true;
     },
   },
 };

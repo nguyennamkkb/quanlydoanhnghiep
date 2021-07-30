@@ -11,6 +11,10 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\Code\CodeRepositoryInterface::class,
             \App\Repositories\Code\CodeRepositoryEloquent::class,
         ],
+        'user' => [
+            \App\Repositories\User\UserRepositoryInterface::class,
+            \App\Repositories\User\UserRepositoryEloquent::class,
+        ],
     ];
     public function register()
     {

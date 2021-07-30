@@ -1,42 +1,59 @@
+<style>
+.nav-item :active {
+  background-color: orange;
+}
+</style>
 <template>
-  <div >
-    <div>
-      <!--========== ADMIN SIDE MENU one ========-->
-      <div class="_1side_menu" >
-        <div class="_1side_menu_logo">
-          <h3 style="text-align:center;">Logo Image</h3>
-        </div>
+  <div class="">
+    <header
+      class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"
+    >
+      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"
+        >QUYETNHANH</a
+      >
 
-        <!--~~~~~~~~ MENU CONTENT ~~~~~~~~-->
-        <div class="_1side_menu_content">
-          <div class="_1side_menu_img_name">
-            <!-- <img class="_1side_menu_img" src="/pic.png" alt="" title=""> -->
-            <p class="_1side_menu_name">Admin</p>
-          </div>
-
-          <!--~~~ MENU LIST ~~~~~~-->
-          <div class="_1side_menu_list">
-            <ul class="_1side_menu_list_ul">
-              <!-- <li><router-link to="{{asset('ddashboard/index')}}"><Icon type="ios-speedometer"  /> Overview</router-link></li>
-              <li><router-link to="{{asset('ddashboard/user')}}" ><Icon type="ios-speedometer"  /> Tài khoản</router-link></li> -->
-              <li><router-link to="index"> Overview</router-link></li>
-              <li><router-link to="user" > Tài khoản</router-link></li>
-              <li><router-link to="code" >Mã đăng ký</router-link></li>
-
-            </ul>
-          </div> 
+      <div class="navbar-nav">
+        <div class="nav-item text-nowrap">
+          <a class="nav-link px-3" href="#">Đăng xuất</a>
         </div>
       </div>
-      <!--========== ADMIN SIDE MENU ========-->
+    </header>
 
-      <!--========= HEADER ==========-->
-      <div class="header" style="">
-        <div class="_2menu _box_shadow">
-         
-        </div>
-      </div>
-      <!--========= HEADER ==========-->
+    <div class="row">
+      <nav
+        id="sidebarMenu"
+        class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+      >
+        <el-menu
+          class="el-menu-vertical-demo"
+          background-color="#545c64"
+          text-color="#fff"
+          active-text-color="#ffd04b"
+        >
+          <router-link to="index" aria-current="page">
+            <el-menu-item index="1">
+              <i class="el-icon-setting"></i>
+              <span> Overview</span>
+            </el-menu-item>
+          </router-link>
+          <router-link aria-current="page" to="user">
+            <el-menu-item index="2">
+              <i class="el-icon-setting"></i>
+              <span> Tài khoản</span>
+            </el-menu-item>
+          </router-link>
+          <router-link aria-current="page" to="code">
+            <el-menu-item index="3">
+              <i class="el-icon-setting"></i>
+
+              <span>Mã đăng ký</span>
+            </el-menu-item>
+          </router-link>
+        </el-menu>
+      </nav>
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <router-view />
+      </main>
     </div>
-    	<router-view/>
   </div>
 </template>

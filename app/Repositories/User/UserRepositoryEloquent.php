@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Repositories\Code;
+namespace App\Repositories\User;
 
 use App\Repositories\Eloquent\RepositoryEloquent;
-use App\Repositories\Code\CodeRepositoryInterface;
-use App\Models\Code;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Models\User;
 use App\Traits\ResponseAPI;
-use App\Http\Resources\CodeResource;
+use App\Http\Resources\UserResource;
 
 
-class CodeRepositoryEloquent extends RepositoryEloquent implements CodeRepositoryInterface
+class UserRepositoryEloquent extends RepositoryEloquent implements UserRepositoryInterface
 {
     use ResponseAPI;
     public function model()
     {
-        return Code::class;
+        return User::class;
     }
 
     public function findBy($status, $keyword, $slide)
@@ -22,7 +22,7 @@ class CodeRepositoryEloquent extends RepositoryEloquent implements CodeRepositor
         $query = $this->model->newQuery();
 
         if (!empty($keyword)) {
-            $query = $this->model->where('code', 'like', "%$keyword%");
+            $query = $this->model->where('name', 'like', "%$keyword%");
         }
 
         return $query;

@@ -25,7 +25,7 @@ class CodeResource extends JsonResource
             'endTime' => $this->endTime,
             // 'created_at' => (string)$this->created_at,
             // 'updated_at' => (string)$this->updated_at,
-            'enterprise_id' => new EnterpriseResource($this->enterprises),
+            'enterprise' => new EnterpriseResource($this->enterprises),
             // 'enterprise' =>  $this->enterprises,
             
         ];

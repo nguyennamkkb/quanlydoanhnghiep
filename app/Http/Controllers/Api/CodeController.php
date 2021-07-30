@@ -10,6 +10,8 @@ use App\Models\Code;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\CodeResource;
 use App\Repositories\Code\CodeRepositoryInterface;
+use App\Http\Controllers\CmdController;
+
 class CodeController extends Controller
 {
     protected $codeRepository;
@@ -27,25 +29,22 @@ class CodeController extends Controller
         return  CodeResource::collection($this->codeRepository->getAll());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CodeRequest $request)
-    {
-        return $this->codeInterface->requestCode($request);
+        
+        // Transaction DB
+        DB::beginTransaction();
+        try {
+            $resp = $this->codeRepository->insertGetId([
+                'code' => CmdController::getCode(),
+                'isUsed'=> false
+            ]);
+            DB::commit();
+            return new CodeResource($this->codeRepository->find($resp));
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['message' => 'Xảy ra khi thêm mới mã!'], 422);
+        }
     }
 
     /**
@@ -54,44 +53,16 @@ class CodeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        
-        return $this->codeInterface->getCodeById($id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CodeRequest $request, $id)
-    {
-        return $this->codeInterface->requestCode($request, $id);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        return $this->codeInterface->deleteCode($id);
+
+       $resp = $this->codeRepository->delete($id);
+
+        if($resp) {
+            return response()->json(['status' => true], 200);    
+        }else {
+            return response()->json(['status' => false], 422);
+        }
     
     }
 }
