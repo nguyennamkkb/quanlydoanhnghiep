@@ -25,6 +25,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../api/repositories/RepositoryFactory */ "./resources/js/asset/api/repositories/RepositoryFactory.js");
+/* harmony import */ var element_ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! element-ui */ "./node_modules/element-ui/lib/element-ui.common.js");
+/* harmony import */ var element_ui__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(element_ui__WEBPACK_IMPORTED_MODULE_2__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -121,83 +123,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
+
+var loadingInstance;
 var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODULE_1__.default.get("codes");
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {},
   data: function data() {
     return {
+      createCodeDL: false,
+      deleteCodeDL: false,
       codes: {
         message: null,
         error: false,
@@ -206,42 +141,18 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
           id: 0,
           code: null,
           isUsed: null,
-          idEnterprise: null,
+          enterprise: null,
           startTime: null,
           endTime: null
         }]
       },
-      columns: [{
-        title: "id",
-        key: "id"
-      }, {
-        title: "Mã đăng ký",
-        key: "code"
-      }, {
-        title: "Trạng thái",
-        key: "isUsed"
-      }, {
-        title: "Doanh nghiệp",
-        key: "idEnterprise"
-      }, {
-        title: "Ngày bắt đầu",
-        key: "startTime"
-      }, {
-        title: "Ngày kết thúc",
-        key: "endTime"
-      }, {
-        title: "Thao tác",
-        slot: "action",
-        width: 150,
-        align: "center"
-      }],
       modalTitle: "",
       modal1: false,
       modal2: false,
       modaledit: false,
       modal_loading: false,
       loading: true,
-      dataCode: {
+      tableData: {
         id: 0,
         code: "Nguyennasdasdam",
         isUsed: null,
@@ -255,13 +166,33 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
         code: null,
         results: null
       },
-      mesDelete: false
+      mesDelete: false,
+      fullscreenLoading: false
     };
   },
   created: function created() {
     this.getCodes();
   },
   methods: {
+    open: function open() {
+      var _this = this;
+
+      this.$confirm("This will permanently delete the file. Continue?", "Warning", {
+        confirmButtonText: "OK",
+        cancelButtonText: "Cancel",
+        type: "warning"
+      }).then(function () {
+        _this.$message({
+          type: "success",
+          message: "Delete completed"
+        });
+      })["catch"](function () {
+        _this.$message({
+          type: "info",
+          message: "Delete canceled"
+        });
+      });
+    },
     getCodes: function () {
       var _getCodes = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var _yield$CodeRepository, data;
@@ -293,40 +224,45 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
       return getCodes;
     }(),
     success: function success() {
-      this.$Message["success"]({
-        background: true,
-        content: "Thành công"
+      this.createCodeDL = false;
+      this.$message({
+        type: "success",
+        message: "Thành công"
       });
     },
     error: function error() {
-      this.$Message["error"]({
-        background: true,
-        content: "Không thành công"
+      this.$message({
+        type: "error",
+        message: "Không thành công"
       });
     },
     checkStatus: function checkStatus(data) {
       if (!data.error) {
-        this.success();
         this.getCodes();
+        this.success();
+        loadingInstance.close();
       } else {
         this.error();
       }
     },
-    createCode: function () {
-      var _createCode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+    handleCreateCode: function () {
+      var _handleCreateCode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         var data;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
-                return CodeRepository.create(this.dataCode);
+                loadingInstance = element_ui__WEBPACK_IMPORTED_MODULE_2__.Loading.service({
+                  fullscreen: true
+                });
+                _context2.next = 3;
+                return CodeRepository.create();
 
-              case 2:
+              case 3:
                 data = _context2.sent;
                 this.checkStatus(data.data);
 
-              case 4:
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -334,15 +270,15 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
         }, _callee2, this);
       }));
 
-      function createCode() {
-        return _createCode.apply(this, arguments);
+      function handleCreateCode() {
+        return _handleCreateCode.apply(this, arguments);
       }
 
-      return createCode;
+      return handleCreateCode;
     }(),
     confirmDelete: function confirmDelete(row) {
       this.dataCode = row;
-      this.modal2 = true;
+      this.deleteCodeDL = true;
     },
     deleteCode: function () {
       var _deleteCode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
@@ -351,14 +287,19 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
+                this.deleteCodeDL = false;
+                loadingInstance = element_ui__WEBPACK_IMPORTED_MODULE_2__.Loading.service({
+                  fullscreen: true
+                });
+                _context3.next = 4;
                 return CodeRepository["delete"](this.dataCode.id);
 
-              case 2:
+              case 4:
                 data = _context3.sent;
+                console.log(data);
                 this.checkStatus(data.data);
 
-              case 4:
+              case 7:
               case "end":
                 return _context3.stop();
             }
@@ -371,10 +312,7 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
       }
 
       return deleteCode;
-    }(),
-    showEdit: function showEdit() {
-      this.modaledit = true;
-    }
+    }()
   }
 });
 
@@ -427,8 +365,8 @@ var resource = '/codes';
   getPost: function getPost(id) {
     return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("".concat(resource, "/").concat(id));
   },
-  create: function create(payload) {
-    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource), payload);
+  create: function create() {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource));
   },
   update: function update(payload, id) {
     return _Client__WEBPACK_IMPORTED_MODULE_0__.default.put("".concat(resource, "/").concat(id), payload);
@@ -453,13 +391,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _CodeRepository__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CodeRepository */ "./resources/js/asset/api/repositories/CodeRepository.js");
+/* harmony import */ var _UserRepository__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserRepository */ "./resources/js/asset/api/repositories/UserRepository.js");
+
 
 var repositories = {
-  'codes': _CodeRepository__WEBPACK_IMPORTED_MODULE_0__.default
+  'codes': _CodeRepository__WEBPACK_IMPORTED_MODULE_0__.default,
+  'users': _UserRepository__WEBPACK_IMPORTED_MODULE_1__.default
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   get: function get(name) {
     return repositories[name];
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/asset/api/repositories/UserRepository.js":
+/*!***************************************************************!*\
+  !*** ./resources/js/asset/api/repositories/UserRepository.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Client */ "./resources/js/asset/api/Client.js");
+
+var resource = '';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  login: function login(payload) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/login"), payload);
+  },
+  register: function register(payload) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/register"), payload);
+  },
+  logout: function logout() {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/logout"));
+  },
+  getlistUser: function getlistUser() {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("".concat(resource, "/users"));
   }
 });
 
@@ -1313,40 +1285,287 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "content" }, [
-      _c("div", { staticClass: "container-fuild" }, [
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "container-fuild" },
+        [
+          _c("p", { staticClass: "_title0" }, [_vm._v("Thông tin mã đăng ký")]),
+          _vm._v(" "),
+          _c(
+            "el-button",
+            {
+              attrs: { type: "primary" },
+              on: {
+                click: function($event) {
+                  _vm.createCodeDL = true
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "el-icon-circle-plus-outline" }),
+              _vm._v("Thêm mới")
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "el-table",
+            { staticStyle: { width: "100%" }, attrs: { data: _vm.codes.data } },
+            [
+              _c("el-table-column", {
+                attrs: { label: "Id" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _c("span", { staticStyle: { "margin-left": "10px" } }, [
+                          _vm._v(_vm._s(scope.row.id))
+                        ])
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "Mã đăng ký" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _c("span", { staticStyle: { "margin-left": "10px" } }, [
+                          _vm._v(_vm._s(scope.row.code))
+                        ])
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "Trạng thái" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _c("span", { staticStyle: { "margin-left": "10px" } }, [
+                          _vm._v(_vm._s(scope.row.isUsed))
+                        ])
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "Doanh nghiệp" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _c("span", { staticStyle: { "margin-left": "10px" } }, [
+                          _vm._v(
+                            _vm._s(
+                              scope.row.enterprise
+                                ? scope.row.enterprise.name
+                                : ""
+                            )
+                          )
+                        ])
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "Ngày bắt đầu" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _c("span", { staticStyle: { "margin-left": "10px" } }, [
+                          _vm._v(_vm._s(scope.row.startTime))
+                        ])
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "Ngày kết thúc" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _c("span", { staticStyle: { "margin-left": "10px" } }, [
+                          _vm._v(_vm._s(scope.row.endTime))
+                        ])
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "Thao tác" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _c(
+                          "el-button",
+                          {
+                            attrs: { size: "mini", type: "danger" },
+                            on: {
+                              click: function($event) {
+                                return _vm.confirmDelete(scope.row)
+                              }
+                            }
+                          },
+                          [_vm._v("Xóa")]
+                        )
+                      ]
+                    }
+                  }
+                ])
+              })
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      [
         _c(
-          "div",
+          "el-dialog",
           {
-            staticClass:
-              "\n            _1adminOverveiw_table_recent\n            _box_shadow\n            _border_radious\n            _mar_b30\n            _p20\n          "
+            attrs: {
+              title: "Thông báo",
+              visible: _vm.createCodeDL,
+              width: "20%",
+              center: ""
+            },
+            on: {
+              "update:visible": function($event) {
+                _vm.createCodeDL = $event
+              }
+            }
           },
           [
+            _c("span", [_vm._v("Thêm mới mã đăng ký")]),
+            _vm._v(" "),
             _c(
-              "p",
-              { staticClass: "_title0" },
+              "span",
+              {
+                staticClass: "dialog-footer",
+                attrs: { slot: "footer" },
+                slot: "footer"
+              },
               [
-                _vm._v(
-                  "\n            Thông tin má đăng ký tài khoảnq\n            "
-                ),
                 _c(
-                  "Button",
+                  "el-button",
+                  {
+                    on: {
+                      click: function($event) {
+                        _vm.createCodeDL = false
+                      }
+                    }
+                  },
+                  [_vm._v("Hủy")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-button",
                   {
                     attrs: { type: "primary" },
                     on: {
                       click: function($event) {
-                        _vm.modal1 = true
+                        return _vm.handleCreateCode()
                       }
                     }
                   },
-                  [_vm._v(" Thêm mới mã đăng ký")]
+                  [_vm._v("Đồng ý")]
+                )
+              ],
+              1
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "el-dialog",
+          {
+            attrs: {
+              title: "Cảnh báo",
+              visible: _vm.deleteCodeDL,
+              width: "20%",
+              center: ""
+            },
+            on: {
+              "update:visible": function($event) {
+                _vm.deleteCodeDL = $event
+              }
+            }
+          },
+          [
+            _c("span", [_vm._v("Xóa mã đăng ký")]),
+            _vm._v(" "),
+            _c(
+              "span",
+              {
+                staticClass: "dialog-footer",
+                attrs: { slot: "footer" },
+                slot: "footer"
+              },
+              [
+                _c(
+                  "el-button",
+                  {
+                    on: {
+                      click: function($event) {
+                        _vm.deleteCodeDL = false
+                      }
+                    }
+                  },
+                  [_vm._v("Hủy")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-button",
+                  {
+                    attrs: { type: "primary" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteCode()
+                      }
+                    }
+                  },
+                  [_vm._v("Đồng ý")]
                 )
               ],
               1
             )
           ]
         )
-      ])
-    ])
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []

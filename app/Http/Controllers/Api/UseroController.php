@@ -3,82 +3,86 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\RegisterAuthRequest;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Repositories\User\UserRepositoryInterface;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 
 class UseroController extends Controller
 {
-    public $loginAfterSignUp = true;
- 
-    public function register(RegisterAuthRequest $request)
+    protected $userRepository;
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function __construct(UserRepositoryInterface $userRepository)
     {
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
- 
-        if ($this->loginAfterSignUp) {
-            return $this->login($request);
-        }
- 
-        return response()->json([
-            'success' => true,
-            'data' => $user
-        ], 200);
+        $this->userRepository = $userRepository;
     }
- 
-    public function login(Request $request)
+    public function index()
     {
-        $input = $request->only('email', 'password');
-        $jwt_token = null;
- 
-        if (!$jwt_token = JWTAuth::attempt($input)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Invalid Email or Password',
-            ], 401);
-        }
- 
-        return response()->json([
-            'success' => true,
-            'token' => $jwt_token,
-        ]);
+        return  UserResource::collection($this->userRepository->getAll());
     }
- 
-    public function logout(Request $request)
+
+    public function store(UserRequest $requets)
     {
-        $this->validate($request, [
-            'token' => 'required'
-        ]);
- 
+        $req = $requets->validated();
+        $userInfo = $this->userRepository->where('email', $req['email'])->first();
+        if ($userInfo != NULL) {
+            return response()->json(['message' => 'Tài khoản đã tồn tại'], 422);
+        }
+
+        // Transaction DB
+        DB::beginTransaction();
         try {
-            JWTAuth::invalidate($request->token);
- 
-            return response()->json([
-                'success' => true,
-                'message' => 'User logged out successfully'
+            $resp = $this->userRepository->insertGetId([
+                'name' => $req['name'],
+                'email' => $req['email'],
+                'password' => Hash::make($req['password']),
+                'code' => $req['code'],
             ]);
-        } catch (JWTException $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Sorry, the user cannot be logged out'
-            ], 500);
+
+            // if (!empty($request['roles']) && $resp != NULL) {
+            //     $roleId = $rolesModel->insertGetId([
+            //         'user_id' => $resp,
+            //         'role' => $request['roles']
+            //     ]);
+            //     if (!$roleId) {
+            //         return response()->json(['message' => 'Xảy ra lỗi hệ thống khi thêm quyền người dùng!'], 422);
+            //     }
+            // }
+            DB::commit();
+            return new UserResource($this->userRepository->find($resp));
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['message' => 'Xảy ra khi thêm mới người dùng!'], 422);
         }
     }
- 
-    public function getAuthUser(Request $request)
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
     {
-        $this->validate($request, [
-            'token' => 'required'
-        ]);
- 
-        $user = JWTAuth::authenticate($request->token);
- 
-        return response()->json(['user' => $user]);
+
+       $resp = $this->userRepository->delete($id);
+
+        if($resp) {
+            return response()->json(['status' => true], 200);    
+        }else {
+            return response()->json(['status' => false], 422);
+        }
+    
     }
 }

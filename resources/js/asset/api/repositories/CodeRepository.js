@@ -8,8 +8,8 @@ export default {
     getPost(id) {
         return Client.get(`${resource}/${id}`);
     },
-    create(payload) {
-        return Client.post(`${resource}`, payload);
+    create() {
+        return Client.post(`${resource}`);
     },
     update(payload, id) {
         return Client.put(`${resource}/${id}`, payload);

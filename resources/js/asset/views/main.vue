@@ -1,6 +1,6 @@
 <template>
   <div>
-    asdasdas
+  
     <!-- <authdashboardview/> -->
     <!-- <authhomeview v-else-if="this.route.indexOf('/home/auth') != -1" />
     <homeview v-else-if="this.route.indexOf('home') != -1" />

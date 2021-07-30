@@ -13,6 +13,6 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js').vue();
 mix.styles([
-    'public/css/cssadmin.css',
+    'public/css/bootstrap.min.css',
     'public/css/grid.min.css'
 ], 'public/css/app.css');

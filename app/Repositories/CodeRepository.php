@@ -1,5 +1,5 @@
 <?php
-
+/// khong  dung den, de lam mau
 namespace App\Repositories;
 
 use App\Http\Requests\CodeRequest;

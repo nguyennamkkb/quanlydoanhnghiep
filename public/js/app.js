@@ -5368,6 +5368,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";.el-pagination--sma
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/asset/views/dashboard/dashboard.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/asset/views/dashboard/dashboard.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.nav-item :active {\n  background-color: orange;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/runtime/api.js":
 /*!*****************************************************!*\
   !*** ./node_modules/css-loader/dist/runtime/api.js ***!
@@ -81997,6 +82021,36 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/asset/views/dashboard/dashboard.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/asset/views/dashboard/dashboard.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_8_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_8_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./dashboard.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/asset/views/dashboard/dashboard.vue?vue&type=style&index=0&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_8_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_8_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_8_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_8_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
@@ -82437,14 +82491,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _dashboard_vue_vue_type_template_id_b484ce6a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dashboard.vue?vue&type=template&id=b484ce6a& */ "./resources/js/asset/views/dashboard/dashboard.vue?vue&type=template&id=b484ce6a&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _dashboard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dashboard.vue?vue&type=style&index=0&lang=css& */ "./resources/js/asset/views/dashboard/dashboard.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 var script = {}
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__.default)(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
   script,
   _dashboard_vue_vue_type_template_id_b484ce6a___WEBPACK_IMPORTED_MODULE_0__.render,
   _dashboard_vue_vue_type_template_id_b484ce6a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -82499,6 +82555,19 @@ component.options.__file = "resources/js/asset/views/dashboard/index.vue"
 
 /***/ }),
 
+/***/ "./resources/js/asset/views/dashboard/dashboard.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/asset/views/dashboard/dashboard.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_8_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_8_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./dashboard.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-8[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/asset/views/dashboard/dashboard.vue?vue&type=style&index=0&lang=css&");
+
+
+/***/ }),
+
 /***/ "./resources/js/asset/views/dashboard/dashboard.vue?vue&type=template&id=b484ce6a&":
 /*!*****************************************************************************************!*\
   !*** ./resources/js/asset/views/dashboard/dashboard.vue?vue&type=template&id=b484ce6a& ***!
@@ -82549,86 +82618,112 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("div", [
-        _c("div", { staticClass: "_1side_menu" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "_1side_menu_content" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("div", { staticClass: "_1side_menu_list" }, [
-              _c("ul", { staticClass: "_1side_menu_list_ul" }, [
-                _c(
-                  "li",
-                  [
-                    _c("router-link", { attrs: { to: "index" } }, [
-                      _vm._v(" Overview")
-                    ])
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "li",
-                  [
-                    _c("router-link", { attrs: { to: "user" } }, [
-                      _vm._v(" Tài khoản")
-                    ])
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "li",
-                  [
-                    _c("router-link", { attrs: { to: "code" } }, [
-                      _vm._v("Mã đăng ký")
-                    ])
-                  ],
-                  1
-                )
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(2)
-      ]),
+  return _c("div", {}, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "nav",
+        {
+          staticClass: "col-md-3 col-lg-2 d-md-block bg-light sidebar collapse",
+          attrs: { id: "sidebarMenu" }
+        },
+        [
+          _c(
+            "el-menu",
+            {
+              staticClass: "el-menu-vertical-demo",
+              attrs: {
+                "background-color": "#545c64",
+                "text-color": "#fff",
+                "active-text-color": "#ffd04b"
+              }
+            },
+            [
+              _c(
+                "router-link",
+                { attrs: { to: "index", "aria-current": "page" } },
+                [
+                  _c("el-menu-item", { attrs: { index: "1" } }, [
+                    _c("i", { staticClass: "el-icon-setting" }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(" Overview")])
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                { attrs: { "aria-current": "page", to: "user" } },
+                [
+                  _c("el-menu-item", { attrs: { index: "2" } }, [
+                    _c("i", { staticClass: "el-icon-setting" }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(" Tài khoản")])
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                { attrs: { "aria-current": "page", to: "code" } },
+                [
+                  _c("el-menu-item", { attrs: { index: "3" } }, [
+                    _c("i", { staticClass: "el-icon-setting" }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("Mã đăng ký")])
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
       _vm._v(" "),
-      _c("router-view")
-    ],
-    1
-  )
+      _c(
+        "main",
+        { staticClass: "col-md-9 ms-sm-auto col-lg-10 px-md-4" },
+        [_c("router-view")],
+        1
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "_1side_menu_logo" }, [
-      _c("h3", { staticStyle: { "text-align": "center" } }, [
-        _vm._v("Logo Image")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "_1side_menu_img_name" }, [
-      _c("p", { staticClass: "_1side_menu_name" }, [_vm._v("Admin")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "header" }, [
-      _c("div", { staticClass: "_2menu _box_shadow" })
-    ])
+    return _c(
+      "header",
+      {
+        staticClass:
+          "navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"
+      },
+      [
+        _c(
+          "a",
+          {
+            staticClass: "navbar-brand col-md-3 col-lg-2 me-0 px-3",
+            attrs: { href: "#" }
+          },
+          [_vm._v("QUYETNHANH")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "navbar-nav" }, [
+          _c("div", { staticClass: "nav-item text-nowrap" }, [
+            _c("a", { staticClass: "nav-link px-3", attrs: { href: "#" } }, [
+              _vm._v("Đăng xuất")
+            ])
+          ])
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -82653,441 +82748,436 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "content" }, [
-      _c(
-        "div",
-        { staticClass: "container-fuild" },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _vm._m(1),
-          _vm._v(" "),
-          _c("Page", { attrs: { total: 100 } })
-        ],
-        1
-      )
-    ])
-  ])
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12 col-md-3" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_one"
-          },
-          [
-            _c("div", { staticClass: "_1adminOverveiw_card_left" }, [
-              _c("p", { staticClass: "_1adminOverveiw_card_left_num" }, [
-                _vm._v("3")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "_1adminOverveiw_card_left_title" }, [
-                _vm._v("Today's News")
-              ])
+    return _c("div", [
+      _c("div", { staticClass: "content" }, [
+        _c("div", { staticClass: "container-fuild" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-12 col-md-3" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_one"
+                },
+                [
+                  _c("div", { staticClass: "_1adminOverveiw_card_left" }, [
+                    _c("p", { staticClass: "_1adminOverveiw_card_left_num" }, [
+                      _vm._v("3")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      { staticClass: "_1adminOverveiw_card_left_title" },
+                      [_vm._v("Today's News")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "_1adminOverveiw_card_right" })
+                ]
+              )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "_1adminOverveiw_card_right" })
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12 col-md-3" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_two"
-          },
-          [
-            _c("div", { staticClass: "_1adminOverveiw_card_left" }, [
-              _c("p", { staticClass: "_1adminOverveiw_card_left_num" }, [
-                _vm._v("29")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "_1adminOverveiw_card_left_title" }, [
-                _vm._v("Total News")
-              ])
+            _c("div", { staticClass: "col-12 col-md-3" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_two"
+                },
+                [
+                  _c("div", { staticClass: "_1adminOverveiw_card_left" }, [
+                    _c("p", { staticClass: "_1adminOverveiw_card_left_num" }, [
+                      _vm._v("29")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      { staticClass: "_1adminOverveiw_card_left_title" },
+                      [_vm._v("Total News")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "_1adminOverveiw_card_right" })
+                ]
+              )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "_1adminOverveiw_card_right" })
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12 col-md-3" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_two"
-          },
-          [
-            _c("div", { staticClass: "_1adminOverveiw_card_left" }, [
-              _c("p", { staticClass: "_1adminOverveiw_card_left_num" }, [
-                _vm._v("29")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "_1adminOverveiw_card_left_title" }, [
-                _vm._v("Features News")
-              ])
+            _c("div", { staticClass: "col-12 col-md-3" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_two"
+                },
+                [
+                  _c("div", { staticClass: "_1adminOverveiw_card_left" }, [
+                    _c("p", { staticClass: "_1adminOverveiw_card_left_num" }, [
+                      _vm._v("29")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      { staticClass: "_1adminOverveiw_card_left_title" },
+                      [_vm._v("Features News")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "_1adminOverveiw_card_right" })
+                ]
+              )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "_1adminOverveiw_card_right" })
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12 col-md-3" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_two"
-          },
-          [
-            _c("div", { staticClass: "_1adminOverveiw_card_left" }, [
-              _c("p", { staticClass: "_1adminOverveiw_card_left_num" }, [
-                _vm._v("29")
-              ]),
+            _c("div", { staticClass: "col-12 col-md-3" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_two"
+                },
+                [
+                  _c("div", { staticClass: "_1adminOverveiw_card_left" }, [
+                    _c("p", { staticClass: "_1adminOverveiw_card_left_num" }, [
+                      _vm._v("29")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      { staticClass: "_1adminOverveiw_card_left_title" },
+                      [_vm._v("Card News")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "_1adminOverveiw_card_right" })
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20"
+            },
+            [
+              _c("p", { staticClass: "_title0" }, [_vm._v("Recent News")]),
               _vm._v(" "),
-              _c("p", { staticClass: "_1adminOverveiw_card_left_title" }, [
-                _vm._v("Card News")
+              _c("div", { staticClass: "_overflow _table_div" }, [
+                _c("table", { staticClass: "_table" }, [
+                  _c("tr", [
+                    _c("th", [_vm._v("Date")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Title")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Category")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v("Action")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("25-05-19")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "_table_name" }, [
+                      _vm._v('Manhattan\'s art center "Shed" opening ceremony')
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Economy")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn view_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("View")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn edit_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Edit")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn2",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Make Features")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn3",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Make Card")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("25-05-19")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "_table_name" }, [
+                      _vm._v(
+                        "Are Trump era is having an impact on what 's future voters"
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Social")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn view_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("View")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn edit_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Edit")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn2",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Make Features")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn3",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Make Card")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("25-05-19")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "_table_name" }, [
+                      _vm._v('Manhattan\'s art center "Shed" opening ceremony')
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Economy")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn view_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("View")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn edit_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Edit")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn2",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Make Features")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn3",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Make Card")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("25-05-19")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "_table_name" }, [
+                      _vm._v(
+                        "Are Trump era is having an impact on what 's future voters"
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Social")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn view_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("View")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn edit_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Edit")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn2",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Make Features")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn3",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Make Card")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("25-05-19")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "_table_name" }, [
+                      _vm._v(
+                        "Are Trump era is having an impact on what 's future voters"
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Social")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn view_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("View")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn edit_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Edit")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn2",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Make Features")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn3",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Make Card")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "_btn _action_btn make_btn1",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    ])
+                  ])
+                ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "_1adminOverveiw_card_right" })
-          ]
-        )
+            ]
+          )
+        ])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20"
-      },
-      [
-        _c("p", { staticClass: "_title0" }, [_vm._v("Recent News")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "_overflow _table_div" }, [
-          _c("table", { staticClass: "_table" }, [
-            _c("tr", [
-              _c("th", [_vm._v("Date")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Title")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Category")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Action")])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [_vm._v("25-05-19")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "_table_name" }, [
-                _vm._v('Manhattan\'s art center "Shed" opening ceremony')
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Economy")]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn view_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("View")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn edit_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Edit")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn2",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Make Features")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn3",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Make Card")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Delete")]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [_vm._v("25-05-19")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "_table_name" }, [
-                _vm._v(
-                  "Are Trump era is having an impact on what 's future voters"
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Social")]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn view_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("View")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn edit_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Edit")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn2",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Make Features")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn3",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Make Card")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Delete")]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [_vm._v("25-05-19")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "_table_name" }, [
-                _vm._v('Manhattan\'s art center "Shed" opening ceremony')
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Economy")]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn view_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("View")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn edit_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Edit")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn2",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Make Features")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn3",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Make Card")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Delete")]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [_vm._v("25-05-19")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "_table_name" }, [
-                _vm._v(
-                  "Are Trump era is having an impact on what 's future voters"
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Social")]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn view_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("View")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn edit_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Edit")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn2",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Make Features")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn3",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Make Card")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Delete")]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [_vm._v("25-05-19")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "_table_name" }, [
-                _vm._v(
-                  "Are Trump era is having an impact on what 's future voters"
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Social")]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn view_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("View")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn edit_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Edit")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn2",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Make Features")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn3",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Make Card")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "_btn _action_btn make_btn1",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Delete")]
-                )
-              ])
-            ])
-          ])
-        ])
-      ]
-    )
   }
 ]
 render._withStripped = true
