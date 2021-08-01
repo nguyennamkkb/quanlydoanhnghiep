@@ -154,6 +154,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var loadingInstance;
@@ -162,6 +192,11 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
   components: {},
   data: function data() {
     return {
+      listQuery: {
+        page: 1,
+        limit: 20,
+        keyword: undefined
+      },
       creatUserDL: false,
       createUserDL: false,
       deleteUserDL: false,
@@ -178,10 +213,16 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
         }]
       },
       userData: {
-        id: null,
-        name: null,
-        email: null,
-        code: null
+        id: undefined,
+        name: "",
+        email: "",
+        code: ""
+      },
+      dataCreate: {
+        id: undefined,
+        name: "",
+        email: "",
+        code: ""
       },
       modalTitle: "",
       modal1: false,
@@ -191,7 +232,46 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
       loading: true,
       mesDelete: false,
       fullscreenLoading: false,
-      updateUserDLLabelWidth: "130PX"
+      updateUserDLLabelWidth: "130PX",
+      rules: {
+        name: [{
+          required: true,
+          message: "Tên không được bỏ trống",
+          trigger: "change"
+        }],
+        email: [{
+          required: true,
+          message: "Email không được bỏ trống",
+          trigger: "change"
+        }]
+      },
+      createRules: {
+        name: [{
+          required: true,
+          message: "Tên không được bỏ trống",
+          trigger: "change"
+        }],
+        email: [{
+          required: true,
+          message: "Email không được bỏ trống",
+          trigger: "change"
+        }],
+        code: [{
+          required: true,
+          message: "Mã đăng ký không được bỏ trống",
+          trigger: "change"
+        }],
+        password: [{
+          required: true,
+          message: "Mật khẩu không được bỏ trống",
+          trigger: "change"
+        }]
+      },
+      formLabelWidth: "120px",
+      search: {
+        keyword: "",
+        isUsed: undefined
+      }
     };
   },
   created: function created() {
@@ -217,7 +297,8 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
               case 2:
                 data = _context.sent;
 
-                if (data.data.code == 200) {
+                // console.log(data.data);
+                if (data.data) {
                   this.users = data.data;
                 }
 
@@ -240,12 +321,13 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
         type: "success",
         message: "Thành công"
       });
+      this.Reset();
     },
-    error: function error() {
+    error: function error(data) {
       loadingInstance.close();
       this.$message({
         type: "error",
-        message: "Không thành công"
+        message: data == "" ? "Không thành công" : data
       });
     },
     checkStatus: function checkStatus(data) {
@@ -258,24 +340,42 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
         this.error();
       }
     },
+    btnCreateUser: function btnCreateUser() {
+      this.createUserDL = true;
+    },
     handleCreateUser: function () {
       var _handleCreateUser = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var data;
+        var _this = this;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                loadingInstance = element_ui__WEBPACK_IMPORTED_MODULE_2__.Loading.service({
-                  fullscreen: true
+                this.$refs.dataform2.validate(function (valid) {
+                  if (valid) {
+                    loadingInstance = element_ui__WEBPACK_IMPORTED_MODULE_2__.Loading.service({
+                      fullscreen: true
+                    });
+
+                    try {
+                      UserRepository.create(_this.dataCreate).then(function (result) {
+                        if (result.data.status == true) {
+                          _this.getusers();
+
+                          _this.success();
+                        } else {
+                          _this.error(result.data.message);
+                        }
+                      });
+                    } catch (error) {
+                      console.log(error);
+
+                      _this.error();
+                    }
+                  }
                 });
-                _context2.next = 3;
-                return UserRepository.create();
 
-              case 3:
-                data = _context2.sent;
-                this.checkStatus(data.data);
-
-              case 5:
+              case 1:
               case "end":
                 return _context2.stop();
             }
@@ -289,12 +389,12 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
 
       return handleCreateUser;
     }(),
-    confirmDelete: function confirmDelete(row) {
+    bntDelete: function bntDelete(row) {
       this.dataUser = row;
       this.deleteUserDL = true;
     },
-    deleteUser: function () {
-      var _deleteUser = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+    handleDeleteUser: function () {
+      var _handleDeleteUser = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         var data;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
@@ -309,10 +409,10 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
 
               case 4:
                 data = _context3.sent;
-                console.log(data);
+                // console.log(data);
                 this.checkStatus(data.data);
 
-              case 7:
+              case 6:
               case "end":
                 return _context3.stop();
             }
@@ -320,52 +420,52 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
         }, _callee3, this);
       }));
 
-      function deleteUser() {
-        return _deleteUser.apply(this, arguments);
+      function handleDeleteUser() {
+        return _handleDeleteUser.apply(this, arguments);
       }
 
-      return deleteUser;
+      return handleDeleteUser;
     }(),
-    confirmUpdate: function confirmUpdate(row) {
-      this.userData = row;
-      console.log(this.userData);
+    btnUpdate: function btnUpdate(row) {
+      this.userData = Object.assign({}, row); // console.log(this.userData);
+
       this.updateUserDL = true;
     },
     handleUpdateCode: function () {
       var _handleUpdateCode = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-        var data;
+        var _this2 = this;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                loadingInstance = element_ui__WEBPACK_IMPORTED_MODULE_2__.Loading.service({
-                  fullscreen: true
+                //  const data =  UserRepository.updateUser(this.userData.id,this.userData)
+                this.$refs["ruleForm"].validate(function (valid) {
+                  if (valid) {
+                    loadingInstance = element_ui__WEBPACK_IMPORTED_MODULE_2__.Loading.service({
+                      fullscreen: true
+                    });
+
+                    try {
+                      UserRepository.updateUser(_this2.userData.id, _this2.userData).then(function (result) {
+                        if (result.data.status == true) {
+                          _this2.getusers();
+
+                          _this2.success();
+                        }
+                      });
+                    } catch (error) {
+                      _this2.error();
+                    }
+                  }
                 });
-                _context4.prev = 1;
-                _context4.next = 4;
-                return UserRepository.updateUser(this.userData.id, this.userData);
 
-              case 4:
-                data = _context4.sent;
-
-                if (data.data.code == 200) {
-                  this.users = data.data;
-                }
-
-                _context4.next = 11;
-                break;
-
-              case 8:
-                _context4.prev = 8;
-                _context4.t0 = _context4["catch"](1);
-                this.error();
-
-              case 11:
+              case 1:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, this, [[1, 8]]);
+        }, _callee4, this);
       }));
 
       function handleUpdateCode() {
@@ -373,6 +473,52 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
       }
 
       return handleUpdateCode;
+    }(),
+    btnSearch: function () {
+      var _btnSearch = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        var data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                loadingInstance = element_ui__WEBPACK_IMPORTED_MODULE_2__.Loading.service({
+                  fullscreen: true
+                });
+                _context5.prev = 1;
+                _context5.next = 4;
+                return UserRepository.filter(this.listQuery);
+
+              case 4:
+                data = _context5.sent;
+
+                if (data.data) {
+                  this.users = data.data;
+                  this.success();
+                } else {
+                  this.error();
+                }
+
+                _context5.next = 11;
+                break;
+
+              case 8:
+                _context5.prev = 8;
+                _context5.t0 = _context5["catch"](1);
+                console.log(_context5.t0);
+
+              case 11:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this, [[1, 8]]);
+      }));
+
+      function btnSearch() {
+        return _btnSearch.apply(this, arguments);
+      }
+
+      return btnSearch;
     }()
   }
 });
@@ -399,7 +545,9 @@ var baseURL = "".concat(baseDomain); // Incase of /api/v1;
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   baseURL: baseURL,
-  headers: {// "Authorization": "Bearer xxxxx"
+  headers: {
+    // "Authorization": "Bearer xxxxx"
+    "Content-Type": "application/json;charset=utf-8"
   }
 }));
 
@@ -420,6 +568,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var resource = '/codes';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  filter: function filter(data) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("".concat(resource), {
+      params: data
+    }); // get truyen tham so phai them param
+  },
   get: function get() {
     return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("".concat(resource));
   },
@@ -480,22 +633,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Client */ "./resources/js/asset/api/Client.js");
 
-var resource = '';
+var resource = '/';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   login: function login(payload) {
-    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/login"), payload);
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("/login", payload);
   },
   register: function register(payload) {
-    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/register"), payload);
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("/register", payload);
   },
   logout: function logout() {
-    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/logout"));
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("/logout");
   },
   getlistUser: function getlistUser() {
-    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("".concat(resource, "/users"));
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("/users");
   },
   updateUser: function updateUser(id, payload) {
-    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.put("".concat(resource, "/users/").concat(id), payload);
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.put("/users/".concat(id), payload);
+  },
+  create: function create(payload) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("/users", payload);
+  },
+  "delete": function _delete(id) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.delete("/users/".concat(id));
+  },
+  filter: function filter(data) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("/users", {
+      params: data
+    }); // get truyen tham so phai them param
   }
 });
 
@@ -1357,30 +1521,69 @@ var render = function() {
         "div",
         { staticClass: "container-fuild" },
         [
-          _c("p", { staticClass: "_title0" }, [_vm._v("Thông tin mã đăng ký")]),
+          _c("p", { staticClass: "_title0" }, [_vm._v("Thông tin tài khoản")]),
           _vm._v(" "),
           _c(
-            "el-button",
+            "el-form",
             {
-              attrs: { type: "primary" },
-              on: {
-                click: function($event) {
-                  _vm.createUserDL = true
-                }
-              }
+              staticClass: "demo-form-inline",
+              attrs: { inline: true, model: _vm.listQuery }
             },
             [
-              _c("i", { staticClass: "el-icon-circle-plus-outline" }),
-              _vm._v("Thêm mới")
-            ]
+              _c(
+                "el-form-item",
+                [
+                  _c("el-input", {
+                    attrs: { placeholder: "Tìm kiếm" },
+                    model: {
+                      value: _vm.listQuery.keyword,
+                      callback: function($$v) {
+                        _vm.$set(_vm.listQuery, "keyword", $$v)
+                      },
+                      expression: "listQuery.keyword"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-form-item",
+                [
+                  _c(
+                    "el-button",
+                    {
+                      attrs: { type: "primary" },
+                      on: { click: _vm.btnSearch }
+                    },
+                    [_vm._v("Tìm kiếm")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-button",
+                {
+                  attrs: { type: "primary" },
+                  on: {
+                    click: function($event) {
+                      return _vm.btnCreateUser()
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "el-icon-circle-plus-outline" }),
+                  _vm._v("Thêm mới")
+                ]
+              )
+            ],
+            1
           ),
           _vm._v(" "),
           _c(
             "el-table",
-            {
-              staticStyle: { width: "100%" },
-              attrs: { data: _vm.users.results }
-            },
+            { staticStyle: { width: "100%" }, attrs: { data: _vm.users.data } },
             [
               _c("el-table-column", {
                 attrs: { label: "Id" },
@@ -1459,7 +1662,7 @@ var render = function() {
                             attrs: { size: "mini", type: "warning" },
                             on: {
                               click: function($event) {
-                                return _vm.confirmUpdate(scope.row)
+                                return _vm.btnUpdate(scope.row)
                               }
                             }
                           },
@@ -1472,7 +1675,7 @@ var render = function() {
                             attrs: { size: "mini", type: "danger" },
                             on: {
                               click: function($event) {
-                                return _vm.confirmDelete(scope.row)
+                                return _vm.bntDelete(scope.row)
                               }
                             }
                           },
@@ -1497,12 +1700,7 @@ var render = function() {
         _c(
           "el-dialog",
           {
-            attrs: {
-              title: "Thông báo",
-              visible: _vm.createUserDL,
-              width: "20%",
-              center: ""
-            },
+            attrs: { title: "Thêm mới tài khoản", visible: _vm.createUserDL },
             on: {
               "update:visible": function($event) {
                 _vm.createUserDL = $event
@@ -1510,7 +1708,111 @@ var render = function() {
             }
           },
           [
-            _c("span", [_vm._v("Thêm mới mã đăng ký")]),
+            _c(
+              "el-form",
+              {
+                ref: "dataform2",
+                attrs: { model: _vm.dataCreate, rules: _vm.createRules }
+              },
+              [
+                _c(
+                  "el-form-item",
+                  {
+                    attrs: {
+                      label: "Tên",
+                      prop: "name",
+                      "label-width": _vm.formLabelWidth
+                    }
+                  },
+                  [
+                    _c("el-input", {
+                      attrs: { autocomplete: "off" },
+                      model: {
+                        value: _vm.dataCreate.name,
+                        callback: function($$v) {
+                          _vm.$set(_vm.dataCreate, "name", $$v)
+                        },
+                        expression: "dataCreate.name"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-form-item",
+                  {
+                    attrs: {
+                      label: "Email",
+                      prop: "email",
+                      "label-width": _vm.formLabelWidth
+                    }
+                  },
+                  [
+                    _c("el-input", {
+                      attrs: { autocomplete: "off" },
+                      model: {
+                        value: _vm.dataCreate.email,
+                        callback: function($$v) {
+                          _vm.$set(_vm.dataCreate, "email", $$v)
+                        },
+                        expression: "dataCreate.email"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-form-item",
+                  {
+                    attrs: {
+                      label: "Mã đăng ký",
+                      prop: "code",
+                      "label-width": _vm.formLabelWidth
+                    }
+                  },
+                  [
+                    _c("el-input", {
+                      attrs: { autocomplete: "off" },
+                      model: {
+                        value: _vm.dataCreate.code,
+                        callback: function($$v) {
+                          _vm.$set(_vm.dataCreate, "code", $$v)
+                        },
+                        expression: "dataCreate.code"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-form-item",
+                  {
+                    attrs: {
+                      label: "Mật khẩu",
+                      prop: "password",
+                      "label-width": _vm.formLabelWidth
+                    }
+                  },
+                  [
+                    _c("el-input", {
+                      attrs: { autocomplete: "off" },
+                      model: {
+                        value: _vm.dataCreate.password,
+                        callback: function($$v) {
+                          _vm.$set(_vm.dataCreate, "password", $$v)
+                        },
+                        expression: "dataCreate.password"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
             _vm._v(" "),
             _c(
               "span",
@@ -1529,7 +1831,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Hủy")]
+                  [_vm._v("hủy")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -1542,12 +1844,13 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Đồng ý")]
+                  [_vm._v("Xác nhận")]
                 )
               ],
               1
             )
-          ]
+          ],
+          1
         ),
         _vm._v(" "),
         _c(
@@ -1566,7 +1869,7 @@ var render = function() {
             }
           },
           [
-            _c("span", [_vm._v("Xóa mã đăng ký")]),
+            _c("span", [_vm._v("Xóa tài khoản người d")]),
             _vm._v(" "),
             _c(
               "span",
@@ -1594,7 +1897,7 @@ var render = function() {
                     attrs: { type: "primary" },
                     on: {
                       click: function($event) {
-                        return _vm.deleteUser()
+                        return _vm.handleDeleteUser()
                       }
                     }
                   },
@@ -1611,7 +1914,10 @@ var render = function() {
         _c(
           "el-dialog",
           {
-            attrs: { title: "Thêm mới tài khoản", visible: _vm.updateUserDL },
+            attrs: {
+              title: "Sửa thông tin tài khoản",
+              visible: _vm.updateUserDL
+            },
             on: {
               "update:visible": function($event) {
                 _vm.updateUserDL = $event
@@ -1621,19 +1927,23 @@ var render = function() {
           [
             _c(
               "el-form",
-              { attrs: { model: _vm.userData } },
+              {
+                ref: "ruleForm",
+                attrs: { model: _vm.userData, rules: _vm.rules }
+              },
               [
                 _c(
                   "el-form-item",
                   {
                     attrs: {
                       label: "Tên",
-                      "label-width": _vm.updateUserDLLabelWidth
+                      "label-width": _vm.updateUserDLLabelWidth,
+                      prop: "name"
                     }
                   },
                   [
                     _c("el-input", {
-                      attrs: { autocomplete: "off" },
+                      attrs: { type: "text", autocomplete: "off" },
                       model: {
                         value: _vm.userData.name,
                         callback: function($$v) {
@@ -1651,12 +1961,13 @@ var render = function() {
                   {
                     attrs: {
                       label: "Địa chỉ Email",
-                      "label-width": _vm.updateUserDLLabelWidth
+                      "label-width": _vm.updateUserDLLabelWidth,
+                      prop: "email"
                     }
                   },
                   [
                     _c("el-input", {
-                      attrs: { autocomplete: "off" },
+                      attrs: { type: "email", autocomplete: "off" },
                       model: {
                         value: _vm.userData.email,
                         callback: function($$v) {

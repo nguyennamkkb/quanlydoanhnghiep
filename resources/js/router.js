@@ -2,7 +2,7 @@ import Vue from "vue"
 import Router from 'vue-router'
 // import { component } from "vue/types/umd"
 const homeapp = '/home'
-const dashboardapp = '/ddashboard'
+const dashboardapp = '/dashboard'
 
 Vue.use(Router)
 

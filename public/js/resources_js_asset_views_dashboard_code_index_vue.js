@@ -126,6 +126,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var loadingInstance;
@@ -168,7 +186,13 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
         results: null
       },
       mesDelete: false,
-      fullscreenLoading: false
+      fullscreenLoading: false,
+      listQuery: {
+        page: 1,
+        limit: 20,
+        keyword: '',
+        isUsed: undefined
+      }
     };
   },
   created: function created() {
@@ -188,8 +212,7 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
               case 2:
                 data = _context.sent;
 
-                // console.log(data.data);
-                if (data.data.code == 200) {
+                if (data.data) {
                   this.codes = data.data;
                 }
 
@@ -282,10 +305,10 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
 
               case 4:
                 data = _context3.sent;
-                console.log(data);
+                // console.log(data);
                 this.checkStatus(data.data);
 
-              case 7:
+              case 6:
               case "end":
                 return _context3.stop();
             }
@@ -298,6 +321,45 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
       }
 
       return deleteCode;
+    }(),
+    btnSearch: function () {
+      var _btnSearch = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                this.listQuery.isUsed = parseInt(this.listQuery.isUsed); // console.log(this.listQuery);
+
+                loadingInstance = element_ui__WEBPACK_IMPORTED_MODULE_2__.Loading.service({
+                  fullscreen: true
+                });
+                _context4.next = 4;
+                return CodeRepository.filter(this.listQuery);
+
+              case 4:
+                data = _context4.sent;
+
+                if (data.data) {
+                  this.codes = data.data;
+                  this.success();
+                } else {
+                  this.error();
+                }
+
+              case 6:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function btnSearch() {
+        return _btnSearch.apply(this, arguments);
+      }
+
+      return btnSearch;
     }()
   }
 });
@@ -324,7 +386,9 @@ var baseURL = "".concat(baseDomain); // Incase of /api/v1;
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   baseURL: baseURL,
-  headers: {// "Authorization": "Bearer xxxxx"
+  headers: {
+    // "Authorization": "Bearer xxxxx"
+    "Content-Type": "application/json;charset=utf-8"
   }
 }));
 
@@ -345,6 +409,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var resource = '/codes';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  filter: function filter(data) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("".concat(resource), {
+      params: data
+    }); // get truyen tham so phai them param
+  },
   get: function get() {
     return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("".concat(resource));
   },
@@ -405,22 +474,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Client */ "./resources/js/asset/api/Client.js");
 
-var resource = '';
+var resource = '/';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   login: function login(payload) {
-    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/login"), payload);
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("/login", payload);
   },
   register: function register(payload) {
-    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/register"), payload);
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("/register", payload);
   },
   logout: function logout() {
-    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("".concat(resource, "/logout"));
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("/logout");
   },
   getlistUser: function getlistUser() {
-    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("".concat(resource, "/users"));
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("/users");
   },
   updateUser: function updateUser(id, payload) {
-    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.put("".concat(resource, "/users/").concat(id), payload);
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.put("/users/".concat(id), payload);
+  },
+  create: function create(payload) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.post("/users", payload);
+  },
+  "delete": function _delete(id) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.delete("/users/".concat(id));
+  },
+  filter: function filter(data) {
+    return _Client__WEBPACK_IMPORTED_MODULE_0__.default.get("/users", {
+      params: data
+    }); // get truyen tham so phai them param
   }
 });
 
@@ -1285,27 +1365,89 @@ var render = function() {
           _c("p", { staticClass: "_title0" }, [_vm._v("Thông tin mã đăng ký")]),
           _vm._v(" "),
           _c(
-            "el-button",
+            "el-form",
             {
-              attrs: { type: "primary" },
-              on: {
-                click: function($event) {
-                  _vm.createCodeDL = true
-                }
-              }
+              staticClass: "demo-form-inline",
+              attrs: { inline: true, model: _vm.listQuery }
             },
             [
-              _c("i", { staticClass: "el-icon-circle-plus-outline" }),
-              _vm._v("Thêm mới")
-            ]
+              _c(
+                "el-form-item",
+                [
+                  _c(
+                    "el-select",
+                    {
+                      attrs: { placeholder: "Trạng thái sử dụng" },
+                      model: {
+                        value: _vm.listQuery.isUsed,
+                        callback: function($$v) {
+                          _vm.$set(_vm.listQuery, "isUsed", $$v)
+                        },
+                        expression: "listQuery.isUsed"
+                      }
+                    },
+                    [
+                      _c(
+                        "el-option",
+                        { attrs: { label: "Tất cả", value: 0 } },
+                        [_vm._v("Tất cả")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-option",
+                        { attrs: { label: "Đã sử dụng", value: 2 } },
+                        [_vm._v("Đã sử dụng")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-option",
+                        { attrs: { label: "Chưa sử dụng", value: 1 } },
+                        [_vm._v("Chưa sử dụng")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-form-item",
+                [
+                  _c(
+                    "el-button",
+                    {
+                      attrs: { type: "primary" },
+                      on: { click: _vm.btnSearch }
+                    },
+                    [_vm._v("Tìm kiếm")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-button",
+                {
+                  attrs: { type: "primary" },
+                  on: {
+                    click: function($event) {
+                      _vm.createCodeDL = true
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "el-icon-circle-plus-outline" }),
+                  _vm._v("Thêm mới")
+                ]
+              )
+            ],
+            1
           ),
           _vm._v(" "),
           _c(
             "el-table",
-            {
-              staticStyle: { width: "100%" },
-              attrs: { data: _vm.codes.results }
-            },
+            { staticStyle: { width: "100%" }, attrs: { data: _vm.codes.data } },
             [
               _c("el-table-column", {
                 attrs: { label: "Id" },
@@ -1315,7 +1457,7 @@ var render = function() {
                     fn: function(scope) {
                       return [
                         _c("span", { staticStyle: { "margin-left": "10px" } }, [
-                          _vm._v(_vm._s(scope.row.id))
+                          _vm._v("$t" + _vm._s(scope.row.id))
                         ])
                       ]
                     }

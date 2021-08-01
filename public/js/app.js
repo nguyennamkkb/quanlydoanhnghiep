@@ -3552,7 +3552,7 @@ __webpack_require__.r(__webpack_exports__);
  // import { component } from "vue/types/umd"
 
 var homeapp = '/home';
-var dashboardapp = '/ddashboard';
+var dashboardapp = '/dashboard';
 vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_1__.default);
 
 var routes = [// dashboard

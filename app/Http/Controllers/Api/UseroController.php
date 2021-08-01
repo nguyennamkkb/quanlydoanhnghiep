@@ -6,54 +6,69 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Http\Requests\RegisterAuthRequest;
-use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
+// use App\Models\User;
+// use App\Http\Requests\RegisterAuthRequest;
+// use JWTAuth;
+// use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Code\CodeRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 
 class UseroController extends Controller
 {
-    protected $userRepository;
+    protected $userRepository, $codeRepository;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository, CodeRepositoryInterface  $codeRepository )
     {
         $this->userRepository = $userRepository;
+        $this->codeRepository = $codeRepository;
     }
-    public function index()
+    public function index(Request $request)
     {
-        return  $this->userRepository->getAll();
+        $keyword = $request->keyword;
+        $limit = $request->limit;
+
+        $list = $this->userRepository->findBy($keyword)->paginate($limit);
+        return UserResource::collection($list);
+
     }
 
     public function store(UserRequest $requets)
     {
         $req = $requets->validated();
         $userInfo = $this->userRepository->where('email', $req['email'])->first();
+        $code = $this->codeRepository->where('code', $req['code'])->first();
+
         if ($userInfo != NULL) {
-            return response()->json(['message' => 'Tài khoản đã tồn tại'], 422);
+            return response()->json(['status' => false,'message' => 'Tài khoản đã tồn tại'], 200);
+        }
+        if (($code != NULL && $code->isUsed == true) ||($code == NULL)) {
+            return response()->json(['status' => false,'message' => 'Mã đăng ký không thể sử dụng'], 200);
         }
 
         // Transaction DB
         DB::beginTransaction();
         try {
-            $resp = $this->userRepository->insertGetId([
+            $this->userRepository->insertGetId([
                 'name' => $req['name'],
                 'email' => $req['email'],
                 'password' => Hash::make($req['password']),
                 'code' => $req['code'],
             ]);
+            $this->codeRepository->update( $code->id, [
+                'isUsed' => true,
+            ]);
             DB::commit();
-            return new UserResource($this->userRepository->find($resp));
+            return response()->json(['status' => true], 200);    
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['message' => 'Xảy ra khi thêm mới người dùng!'], 422);
+            return response()->json(['status' => false], 200);
         }
     }
 
@@ -66,13 +81,33 @@ class UseroController extends Controller
     public function destroy($id)
     {
 
-       $resp = $this->userRepository->delete($id);
+        $resp = $this->userRepository->delete($id);
 
         if($resp) {
             return response()->json(['status' => true], 200);    
         }else {
             return response()->json(['status' => false], 422);
         }
+    
+    }
+    public function update(Request $request,$id)
+    {
+        // Transaction DB
+
+        DB::beginTransaction();
+        try {
+            $this->userRepository->update( $id, [
+                'name' => $request['name'],
+                'email' => $request['email'],
+            ]);
+            
+            DB::commit();
+            return response()->json(['status' => true], 200);    
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['status' => false], 422);
+        }
+    
     
     }
 }

@@ -4,12 +4,23 @@
       <br />
       <br />
       <div class="container-fuild">
-        <p class="_title0">Thông tin mã đăng ký</p>
-        <el-button type="primary" @click="createUserDL = true">
-          <i class="el-icon-circle-plus-outline"></i>Thêm mới</el-button
-        >
+        <p class="_title0">Thông tin tài khoản</p>
+        <el-form :inline="true" :model="listQuery" class="demo-form-inline">
+          <el-form-item>
+            <el-input
+              v-model="listQuery.keyword"
+              placeholder="Tìm kiếm"
+            ></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="btnSearch">Tìm kiếm</el-button>
+          </el-form-item>
+          <el-button type="primary" @click="btnCreateUser()">
+            <i class="el-icon-circle-plus-outline"></i>Thêm mới</el-button
+          >
+        </el-form>
 
-        <el-table :data="users.results" style="width: 100%">
+        <el-table :data="users.data" style="width: 100%">
           <el-table-column label="Id">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.id }}</span>
@@ -25,8 +36,7 @@
               <span style="margin-left: 10px">{{ scope.row.email }}</span>
             </template>
           </el-table-column>
-          
-          </el-table-column>
+
           <el-table-column label="Mã đăng ký">
             <template slot-scope="scope">
               <span style="margin-left: 10px">{{ scope.row.code }}</span>
@@ -38,13 +48,10 @@
               <el-button
                 size="mini"
                 type="warning"
-                @click="confirmUpdate(scope.row)"
+                @click="btnUpdate(scope.row)"
                 >Sửa</el-button
               >
-              <el-button
-                size="mini"
-                type="danger"
-                @click="confirmDelete(scope.row)"
+              <el-button size="mini" type="danger" @click="bntDelete(scope.row)"
                 >Xóa</el-button
               >
             </template>
@@ -53,17 +60,40 @@
       </div>
     </div>
     <div>
-      <el-dialog
-        title="Thông báo"
-        :visible.sync="createUserDL"
-        width="20%"
-        center
-      >
-        <span>Thêm mới mã đăng ký</span>
+      <el-dialog title="Thêm mới tài khoản" :visible.sync="createUserDL">
+        <el-form :model="dataCreate" :rules="createRules" ref="dataform2">
+          <el-form-item label="Tên" prop="name" :label-width="formLabelWidth">
+            <el-input v-model="dataCreate.name" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="Email"
+            prop="email"
+            :label-width="formLabelWidth"
+          >
+            <el-input v-model="dataCreate.email" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="Mã đăng ký"
+            prop="code"
+            :label-width="formLabelWidth"
+          >
+            <el-input v-model="dataCreate.code" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="Mật khẩu"
+            prop="password"
+            :label-width="formLabelWidth"
+          >
+            <el-input
+              v-model="dataCreate.password"
+              autocomplete="off"
+            ></el-input>
+          </el-form-item>
+        </el-form>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="createUserDL = false">Hủy</el-button>
+          <el-button @click="createUserDL = false">hủy</el-button>
           <el-button type="primary" @click="handleCreateUser()"
-            >Đồng ý</el-button
+            >Xác nhận</el-button
           >
         </span>
       </el-dialog>
@@ -73,47 +103,47 @@
         width="20%"
         center
       >
-        <span>Xóa mã đăng ký</span>
+        <span>Xóa tài khoản người d</span>
         <span slot="footer" class="dialog-footer">
           <el-button @click="deleteUserDL = false">Hủy</el-button>
-          <el-button type="primary" @click="deleteUser()">Đồng ý</el-button>
+          <el-button type="primary" @click="handleDeleteUser()"
+            >Đồng ý</el-button
+          >
         </span>
       </el-dialog>
-      <div>
-        
-      </div>
-      <el-dialog title="Thêm mới tài khoản" :visible.sync="updateUserDL">
-        <el-form :model="userData">
-          <el-form-item label="Tên" :label-width="updateUserDLLabelWidth">
-            <el-input v-model="userData.name" autocomplete="off"></el-input>
+      <div></div>
+      <el-dialog title="Sửa thông tin tài khoản" :visible.sync="updateUserDL">
+        <el-form :model="userData" :rules="rules" ref="ruleForm">
+          <el-form-item
+            label="Tên"
+            :label-width="updateUserDLLabelWidth"
+            prop="name"
+          >
+            <el-input
+              v-model="userData.name"
+              type="text"
+              autocomplete="off"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="Địa chỉ Email" :label-width="updateUserDLLabelWidth">
-            <el-input v-model="userData.email" autocomplete="off"></el-input>
+          <el-form-item
+            label="Địa chỉ Email"
+            :label-width="updateUserDLLabelWidth"
+            prop="email"
+          >
+            <el-input
+              type="email"
+              v-model="userData.email"
+              autocomplete="off"
+            ></el-input>
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="updateUserDL = false">Hủy</el-button>
-          <el-button type="primary" @click="handleUpdateCode()">Xác nhận</el-button>
+          <el-button type="primary" @click="handleUpdateCode()"
+            >Xác nhận</el-button
+          >
         </span>
       </el-dialog>
-
-      <!-- <el-dialog title="Shipping address" :visible.sync="creatUserDL">
-        <el-form :model="form">
-          <el-form-item label="Promotion name" :label-width="formLabelWidth">
-            <el-input v-model="form.name" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="Zones" :label-width="formLabelWidth">
-            <el-select v-model="form.region" placeholder="Please select a zone">
-              <el-option label="Zone No.1" value="shanghai"></el-option>
-              <el-option label="Zone No.2" value="beijing"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-form>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="creatUserDL = false">Cancel</el-button>
-          <el-button type="primary" @click="creatUserDL = false">Confirm</el-button>
-        </span>
-      </el-dialog> -->
     </div>
   </div>
 
@@ -121,7 +151,7 @@
 </template>
 <script>
 import Repository from "../../../api/repositories/RepositoryFactory";
-import { Loading } from "element-ui";
+import { Empty, Loading } from "element-ui";
 let loadingInstance;
 const UserRepository = Repository.get("users");
 
@@ -129,6 +159,11 @@ export default {
   components: {},
   data() {
     return {
+      listQuery: {
+        page: 1,
+        limit: 20,
+        keyword: undefined,
+      },
       creatUserDL: false,
       createUserDL: false,
       deleteUserDL: false,
@@ -147,10 +182,16 @@ export default {
         ],
       },
       userData: {
-        id: null,
-        name: null,
-        email: null,
-        code: null,
+        id: undefined,
+        name: "",
+        email: "",
+        code: "",
+      },
+      dataCreate: {
+        id: undefined,
+        name: "",
+        email: "",
+        code: "",
       },
       modalTitle: "",
       modal1: false,
@@ -162,6 +203,57 @@ export default {
       mesDelete: false,
       fullscreenLoading: false,
       updateUserDLLabelWidth: "130PX",
+      rules: {
+        name: [
+          {
+            required: true,
+            message: "Tên không được bỏ trống",
+            trigger: "change",
+          },
+        ],
+        email: [
+          {
+            required: true,
+            message: "Email không được bỏ trống",
+            trigger: "change",
+          },
+        ],
+      },
+      createRules: {
+        name: [
+          {
+            required: true,
+            message: "Tên không được bỏ trống",
+            trigger: "change",
+          },
+        ],
+        email: [
+          {
+            required: true,
+            message: "Email không được bỏ trống",
+            trigger: "change",
+          },
+        ],
+        code: [
+          {
+            required: true,
+            message: "Mã đăng ký không được bỏ trống",
+            trigger: "change",
+          },
+        ],
+        password: [
+          {
+            required: true,
+            message: "Mật khẩu không được bỏ trống",
+            trigger: "change",
+          },
+        ],
+      },
+      formLabelWidth: "120px",
+      search: {
+        keyword: "",
+        isUsed: undefined,
+      },
     };
   },
 
@@ -177,7 +269,8 @@ export default {
     },
     getusers: async function () {
       const data = await UserRepository.getlistUser();
-      if (data.data.code == 200) {
+      // console.log(data.data);
+      if (data.data) {
         this.users = data.data;
       }
     },
@@ -186,12 +279,13 @@ export default {
         type: "success",
         message: "Thành công",
       });
+      this.Reset();
     },
-    error() {
+    error(data) {
       loadingInstance.close();
       this.$message({
         type: "error",
-        message: "Không thành công",
+        message: data == "" ? "Không thành công" : data,
       });
     },
     checkStatus: function (data) {
@@ -202,42 +296,80 @@ export default {
       } else {
         this.error();
       }
-      
+    },
+    btnCreateUser() {
+      this.createUserDL = true;
     },
     handleCreateUser: async function () {
-      loadingInstance = Loading.service({ fullscreen: true });
-      const data = await UserRepository.create();
-      this.checkStatus(data.data);
+      this.$refs.dataform2.validate((valid) => {
+        if (valid) {
+          loadingInstance = Loading.service({ fullscreen: true });
+          try {
+            UserRepository.create(this.dataCreate).then((result) => {
+              if (result.data.status == true) {
+                this.getusers();
+                this.success();
+              } else {
+                this.error(result.data.message);
+              }
+            });
+          } catch (error) {
+            console.log(error);
+            this.error();
+          }
+        }
+      });
     },
-    confirmDelete(row) {
+    bntDelete(row) {
       this.dataUser = row;
       this.deleteUserDL = true;
     },
-    deleteUser: async function () {
+    handleDeleteUser: async function () {
       this.deleteUserDL = false;
       loadingInstance = Loading.service({ fullscreen: true });
       const data = await UserRepository.delete(this.dataUser.id);
-      console.log(data);
+      // console.log(data);
       this.checkStatus(data.data);
     },
-    confirmUpdate(row) {
-      this.userData = row;
-      console.log(this.userData)
+    btnUpdate(row) {
+      this.userData = Object.assign({}, row);
+      // console.log(this.userData);
       this.updateUserDL = true;
     },
     handleUpdateCode: async function () {
+      //  const data =  UserRepository.updateUser(this.userData.id,this.userData)
+      this.$refs["ruleForm"].validate((valid) => {
+        if (valid) {
+          loadingInstance = Loading.service({ fullscreen: true });
+          try {
+            UserRepository.updateUser(this.userData.id, this.userData).then(
+              (result) => {
+                if (result.data.status == true) {
+                  this.getusers();
+                  this.success();
+                }
+              }
+            );
+          } catch (error) {
+            this.error();
+          }
+        }
+      });
+    },
+    btnSearch: async function () {
       loadingInstance = Loading.service({ fullscreen: true });
       try {
-        const data = await UserRepository.updateUser(
-          this.userData.id,
-          this.userData
-        );
-        if (data.data.code == 200) {
-          this.users = data.data;
-        }
-      } catch (error) {
-        this.error();
+        const data = await UserRepository.filter(this.listQuery)
+      if (data.data) {
+        this.users = data.data;
+        this.success();
+      }else{
+        this.error()
       }
+      } catch (error) {
+        console.log(error)
+      }
+      
     },
   },
 };

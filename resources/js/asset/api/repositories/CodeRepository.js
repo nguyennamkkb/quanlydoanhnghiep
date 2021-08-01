@@ -2,6 +2,9 @@ import Client from '../Client';
 const resource = '/codes';
 
 export default {
+    filter(data) {
+        return Client.get(`${resource}`, { params: data }); // get truyen tham so phai them param
+    },
     get() {
         return Client.get(`${resource}`);
     },
@@ -17,6 +20,7 @@ export default {
     delete(id) {
         return Client.delete(`${resource}/${id}`)
     },
+
 
     // MANY OTHER ENDPOINT RELATED STUFFS
 };

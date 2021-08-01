@@ -5,8 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\CodeRequest;
-use App\Interfaces\CodeInterface;
-use App\Models\Code;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\CodeResource;
 use App\Repositories\Code\CodeRepositoryInterface;
@@ -24,14 +22,20 @@ class CodeController extends Controller
     {
         $this->codeRepository = $codeRepository;
     }
-    public function index()
+    public function index(Request $request)
     {
-        return  $this->codeRepository->getAll();
+        // dd( $request);
+        // return $request;
+        $keyword = $request->keyword;
+        $status = $request->isUsed;
+        $limit = $request->limit;
+        
+        $list = $this->codeRepository->findBy($status,$keyword)->paginate($limit);
+        return CodeResource::collection($list);
     }
-
+    
     public function store()
     {
-        
         // Transaction DB
         DB::beginTransaction();
         try {

@@ -11,29 +11,24 @@ use App\Http\Resources\CodeResource;
 
 class CodeRepositoryEloquent extends RepositoryEloquent implements CodeRepositoryInterface
 {
-    use ResponseAPI;
     public function model()
     {
         return Code::class;
     }
 
-    public function findBy($status, $keyword, $slide)
+    public function findBy($status, $keyword)
     {
         $query = $this->model->newQuery();
+        // dd($status);
+        if (!empty($status)) {
 
+            $query = $this->model->where('isUsed',$status-1);
+        }
         if (!empty($keyword)) {
             $query = $this->model->where('code', 'like', "%$keyword%");
         }
 
-        return $query;
+        return $query->orderBy('isUsed', 'asc');
     }
-    public function getAll()
-    {
-        try {
-            $query = CodeResource::collection($this->model->all());
-            return $this->success("codes", $query);
-        } catch (\Exception $e) {
-            return $this->error($e->getMessage(), $e->getCode());
-        }
-    }
+
 }

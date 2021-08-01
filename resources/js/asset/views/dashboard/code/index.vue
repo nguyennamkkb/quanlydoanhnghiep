@@ -5,14 +5,32 @@
       <br />
       <div class="container-fuild">
         <p class="_title0">Thông tin mã đăng ký</p>
-        <el-button type="primary" @click="createCodeDL = true">
+        <el-form :inline="true" :model="listQuery" class="demo-form-inline">
+          <el-form-item>
+            <el-select
+              v-model="listQuery.isUsed"
+              placeholder="Trạng thái sử dụng"
+            >
+              <el-option label="Tất cả" :value="0">Tất cả</el-option>
+              <el-option label="Đã sử dụng" :value="2">Đã sử dụng</el-option>
+              <el-option label="Chưa sử dụng" :value="1"
+                >Chưa sử dụng</el-option
+              >
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="btnSearch">Tìm kiếm</el-button>
+          </el-form-item>
+          <el-button type="primary" @click="createCodeDL = true">
           <i class="el-icon-circle-plus-outline"></i>Thêm mới</el-button
         >
+        </el-form>
+        
 
-        <el-table :data="codes.results" style="width: 100%">
+        <el-table :data="codes.data" style="width: 100%">
           <el-table-column label="Id">
             <template slot-scope="scope">
-              <span style="margin-left: 10px">{{ scope.row.id }}</span>
+              <span style="margin-left: 10px">$t{{ scope.row.id }}</span>
             </template>
           </el-table-column>
           <el-table-column label="Mã đăng ký">
@@ -138,6 +156,12 @@ export default {
       },
       mesDelete: false,
       fullscreenLoading: false,
+      listQuery: {
+        page: 1,
+        limit: 20,
+        keyword: '',
+        isUsed:undefined,
+      },
     };
   },
 
@@ -145,11 +169,9 @@ export default {
     this.getCodes();
   },
   methods: {
-    
     getCodes: async function () {
       const data = await CodeRepository.get();
-      // console.log(data.data);
-      if (data.data.code == 200) {
+      if (data.data) {
         this.codes = data.data;
       }
     },
@@ -190,8 +212,21 @@ export default {
       this.deleteCodeDL = false;
       loadingInstance = Loading.service({ fullscreen: true });
       const data = await CodeRepository.delete(this.dataCode.id);
-      console.log(data);
+      // console.log(data);
       this.checkStatus(data.data);
+    },
+    btnSearch: async function () {
+      this.listQuery.isUsed = parseInt(this.listQuery.isUsed);
+      // console.log(this.listQuery);
+      loadingInstance = Loading.service({ fullscreen: true });
+      const data = await CodeRepository.filter(this.listQuery);
+
+      if (data.data) {
+        this.codes = data.data;
+        this.success();
+      }else{
+        this.error()
+      }
     },
   },
 };

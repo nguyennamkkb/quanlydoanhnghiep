@@ -9,5 +9,6 @@ export default axios.create({
     baseURL,
     headers: {
         // "Authorization": "Bearer xxxxx"
+        "Content-Type": "application/json;charset=utf-8"
     }
 });

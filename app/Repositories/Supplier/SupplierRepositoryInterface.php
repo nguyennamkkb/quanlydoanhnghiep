@@ -1,9 +1,9 @@
 <?php
-namespace App\Repositories\Code;
+namespace App\Repositories\Supplier;
 
 use App\Repositories\Contracts\RepositoryInterface;
 
-interface CodeRepositoryInterface extends RepositoryInterface
+interface SupplierRepositoryInterface extends RepositoryInterface
 {
     public function findBy($status, $keyword);
 }
