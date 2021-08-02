@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Route::any('/dashboard/{slug}', function(){ // dashboard app trang quanr tri
-    return view('dashboard.index');
-});
+Route::any('{all}', function () {
+    return view('app');
+})
+->where(['all' => '.*']);

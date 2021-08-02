@@ -1,155 +1,58 @@
 <template>
-	<div>
-		<div class="content">
-			<div class="container-fuild">
-				<div class="row">
-					<div class="col-12 col-md-3">
-						<div class="_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_one">
-							<div class="_1adminOverveiw_card_left">
-								<p class="_1adminOverveiw_card_left_num">3</p>
+  <div>
+    <div class="">
+      <header
+        class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"
+      >
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"
+          >QUYETNHANH</a
+        >
 
-								<p class="_1adminOverveiw_card_left_title">Today's News</p>
-							</div>
-							<div class="_1adminOverveiw_card_right">
-							</div>
-						</div>
-					</div>
+        <div class="navbar-nav">
+          <div class="nav-item text-nowrap">
+            <a class="nav-link px-3" href="#">Đăng xuất</a>
+          </div>
+        </div>
+      </header>
 
-					<div class="col-12 col-md-3">
-						<div class="_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_two">
-							<div class="_1adminOverveiw_card_left">
-								<p class="_1adminOverveiw_card_left_num">29</p>
+      <div class="row">
+        <nav
+          id="sidebarMenu"
+          class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+        >
+          <el-menu
+            class="el-menu-vertical-demo"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b"
+          >
+            <router-link to="index" aria-current="page">
+              <el-menu-item index="1">
+                <i class="el-icon-setting"></i>
+                <span> Overview</span>
+              </el-menu-item>
+            </router-link>
+            <router-link aria-current="page" to="user">
+              <el-menu-item index="2">
+                <i class="el-icon-setting"></i>
+                <span> Tài khoản</span>
+              </el-menu-item>
+            </router-link>
+            <router-link aria-current="page" to="code">
+              <el-menu-item index="3">
+                <i class="el-icon-setting"></i>
 
-								<p class="_1adminOverveiw_card_left_title">Total News</p>
-							</div>
-							<div class="_1adminOverveiw_card_right">
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-md-3">
-						<div class="_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_two">
-							<div class="_1adminOverveiw_card_left">
-								<p class="_1adminOverveiw_card_left_num">29</p>
-
-								<p class="_1adminOverveiw_card_left_title">Features News</p>
-							</div>
-							<div class="_1adminOverveiw_card_right">
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-md-3">
-						<div class="_1adminOverveiw_card _box_shadow _border_radious _mar_b30 _1adminOverveiw_bg_two">
-							<div class="_1adminOverveiw_card_left">
-								<p class="_1adminOverveiw_card_left_num">29</p>
-
-								<p class="_1adminOverveiw_card_left_title">Card News</p>
-							</div>
-							<div class="_1adminOverveiw_card_right">
-							</div>
-						</div>
-					</div>
-				</div>	
-				<!--~~~~~~~ TABLE ONE ~~~~~~~~~-->
-				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
-					<p class="_title0">Recent News</p>
-
-					<div class="_overflow _table_div">
-						<table class="_table">
-								<!-- TABLE TITLE -->
-							<tr>
-								<th>Date</th>
-								<th>Title</th>
-								<th>Category</th>
-								<th>Action</th>
-							</tr>
-								<!-- TABLE TITLE -->
-
-
-								<!-- ITEMS -->
-							<tr>
-								<td>25-05-19</td>
-								<td class="_table_name">Manhattan's art center "Shed" opening ceremony</td>
-								<td>Economy</td>
-								<td>
-									<button class="_btn _action_btn view_btn1" type="button">View</button>
-									<button class="_btn _action_btn edit_btn1" type="button">Edit</button>
-									<button class="_btn _action_btn make_btn2" type="button">Make Features</button>
-									<button class="_btn _action_btn make_btn3" type="button">Make Card</button>
-									<button class="_btn _action_btn make_btn1" type="button">Delete</button>
-								</td>
-							</tr>
-								<!-- ITEMS -->
-
-								<!-- ITEMS -->
-							<tr>
-								<td>25-05-19</td>
-								<td class="_table_name">Are Trump era is having an impact on what 's future voters</td>
-								<td>Social</td>
-								<td>
-									<button class="_btn _action_btn view_btn1" type="button">View</button>
-									<button class="_btn _action_btn edit_btn1" type="button">Edit</button>
-									<button class="_btn _action_btn make_btn2" type="button">Make Features</button>
-									<button class="_btn _action_btn make_btn3" type="button">Make Card</button>
-									<button class="_btn _action_btn make_btn1" type="button">Delete</button>
-								</td>
-							</tr>
-								<!-- ITEMS -->
-
-										<!-- ITEMS -->
-							<tr>
-								<td>25-05-19</td>
-								<td class="_table_name">Manhattan's art center "Shed" opening ceremony</td>
-								<td>Economy</td>
-								<td>
-									<button class="_btn _action_btn view_btn1" type="button">View</button>
-									<button class="_btn _action_btn edit_btn1" type="button">Edit</button>
-									<button class="_btn _action_btn make_btn2" type="button">Make Features</button>
-									<button class="_btn _action_btn make_btn3" type="button">Make Card</button>
-									<button class="_btn _action_btn make_btn1" type="button">Delete</button>
-								</td>
-							</tr>
-								<!-- ITEMS -->
-
-								<!-- ITEMS -->
-							<tr>
-								<td>25-05-19</td>
-								<td class="_table_name">Are Trump era is having an impact on what 's future voters</td>
-								<td>Social</td>
-								<td>
-									<button class="_btn _action_btn view_btn1" type="button">View</button>
-									<button class="_btn _action_btn edit_btn1" type="button">Edit</button>
-									<button class="_btn _action_btn make_btn2" type="button">Make Features</button>
-									<button class="_btn _action_btn make_btn3" type="button">Make Card</button>
-									<button class="_btn _action_btn make_btn1" type="button">Delete</button>
-								</td>
-							</tr>
-								<!-- ITEMS -->
-
-								<!-- ITEMS -->
-							<tr>
-								<td>25-05-19</td>
-								<td class="_table_name">Are Trump era is having an impact on what 's future voters</td>
-								<td>Social</td>
-								<td>
-									<button class="_btn _action_btn view_btn1" type="button">View</button>
-									<button class="_btn _action_btn edit_btn1" type="button">Edit</button>
-									<button class="_btn _action_btn make_btn2" type="button">Make Features</button>
-									<button class="_btn _action_btn make_btn3" type="button">Make Card</button>
-									<button class="_btn _action_btn make_btn1" type="button">Delete</button>
-								</td>
-							</tr>
-								<!-- ITEMS -->
-
-
-						</table>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
+                <span>Mã đăng ký</span>
+              </el-menu-item>
+            </router-link>
+          </el-menu>
+        </nav>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <router-view />
+        </main>
+      </div>
+    </div>
+  </div>
 </template>
 
 

@@ -268,10 +268,12 @@ export default {
       loadingInstance.close();
     },
     getusers: async function () {
+      loadingInstance = Loading.service({ fullscreen: true });
       const data = await UserRepository.getlistUser();
       // console.log(data.data);
       if (data.data) {
         this.users = data.data;
+        loadingInstance.close();
       }
     },
     success() {
@@ -359,17 +361,16 @@ export default {
     btnSearch: async function () {
       loadingInstance = Loading.service({ fullscreen: true });
       try {
-        const data = await UserRepository.filter(this.listQuery)
-      if (data.data) {
-        this.users = data.data;
-        this.success();
-      }else{
-        this.error()
-      }
+        const data = await UserRepository.filter(this.listQuery);
+        if (data.data) {
+          this.users = data.data;
+          this.success();
+        } else {
+          this.error();
+        }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-      
     },
   },
 };

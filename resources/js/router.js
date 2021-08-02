@@ -6,32 +6,41 @@ const dashboardapp = '/dashboard'
 
 Vue.use(Router)
 
-import indexdashboard from './asset/views/dashboard/index.vue';
+import dashboard from './asset/views/dashboard/index.vue';
+import home from './asset/views/home/index.vue';
 
 const routes = [
     // dashboard
     {
-        path: dashboardapp + '/index',
-        component: indexdashboard
+        path: homeapp,
+        component: dashboard,
+        children: [{
+                path: dashboardapp + '/user',
+                component: () =>
+                    import ('./asset/views/dashboard/user/index.vue'),
+                meta: 'User'
+            },
+            {
+                path: dashboardapp + '/code',
+                component: () =>
+                    import ('./asset/views/dashboard/code/index.vue'),
+                meta: 'Code'
+            }
+        ]
     },
-    {
-        path: dashboardapp + '/hook',
-        component: () =>
-            import ('./asset/views/dashboard/pages/hook.vue'),
-        meta: 'dashboard'
-    },
-    {
-        path: dashboardapp + '/user',
-        component: () =>
-            import ('./asset/views/dashboard/user/index.vue'),
-        meta: 'User'
-    },
-    {
-        path: dashboardapp + '/code',
-        component: () =>
-            import ('./asset/views/dashboard/code/index.vue'),
-        meta: 'Code'
+    { // home
+        path: homeapp,
+        component: home,
+        name: 'home',
+        children: [{
+            path: homeapp + '/auth',
+            component: () =>
+                import ('./asset/views/home/auth.vue'),
+            meta: 'auth',
+            name: 'auth'
+        }]
     }
+
 ]
 
 export default new Router({
