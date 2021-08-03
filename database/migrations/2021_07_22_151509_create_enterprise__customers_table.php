@@ -14,8 +14,8 @@ class CreateEnterpriseCustomersTable extends Migration
     public function up()
     {
         Schema::create('enterprise_customers', function (Blueprint $table) {
-            $table->integer('idEnterprise');
-            $table->integer('idCustomer');
+            $table->integer('enterprise_id');
+            $table->integer('customer_id');
 
             // $table->foreign('idEnterprise')->references('id')->on('enterprises');
             // $table->foreign('idCustomer')->references('id')->on('customers');

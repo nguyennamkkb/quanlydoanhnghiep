@@ -16,10 +16,10 @@ class CreateInputsTable extends Migration
         Schema::create('inputs', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date'); 
-            $table->integer('idSupblie'); 
+            $table->integer('supblie_id'); 
             $table->string('totalweight'); 
-            $table->integer('idImporter'); 
-            $table->integer('idCarrier'); 
+            $table->integer('importer_id'); 
+            $table->integer('carrier_id'); 
             $table->timestamps();
 
             // $table->foreign('idImporter')->references('id')->on('users');

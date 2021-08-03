@@ -19,7 +19,7 @@ class CreateCustomersTable extends Migration
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
-            $table->integer('idCustomerType');
+            $table->integer('customerType_id');
             $table->timestamps();
 
             // $table->foreign('idCustomerType')->references('id')->on('customer_types');

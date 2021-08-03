@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Code;
-use App\Http\Resources\EnterpriseResource;
+use App\Http\Resources\UserResource;
 
 class CodeResource extends JsonResource
 {
@@ -25,7 +25,7 @@ class CodeResource extends JsonResource
             'endTime' => $this->endTime,
             // 'created_at' => (string)$this->created_at,
             // 'updated_at' => (string)$this->updated_at,
-            'enterprise' => new EnterpriseResource($this->enterprises),
+            'user' => new UserResource($this->user),
             // 'enterprise' =>  $this->enterprises,
             
         ];
