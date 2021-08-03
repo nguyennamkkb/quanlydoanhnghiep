@@ -66,6 +66,8 @@ class UseroController extends Controller
                 'isUsed' => true,
                 'user_id' => $userstore,
                 'startTime' => Carbon::now()->toDateTimeString(),
+                'endtime' => Carbon::now()->addYears(5)->toDateTimeString(),
+
                 
             ]);
             DB::commit();
