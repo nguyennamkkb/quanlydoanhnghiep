@@ -16,7 +16,7 @@ class CreateWarehousesTable extends Migration
         Schema::create('warehouses', function (Blueprint $table) {
             $table->id();
             $table->string('name'); 
-            $table->integer('idCategory'); 
+            $table->integer('category_id'); 
             $table->integer('unit'); 
             $table->float('amount'); 
             $table->float('price'); 

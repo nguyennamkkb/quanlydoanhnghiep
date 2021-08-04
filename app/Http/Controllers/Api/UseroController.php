@@ -55,7 +55,7 @@ class UseroController extends Controller
         // Transaction DB
         DB::beginTransaction();
         try {
-            $this->userRepository->insertGetId([
+            $userStote = $this->userRepository->insertGetId([
                 'name' => $req['name'],
                 'email' => $req['email'],
                 'password' => Hash::make($req['password']),
@@ -63,6 +63,7 @@ class UseroController extends Controller
             ]);
             $this->codeRepository->update( $code->id, [
                 'isUsed' => true,
+                'user_id' => $userStote,
             ]);
             DB::commit();
             return response()->json(['status' => true], 200);    
@@ -105,7 +106,7 @@ class UseroController extends Controller
             return response()->json(['status' => true], 200);    
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['status' => false], 422);
+            return response()->json(['status' => false], 200);
         }
     
     

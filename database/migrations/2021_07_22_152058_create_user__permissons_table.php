@@ -14,8 +14,8 @@ class CreateUserPermissonsTable extends Migration
     public function up()
     {
         Schema::create('userpermissons', function (Blueprint $table) {
-            $table->integer('idUser');  
-            $table->integer('idPerm');  
+            $table->integer('user_id');  
+            $table->integer('ermissons_id');  
 
             // $table->foreign('idUser')->references('id')->on('users');
             // $table->foreign('idPerm')->references('id')->on('permissions');

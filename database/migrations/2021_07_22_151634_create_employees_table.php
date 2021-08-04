@@ -20,8 +20,8 @@ class CreateEmployeesTable extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('image')->nullable();
-            $table->integer('idEmployeeType');
-            $table->integer('idEmterprise');
+            $table->integer('employeeType_id');
+            $table->integer('emterprise_id');
             $table->timestamps();
 
             // $table->foreign('idEmployeeType')->references('id')->on('users');

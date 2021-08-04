@@ -1513,7 +1513,9 @@ var render = function() {
                     fn: function(scope) {
                       return [
                         _c("span", { staticStyle: { "margin-left": "10px" } }, [
-                          _vm._v(_vm._s(scope.row.enterprise))
+                          _vm._v(
+                            _vm._s(scope.row.user ? scope.row.user.name : "")
+                          )
                         ])
                       ]
                     }

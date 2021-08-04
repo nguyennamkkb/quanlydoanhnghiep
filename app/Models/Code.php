@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Enterprise;
+use App\Models\User;
 
 class Code extends Model
 {
     use HasFactory;
     protected $table = 'codes';
-    public function enterprises()
+    public function user()
     {
-        return $this->belongsTo(Enterprise::class, 'enterprise_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -50,7 +50,7 @@
           </el-table-column>
           <el-table-column label="Doanh nghiệp">
             <template slot-scope="scope">
-              <span style="margin-left: 10px">{{ scope.row.enterprise }}</span>
+              <span style="margin-left: 10px">{{ scope.row.user ? scope.row.user.name: "" }}</span>
             </template>
           </el-table-column>
           <el-table-column label="Ngày bắt đầu">

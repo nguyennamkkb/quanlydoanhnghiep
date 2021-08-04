@@ -15,7 +15,7 @@ class CreatePermissionDetailsTable extends Migration
     {
         Schema::create('permission_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('idPermisson'); 
+            $table->integer('permisson_id'); 
             $table->string('actionName'); 
             $table->string('actionCode'); 
             $table->string('check'); 
