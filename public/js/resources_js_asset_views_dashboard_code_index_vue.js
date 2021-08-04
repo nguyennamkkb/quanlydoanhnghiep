@@ -146,8 +146,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 var loadingInstance;
@@ -1516,21 +1514,11 @@ var render = function() {
                     key: "default",
                     fn: function(scope) {
                       return [
-                        _vm._v("\n<<<<<<< HEAD\n              "),
                         _c("span", { staticStyle: { "margin-left": "10px" } }, [
                           _vm._v(
                             _vm._s(scope.row.user ? scope.row.user.name : "")
                           )
-                        ]),
-                        _vm._v("\n=======\n              "),
-                        _c("span", { staticStyle: { "margin-left": "10px" } }, [
-                          _vm._v(
-                            _vm._s(scope.row.user ? scope.row.user.name : "")
-                          )
-                        ]),
-                        _vm._v(
-                          "\n>>>>>>> 3d34eaace4f7f850f4b3a2bf7f0e1d2b0a506f91\n            "
-                        )
+                        ])
                       ]
                     }
                   }

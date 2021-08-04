@@ -28,5 +28,6 @@
         </div>
     </body>
     <script src="{{ mix('/js/app.js') }}"></script>
+    <script src="{{ asset('/js/VueQrcodeReader.umd.min.js') }}"></script>
     {{-- <script src="//unpkg.com/view-design/dist/iview.min.js"></script> --}}
 </html>

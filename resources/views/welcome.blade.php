@@ -28,5 +28,6 @@
         </div>
     </body>
     <script src="{{ mix('/js/app.js') }}"></script>
+    <script src="{{ asset('/js/jquery.js') }}"></script>
     {{-- <script src="//unpkg.com/view-design/dist/iview.min.js"></script> --}}
 </html>
