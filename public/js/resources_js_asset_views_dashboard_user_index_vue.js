@@ -291,18 +291,22 @@ var UserRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                loadingInstance = element_ui__WEBPACK_IMPORTED_MODULE_2__.Loading.service({
+                  fullscreen: true
+                });
+                _context.next = 3;
                 return UserRepository.getlistUser();
 
-              case 2:
+              case 3:
                 data = _context.sent;
 
                 // console.log(data.data);
                 if (data.data) {
                   this.users = data.data;
+                  loadingInstance.close();
                 }
 
-              case 4:
+              case 5:
               case "end":
                 return _context.stop();
             }

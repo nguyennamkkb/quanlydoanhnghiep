@@ -14,8 +14,8 @@ class CreateUserEnterprisesTable extends Migration
     public function up()
     {
         Schema::create('user_enterprises', function (Blueprint $table) {
-            $table->integer('idUser');
-            $table->integer('idEnterprise');
+            $table->integer('user_id');
+            $table->integer('enterprise_id');
 
             // $table->foreign('idUser')->references('id')->on('users');
             // $table->foreign('idEnterprise')->references('id')->on('enterprises');

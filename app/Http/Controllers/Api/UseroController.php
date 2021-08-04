@@ -14,6 +14,7 @@ use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\Code\CodeRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 
 class UseroController extends Controller
@@ -55,7 +56,11 @@ class UseroController extends Controller
         // Transaction DB
         DB::beginTransaction();
         try {
+<<<<<<< HEAD
             $userStote = $this->userRepository->insertGetId([
+=======
+            $userstore= $this->userRepository->insertGetId([
+>>>>>>> 3d34eaace4f7f850f4b3a2bf7f0e1d2b0a506f91
                 'name' => $req['name'],
                 'email' => $req['email'],
                 'password' => Hash::make($req['password']),
@@ -63,7 +68,15 @@ class UseroController extends Controller
             ]);
             $this->codeRepository->update( $code->id, [
                 'isUsed' => true,
+<<<<<<< HEAD
                 'user_id' => $userStote,
+=======
+                'user_id' => $userstore,
+                'startTime' => Carbon::now()->toDateTimeString(),
+                'endtime' => Carbon::now()->addYears(5)->toDateTimeString(),
+
+                
+>>>>>>> 3d34eaace4f7f850f4b3a2bf7f0e1d2b0a506f91
             ]);
             DB::commit();
             return response()->json(['status' => true], 200);    
