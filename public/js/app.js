@@ -82721,8 +82721,7 @@ var render = function() {
         _c(
           "nav",
           {
-            staticClass:
-              "col-md-3 col-lg-2 d-md-block bg-light sidebar collapse",
+            staticClass: "col-md-3 col-lg-2 d-md-block sidebar collapse",
             attrs: { id: "sidebarMenu" }
           },
           [
@@ -82774,6 +82773,112 @@ var render = function() {
                     ])
                   ],
                   1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-submenu",
+                  { attrs: { index: "4" } },
+                  [
+                    _c("template", { slot: "title" }, [
+                      _c("i", { staticClass: "el-icon-location" }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Danh mục chung")])
+                    ]),
+                    _vm._v(" "),
+                    _c("el-menu-item", { attrs: { index: "4-1" } }, [
+                      _vm._v("Loại hàng hóa")
+                    ]),
+                    _vm._v(" "),
+                    _c("el-menu-item", { attrs: { index: "4-2" } }, [
+                      _vm._v("Tính sản phẩm")
+                    ]),
+                    _vm._v(" "),
+                    _c("el-menu-item", { attrs: { index: "4-3" } }, [
+                      _vm._v("kho hàng")
+                    ])
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  { attrs: { "aria-current": "page", to: "code" } },
+                  [
+                    _c("el-menu-item", { attrs: { index: "5" } }, [
+                      _c("i", { staticClass: "el-icon-setting" }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Nhà cung cấp")])
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  { attrs: { "aria-current": "page", to: "code" } },
+                  [
+                    _c("el-menu-item", { attrs: { index: "6" } }, [
+                      _c("i", { staticClass: "el-icon-setting" }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Khách hàng mua")])
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  { attrs: { "aria-current": "page", to: "code" } },
+                  [
+                    _c("el-menu-item", { attrs: { index: "6" } }, [
+                      _c("i", { staticClass: "el-icon-setting" }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Nhân viên")])
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-submenu",
+                  { attrs: { index: "7" } },
+                  [
+                    _c("template", { slot: "title" }, [
+                      _c("i", { staticClass: "el-icon-location" }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Nhập hàng")])
+                    ]),
+                    _vm._v(" "),
+                    _c("el-menu-item", { attrs: { index: "8-1" } }, [
+                      _vm._v("Lập phiếu nhập")
+                    ]),
+                    _vm._v(" "),
+                    _c("el-menu-item", { attrs: { index: "8-2" } }, [
+                      _vm._v("Danh sách phiếu nhập")
+                    ])
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-submenu",
+                  { attrs: { index: "8" } },
+                  [
+                    _c("template", { slot: "title" }, [
+                      _c("i", { staticClass: "el-icon-location" }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Xuất hàng")])
+                    ]),
+                    _vm._v(" "),
+                    _c("el-menu-item", { attrs: { index: "8-1" } }, [
+                      _vm._v("Lập phiếu xuất")
+                    ]),
+                    _vm._v(" "),
+                    _c("el-menu-item", { attrs: { index: "8-2" } }, [
+                      _vm._v("Danh sách phiếu xuất")
+                    ])
+                  ],
+                  2
                 )
               ],
               1
