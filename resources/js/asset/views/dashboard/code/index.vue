@@ -166,7 +166,9 @@ export default {
   },
 
   created() {
+    loadingInstance = Loading.service({ fullscreen: true });
     this.getCodes();
+    loadingInstance.close();
   },
   methods: {
     getCodes: async function () {

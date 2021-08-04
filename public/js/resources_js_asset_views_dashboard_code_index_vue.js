@@ -196,7 +196,11 @@ var CodeRepository = _api_repositories_RepositoryFactory__WEBPACK_IMPORTED_MODUL
     };
   },
   created: function created() {
+    loadingInstance = element_ui__WEBPACK_IMPORTED_MODULE_2__.Loading.service({
+      fullscreen: true
+    });
     this.getCodes();
+    loadingInstance.close();
   },
   methods: {
     getCodes: function () {
