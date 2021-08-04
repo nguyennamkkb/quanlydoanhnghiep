@@ -17,8 +17,6 @@ class CreateEnterpriseCustomersTable extends Migration
             $table->integer('enterprise_id');
             $table->integer('customer_id');
 
-            // $table->foreign('idEnterprise')->references('id')->on('enterprises');
-            // $table->foreign('idCustomer')->references('id')->on('customers');
         });
     }
 

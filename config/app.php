@@ -163,6 +163,9 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
 
+        //QRcode
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+
 
 
         /*
@@ -231,6 +234,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        //QRcode
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 
     ],
 

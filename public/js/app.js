@@ -3566,13 +3566,19 @@ var routes = [// dashboard
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_asset_views_dashboard_user_index_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./asset/views/dashboard/user/index.vue */ "./resources/js/asset/views/dashboard/user/index.vue"));
     },
-    meta: 'User'
+    name: 'User'
   }, {
     path: dashboardapp + '/code',
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_asset_views_dashboard_code_index_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./asset/views/dashboard/code/index.vue */ "./resources/js/asset/views/dashboard/code/index.vue"));
     },
-    meta: 'Code'
+    mnameeta: 'Code'
+  }, {
+    path: dashboardapp + '/QR',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_asset_views_dashboard_QRCode_index_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./asset/views/dashboard/QRCode/index.vue */ "./resources/js/asset/views/dashboard/QRCode/index.vue"));
+    },
+    name: 'QRCode'
   }]
 }, {
   // home
@@ -98240,7 +98246,7 @@ Vue.compile = compileToFunctions;
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_asset_views_dashboard_user_index_vue":1,"resources_js_asset_views_dashboard_code_index_vue":1,"resources_js_asset_views_home_auth_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_asset_views_dashboard_user_index_vue":1,"resources_js_asset_views_dashboard_code_index_vue":1,"resources_js_asset_views_dashboard_QRCode_index_vue":1,"resources_js_asset_views_home_auth_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

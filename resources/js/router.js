@@ -18,13 +18,20 @@ const routes = [
                 path: dashboardapp + '/user',
                 component: () =>
                     import ('./asset/views/dashboard/user/index.vue'),
-                meta: 'User'
+                name: 'User'
             },
             {
                 path: dashboardapp + '/code',
                 component: () =>
                     import ('./asset/views/dashboard/code/index.vue'),
-                meta: 'Code'
+                mnameeta: 'Code'
+            
+            },
+            {
+                path: dashboardapp + '/QR',
+                component: () =>
+                    import ('./asset/views/dashboard/QRCode/index.vue'),
+                    name: 'QRCode'
             }
         ]
     },
