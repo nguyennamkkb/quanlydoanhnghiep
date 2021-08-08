@@ -21,6 +21,14 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\Category\CategoryRepositoryInterface::class,
             \App\Repositories\Category\CategoryRepositoryEloquent::class,
         ],
+        'customer' => [ 
+            \App\Repositories\Customer\CustomerRepositoryInterface::class,
+            \App\Repositories\Customer\CustomerRepositoryEloquent::class,
+        ],
+        'customertype' => [ 
+            \App\Repositories\CustomerType\CustomerTypeRepositoryInterface::class,
+            \App\Repositories\CustomerType\CustomerTypeRepositoryEloquent::class,
+        ],
     ];
     /**
      * Bootstrap services.

@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Repositories\Category;
+namespace App\Repositories\CustomerType;
 
 use App\Repositories\Eloquent\RepositoryEloquent;
-use App\Repositories\Category\CategoryRepositoryInterface;
-use App\Models\Category;
-use App\Traits\ResponseAPI;
-use App\Http\Resources\CodeResource;
+use App\Repositories\CustomerType\CustomerTypeRepositoryInterface;
+use App\Models\CustomerType;
 
 
-class CategoryRepositoryEloquent extends RepositoryEloquent implements CategoryRepositoryInterface
+class CustomerTypeRepositoryEloquent extends RepositoryEloquent implements CustomerTypeRepositoryInterface
 {
     public function model()
     {
-        return Category::class;
+        return CustomerType::class;
     }
 
     public function findBy($keyword)

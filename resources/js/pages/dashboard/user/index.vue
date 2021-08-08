@@ -103,7 +103,7 @@
         width="20%"
         center
       >
-        <span>Xóa tài khoản người d</span>
+        <span>Xóa tài khoản người đăng ký</span>
         <span slot="footer" class="dialog-footer">
           <el-button @click="deleteUserDL = false">Hủy</el-button>
           <el-button type="primary" @click="handleDeleteUser()"

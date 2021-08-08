@@ -5,5 +5,5 @@ use App\Repositories\Contracts\RepositoryInterface;
 
 interface CategoryRepositoryInterface extends RepositoryInterface
 {
-    public function findBy($status, $keyword);
+    public function findBy( $keyword);
 }
