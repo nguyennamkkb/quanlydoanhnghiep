@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\QRCodeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +13,6 @@ use App\Http\Controllers\Api\QRCodeController;
 |
 */
 
-// Route::get('QRcode',[QRCodeController::class, "getQRCode"]);
-Route::any('{all}', function () {
-    return view('app');
-})
-->where(['all' => '.*']);
-
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// });

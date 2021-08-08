@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Providers;
-
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -19,7 +17,25 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\Supplier\SupplierRepositoryInterface::class,
             \App\Repositories\Supplier\SupplierRepositoryEloquent::class,
         ],
+        'category' => [
+            \App\Repositories\Category\CategoryRepositoryInterface::class,
+            \App\Repositories\Category\CategoryRepositoryEloquent::class,
+        ],
     ];
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        //
+    }
+    /**
+     * Register services.
+     *
+     * @return void
+     */
     public function register()
     {
         foreach (static::$repositories as $repository) {
@@ -28,5 +44,7 @@ class RepositoryServiceProvider extends ServiceProvider
                 $repository[1]
             );
         }
+        
     }
+
 }

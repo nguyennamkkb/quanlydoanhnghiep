@@ -13,7 +13,7 @@ class SupplierRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,21 +24,7 @@ class SupplierRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-        ];
-    }
-    public function messages()
-    {
-        return [
-            'email.required' => 'Email is required!',
-            'email.email' => 'Email is format!',
-            // 'name.required' => 'name is required!',
-            // 'password.required' => 'password is required!',
-            // 'code.required' => 'code is required!'
- 
+            //
         ];
     }
 }

@@ -3,8 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\Code;
-use App\Http\Resources\UserResource;
 
 class CodeResource extends JsonResource
 {
@@ -16,10 +14,9 @@ class CodeResource extends JsonResource
      */
     public function toArray($request)
     {
-
         return [
             'id' => $this->id,
-            'code' => $this->code,
+            'name' => $this->name,
             'isUsed' => $this->isUsed,
             'startTime' => $this->startTime,
             'endTime' => $this->endTime,

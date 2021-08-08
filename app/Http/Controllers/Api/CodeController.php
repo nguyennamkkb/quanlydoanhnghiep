@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use App\Http\Requests\CodeRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\CodeResource;
 use App\Repositories\Code\CodeRepositoryInterface;
-use App\Http\Controllers\CmdController;
+use App\Http\Controllers\Api\CmdController;
 
 class CodeController extends Controller
 {
@@ -37,17 +37,18 @@ class CodeController extends Controller
     public function store()
     {
         // Transaction DB
+        
         DB::beginTransaction();
         try {
             $resp = $this->codeRepository->insertGetId([
-                'code' => CmdController::getCode(),
+                'name' => CmdController::getCode(),
                 'isUsed'=> false
             ]);
             DB::commit();
-            return new CodeResource($this->codeRepository->find($resp));
+            return response()->json(['status' => true], 200);  
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['message' => 'Xảy ra khi thêm mới mã!'], 422);
+            return response()->json(['status' => false], 422);
         }
     }
 

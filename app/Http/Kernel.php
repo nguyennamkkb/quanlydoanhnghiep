@@ -14,13 +14,14 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \App\Http\Middleware\TrustHosts::class,
+        // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
         \Fruitcake\Cors\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \App\Http\Middleware\SetLocale::class,
     ];
 
     /**
@@ -39,8 +40,12 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
+        'spa' => [
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
+
         'api' => [
-            'throttle:api',
+            'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
