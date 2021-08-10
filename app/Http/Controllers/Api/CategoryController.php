@@ -34,8 +34,10 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $req = $request->validated();
+        
         DB::beginTransaction();
         try {
+            
             $this->categoryRepository->insertGetId([
                 'name' => $req['name'],
             ]);

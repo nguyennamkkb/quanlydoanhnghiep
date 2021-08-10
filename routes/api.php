@@ -14,6 +14,9 @@ use App\Http\Controllers\Api\TestController;
 use App\Http\Controllers\Api\CodeController;
 use App\Http\Controllers\Api\UserApiController;
 use App\Http\Controllers\Api\SupplierController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\EnterpriseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +52,22 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('suppliers', [SupplierController::class, 'store']); // them moi thong tin
     Route::put('suppliers/{id}', [SupplierController::class, 'update']); // sua thong tin
     Route::delete('suppliers/{id}', [SupplierController::class, 'destroy']); // xoa thong tin
+    //Danh muc san pham
+    Route::get('category', [CategoryController::class, 'index']); // lay thong toan bo thong tin
+    Route::post('category', [CategoryController::class, 'store']); // them moi thong tin
+    Route::put('category/{id}', [CategoryController::class, 'update']); // sua thong tin
+    Route::delete('category/{id}', [CategoryController::class, 'destroy']); // xoa thong tin
+
+    //Khách hàng
+    Route::get('customer', [CustomerController::class, 'index']); // lay thong toan bo thong tin
+    Route::post('customer', [CustomerController::class, 'store']); // them moi thong tin
+    Route::put('customer/{id}', [CustomerController::class, 'update']); // sua thong tin
+    Route::delete('customer/{id}', [CustomerController::class, 'destroy']); // xoa thong tin
+    //Khách hàng
+    Route::get('enterprise', [EnterpriseController::class, 'index']); // lay thong toan bo thong tin
+    Route::post('enterprise', [EnterpriseController::class, 'store']); // them moi thong tin
+    Route::put('enterprise/{id}', [EnterpriseController::class, 'update']); // sua thong tin
+    Route::delete('enterprise/{id}', [EnterpriseController::class, 'destroy']); // xoa thong tin
 
 });
 

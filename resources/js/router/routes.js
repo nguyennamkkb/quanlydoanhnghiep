@@ -22,6 +22,7 @@ export default [
             { path: 'index', name: 'dashboard.index', component: page('dashboard/index.vue') },
             { path: 'code', name: 'dashboard.code', component: page('dashboard/code/index.vue') },
             { path: 'user', name: 'dashboard.user', component: page('dashboard/user/index.vue') },
+            { path: 'category', name: 'dashboard.category', component: page('dashboard/category/index.vue') },
 
         ]
     },

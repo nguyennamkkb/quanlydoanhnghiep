@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Resources\CodeResource;
 use App\Repositories\Code\CodeRepositoryInterface;
 use App\Http\Controllers\Api\CmdController;
+use Illuminate\Support\Facades\Auth;
 
 class CodeController extends Controller
 {
