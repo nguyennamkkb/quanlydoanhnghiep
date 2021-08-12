@@ -4,41 +4,55 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repositories\Category\CategoryRepositoryInterface;
-use App\Http\Resources\CategoryResource;
-// use App\Models\Category;
-use App\Http\Requests\CategoryRequest;
+use App\Repositories\CategoryChild\CategoryChildRepositoryInterface;
+use App\Http\Resources\CategoryChildResource;
+use App\Http\Requests\CategoryChildRequest;
 use Illuminate\Support\Facades\DB;
 
-
-class CategoryController extends Controller
+class CategoryChildController extends Controller
 {
-    protected $categoryRepository;
+    protected $categoryChildRepository;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    public function __construct(CategoryChildRepositoryInterface $categoryChildRepository)
     {
-        $this->categoryRepository = $categoryRepository;
+        $this->categoryChildRepository = $categoryChildRepository;
     }
     public function index(Request $request)
     {
-        $keyword = $request->keyword;
+        $keyword = $request->name;
+        $catgoryId = $request->category_id;
         $limit = $request->limit;
-        $list = $this->categoryRepository->findBy($keyword)->paginate($limit);
-        return categoryResource::collection($list);
+        $list = $this->categoryChildRepository->findBy($catgoryId,$keyword)->paginate($limit);
+        return CategoryChildResource::collection($list);
     }
     
-    public function store(CategoryRequest $request)
+    public function store(categoryChildRequest $request)
     {
         $req = $request->validated();
-        
         DB::beginTransaction();
         try {
             
-            $this->categoryRepository->insertGetId([
+            $this->categoryChildRepository->insertGetId([
+                'name' => $req['name'],
+                'category_id' => $req['category_id'],
+            ]);
+            DB::commit();
+            return response()->json(['status' => true], 200);  
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['status' => $e], 200);
+        }
+    }
+    public function update(categoryChildRequest $request, $id)
+    {
+        $req = $request->validated();
+        DB::beginTransaction();
+        try {
+            $this->categoryChildRepository->update($id,[
                 'name' => $req['name'],
             ]);
             DB::commit();
@@ -46,24 +60,6 @@ class CategoryController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(['status' => false], 422);
-        }
-    }
-    public function update(CategoryRequest $request, $id)
-    {
-
-        $req = $request->validated();
-
-        
-        DB::beginTransaction();
-        try {
-            $this->categoryRepository->update($id,[
-                'name' => $req['name'],
-            ]);
-            DB::commit();
-            return response()->json(['status' => true], 200);  
-        } catch (\Exception $e) {
-            DB::rollback();
-            return response()->json(['status' => $e], 200);
         }
     }
 
@@ -76,7 +72,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
 
-       $resp = $this->categoryRepository->delete($id);
+       $resp = $this->categoryChildRepository->delete($id);
 
         if($resp) {
             return response()->json(['status' => true], 200);    

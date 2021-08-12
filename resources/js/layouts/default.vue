@@ -64,10 +64,10 @@
                 </template>
                 
                 <router-link aria-current="page" :to="{ name: 'dashboard.category' }"><el-menu-item index="4-1" >Loại hàng hóa</el-menu-item></router-link>
-                <el-menu-item index="4-2">Tính sản phẩm</el-menu-item>
+                <el-menu-item index="4-2">Đặc tính</el-menu-item>
                 <el-menu-item index="4-3">kho hàng</el-menu-item>
               </el-submenu>
-              <router-link aria-current="page" to="code">
+              <router-link aria-current="page" :to="{ name: 'dashboard.customer' }">
                 <el-menu-item index="5">
                   <i class="el-icon-setting"></i>
                   <span>Nhà cung cấp</span>

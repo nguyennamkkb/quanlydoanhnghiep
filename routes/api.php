@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\CodeController;
 use App\Http\Controllers\Api\UserApiController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CategoryChildController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\EnterpriseController;
 
@@ -57,6 +58,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('category', [CategoryController::class, 'store']); // them moi thong tin
     Route::put('category/{id}', [CategoryController::class, 'update']); // sua thong tin
     Route::delete('category/{id}', [CategoryController::class, 'destroy']); // xoa thong tin
+    //Danh muc san pham con
+    Route::get('categoryChild', [CategoryChildController::class, 'index']); // lay thong toan bo thong tin
+    Route::post('categoryChild', [CategoryChildController::class, 'store']); // them moi thong tin
+    Route::put('categoryChild/{id}', [CategoryChildController::class, 'update']); // sua thong tin
+    Route::delete('categoryChild/{id}', [CategoryChildController::class, 'destroy']); // xoa thong tin
 
     //Khách hàng
     Route::get('customer', [CustomerController::class, 'index']); // lay thong toan bo thong tin

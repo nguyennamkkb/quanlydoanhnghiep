@@ -16,6 +16,7 @@ class CreateEnterpriseCustomersTable extends Migration
         Schema::create('enterprise__customers', function (Blueprint $table) {
             $table->integer('enterprise_id');
             $table->integer('customer_id');
+            $table->timestamps();
         });
     }
 

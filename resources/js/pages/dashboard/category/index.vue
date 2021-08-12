@@ -4,62 +4,173 @@
       <br />
       <br />
       <div class="container-fuild">
-        <p class="_title0">Thông tin danh mục sản phẩm</p>
-        <el-form :inline="true" :model="listQuery" class="demo-form-inline">
-          <el-form-item>
-            <el-input
-              v-model="listQuery.keyword"
-              placeholder="Tìm kiếm"
-            ></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="btnSearch">Tìm kiếm</el-button>
-          </el-form-item>
-          <el-button type="primary" @click="btnCreate()">
-            <i class="el-icon-circle-plus-outline"></i>Thêm mới</el-button
-          >
-        </el-form>
-
-        <el-table :data="users.data" style="width: 100%">
-          <el-table-column label="Id">
-            <template slot-scope="scope">
-              <span style="margin-left: 10px">{{ scope.row.id }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="Tên">
-            <template slot-scope="scope">
-              <span style="margin-left: 10px">{{ scope.row.name }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column label="Thao tác">
-            <template slot-scope="scope">
-              <el-button
-                size="mini"
-                type="warning"
-                @click="btnUpdate(scope.row)"
-                >Sửa</el-button
+        <el-row :gutter="20">
+          <el-col :span="12" style="background-color: white">
+            <div class="grid-content bg-purple">
+              <p class="_title0">Danh mục sản phẩm</p>
+              <el-form
+                :inline="true"
+                :model="listQuery"
+                class="demo-form-inline"
               >
-              <el-button size="mini" type="danger" @click="bntDelete(scope.row)"
-                >Xóa</el-button
+                <el-form-item>
+                  <el-input
+                    v-model="listQuery.keyword"
+                    placeholder="Tìm kiếm"
+                  ></el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" @click="btnSearch()"
+                    >Tìm kiếm</el-button
+                  >
+                </el-form-item>
+                <el-button type="primary" @click="btnCreate()">
+                  <i class="el-icon-circle-plus-outline"></i
+                ></el-button>
+              </el-form>
+
+              <el-table :data="resdata.data" style="width: 100%">
+                <!-- <el-table-column label="Id" width="40">
+                  <template slot-scope="scope">
+                    <span style="margin-left: 10px">{{ scope.row.id }}</span>
+                  </template>
+                </el-table-column> -->
+                <el-table-column label="Tên">
+                  <template slot-scope="scope">
+                    <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                  </template>
+                </el-table-column>
+
+                <el-table-column label="Thao tác">
+                  <template slot-scope="scope">
+                    <el-button
+                      type="primary"
+                      icon="el-icon-edit"
+                      circle
+                      @click="btnUpdate(scope.row)"
+                    ></el-button>
+                    <el-button
+                      type="danger"
+                      icon="el-icon-delete"
+                      circle
+                      @click="btnDelete(scope.row)"
+                    ></el-button>
+                    <el-button
+                      type="success"
+                      icon="el-icon-right"
+                      circle
+                      @click="btngetCategoryChild(scope.row)"
+                    ></el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+          </el-col>
+
+          <el-col :span="12" style="background-color: #fde4e4"
+            ><div class="grid-content bg-purple-light">
+              <p class="_title0">Danh mục con {{ categoryname }}</p>
+              <el-form
+                :inline="true"
+                :model="listQuery1"
+                class="demo-form-inline"
               >
-            </template>
-          </el-table-column>
-        </el-table>
+                <el-form-item>
+                  <el-input
+                    v-model="listQuery1.keyword"
+                    placeholder="Tìm kiếm"
+                  ></el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" @click="btnSearchchild()"
+                    >Tìm kiếm</el-button
+                  >
+                </el-form-item>
+                <el-button type="primary" @click="btnCreatechild()">
+                  <i class="el-icon-circle-plus-outline"></i
+                ></el-button>
+              </el-form>
+
+              <el-table :data="categorychild" style="width: 100%">
+                <!-- <el-table-column label="Id" width="60">
+                  <template slot-scope="scope1">
+                    <span style="margin-left: 10px">{{ scope1.row.id }}</span>
+                  </template>
+                </el-table-column> -->
+                <el-table-column label="Tên">
+                  <template slot-scope="scope1">
+                    <span style="margin-left: 10px">{{ scope1.row.name }}</span>
+                  </template>
+                </el-table-column>
+
+                <el-table-column label="Thao tác">
+                  <template slot-scope="scope1">
+                    <el-button
+                      type="primary"
+                      icon="el-icon-edit"
+                      circle
+                      @click="btnUpdateChild(scope1.row)"
+                    ></el-button>
+                    <el-button
+                      type="danger"
+                      icon="el-icon-delete"
+                      circle
+                      @click="btnDeleteChild(scope1.row)"
+                    ></el-button>
+                  </template>
+                </el-table-column>
+              </el-table></div
+          ></el-col>
+        </el-row>
       </div>
     </div>
     <div>
-      <el-dialog :title="textMap[dialogStatus]" :visible.sync="createDL">
-        <el-form :model="dataCreate" :rules="rules" ref="dataform2">
+
+      
+      <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogcategory">
+        <el-form :model="dataCategory" :rules="rules" ref="dataform2">
           <el-form-item label="Tên" prop="name" :label-width="formLabelWidth">
-            <el-input v-model="dataCreate.name" autocomplete="off"></el-input>
+            <el-input v-model="dataCategory.name" autocomplete="off"></el-input>
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="createDL = false">hủy</el-button>
+          <el-button @click="dialogcategory = false">hủy</el-button>
           <el-button
             type="primary"
             @click="dialogStatus === 'create' ? handleCreate() : handleUpdate()"
+            >Xác nhận</el-button
+          >
+        </span>
+      </el-dialog>
+      <el-dialog
+        :title="textMap1[dialogStatus1]"
+        :visible.sync="dialogcategorychild"
+      >
+        <el-form :model="dataCategorychild" :rules="rules1" ref="dataform3">
+          <el-form-item label="Chon danh muc" :label-width="formLabelWidth" v-if="dialogStatus1==='create'">
+            <el-select
+              v-model="dataCategorychild.category_id"
+              placeholder="Chọn"
+              prop="category_id"
+              filterable 
+              remote
+              reserve-keyword
+            >
+              <el-option v-for="item in listcCategory"  :key="item.id"
+                :label="item.name"
+                :value="item.id"></el-option>
+             
+            </el-select>
+          </el-form-item>
+          <el-form-item label="Tên" prop="name" :label-width="formLabelWidth">
+            <el-input v-model="dataCategorychild.name" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogcategorychild = false">hủy</el-button>
+          <el-button
+            type="primary"
+            @click="dialogStatus1 === 'create' ? handleCreate1() : handleUpdate1()"
             >Xác nhận</el-button
           >
         </span>
@@ -69,6 +180,13 @@
         <span slot="footer" class="dialog-footer">
           <el-button @click="deleteDL = false">Hủy</el-button>
           <el-button type="primary" @click="handleDelete()">Đồng ý</el-button>
+        </span>
+      </el-dialog>
+      <el-dialog title="Cảnh báo" :visible.sync="deleteDL1" width="20%" center>
+        <span>Xóa danh mục sản phẩm  con  </span>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="deleteDL1 = false">Hủy</el-button>
+          <el-button type="primary" @click="handleDelete1()">Đồng ý</el-button>
         </span>
       </el-dialog>
       <div></div>
@@ -85,6 +203,12 @@ import {
   updateCategory,
   deleteCategory,
 } from "../../../api/Category";
+import {
+  createCategoryChild,
+  getCategoryChild,
+  updateCategoryChild,
+  deleteCategoryChild,
+} from "../../../api/CategoryChild";
 let loadingInstance;
 
 export default {
@@ -95,36 +219,28 @@ export default {
         update: "Sửa Danh mục",
         create: "Thêm mới Danh mục",
       },
+      textMap1: {
+        update: "Sửa Danh mục con",
+        create: "Thêm mới Danh mục con",
+      },
       dialogStatus: "",
+      dialogStatus1:"",
       listQuery: {
         page: 1,
         limit: 20,
         keyword: undefined,
       },
-      creatUserDL: false,
-      createDL: false,
+      listQuery1: {
+        page: 1,
+        limit: 20,
+        keyword: undefined,
+      },
+      dialogcategory: false,
+      dialogcategorychild: false,
       deleteDL: false,
-      updateUserDL: false,
-      users: {
-        message: null,
-        error: false,
-        User: 0,
-        results: [
-          {
-            id: null,
-            name: null,
-            email: null,
-            code: null,
-          },
-        ],
-      },
-      userData: {
-        id: undefined,
-        name: "",
-        email: "",
-        code: "",
-      },
-      dataCreate: {
+      updateDL: false,
+      deleteDL1: false,
+      dataCategory: {
         name: "",
       },
       modalTitle: "",
@@ -133,7 +249,7 @@ export default {
       modaledit: false,
       modal_loading: false,
       loading: true,
-
+      resdata: {},
       mesDelete: false,
       fullscreenLoading: false,
       updateDLLabelWidth: "130PX",
@@ -146,29 +262,60 @@ export default {
           },
         ],
       },
+      rules1: {
+        name: [
+          {
+            required: true,
+            message: "Tên không được bỏ trống",
+            trigger: "change",
+          },
+          
+        ],
+        category_id: [
+          {
+            required: true,
+            message: "Danh mục không được bỏ trống",
+            trigger: "change",
+          },
+          
+        ],
+        
+      },
       formLabelWidth: "120px",
       search: {
         keyword: "",
-        isUsed: undefined,
       },
+      dataCategorychild:{
+        id:undefined,
+        name:'',
+        category_id:undefined,
+      },
+      listcCategory:[],
+      categorychild:null,
+      categoryname:'',
+      temp:{
+        id:undefined,
+        name:'',
+        category_id:undefined
+      }
     };
   },
-
   created() {
     this.getcategories();
   },
   methods: {
     Reset() {
-      this.createDL = false;
+      this.dialogcategory = false;
       this.deleteDL = false;
-      this.updateUserDL = false;
+      this.updateDL = false;
       loadingInstance.close();
     },
     getcategories: async function () {
       loadingInstance = Loading.service({ fullscreen: true });
       const data = await getCategory();
       if (data.data) {
-        this.users = data.data;
+        this.resdata = data.data;
+        this.listcCategory=data.data.data;
         loadingInstance.close();
       }
     },
@@ -188,6 +335,7 @@ export default {
     },
     checkStatus: function (data) {
       this.Reset();
+      this.deleteDL1 = false;
       if (!data.error) {
         this.getcategories();
         this.success();
@@ -196,15 +344,16 @@ export default {
       }
     },
     btnCreate() {
-      this.createDL = true;
-      this.dialogStatus='create';
+      this.dialogcategory = true;
+      this.dialogStatus = "create";
+      // this.$refs.dataform2.clearValidate()
     },
     handleCreate: async function () {
       this.$refs.dataform2.validate((valid) => {
         if (valid) {
           loadingInstance = Loading.service({ fullscreen: true });
           try {
-            createCategory(this.dataCreate).then((result) => {
+            createCategory(this.dataCategory).then((result) => {
               if (result.data.status == true) {
                 this.getcategories();
                 this.success();
@@ -219,34 +368,35 @@ export default {
         }
       });
     },
-    bntDelete(row) {
-      this.dataUser = row;
+    btnDelete(row) {
+      this.dataCategory = row;
       this.deleteDL = true;
     },
     handleDelete: async function () {
       this.deleteDL = false;
       loadingInstance = Loading.service({ fullscreen: true });
-      const data = await deleteUser(this.dataUser.id);
+      const data = await deleteCategory(this.dataCategory.id);
       // console.log(data);
       this.checkStatus(data.data);
     },
     btnUpdate(row) {
-      this.userData = Object.assign({}, row);
-      // console.log(this.userData);
-      this.updateUserDL = true;
-      this.dialogStatus='update';
+      this.dataCategory = Object.assign({}, row);
+      this.dialogcategory = true;
+      this.dialogStatus = "update";
     },
     handleUpdate: async function () {
-      this.$refs["ruleForm"].validate((valid) => {
+      this.$refs.dataform2.validate((valid) => {
         if (valid) {
           loadingInstance = Loading.service({ fullscreen: true });
           try {
-            updateUser(this.userData.id, this.userData).then((result) => {
-              if (result.data.status == true) {
-                this.getcategories();
-                this.success();
+            updateCategory(this.dataCategory.id, this.dataCategory).then(
+              (result) => {
+                if (result.data.status == true) {
+                  this.getcategories();
+                  this.success();
+                }
               }
-            });
+            );
           } catch (error) {
             this.error();
           }
@@ -256,9 +406,9 @@ export default {
     btnSearch: async function () {
       loadingInstance = Loading.service({ fullscreen: true });
       try {
-        const data = await filterUser(this.listQuery);
+        const data = await getCategory(this.listQuery);
         if (data.data) {
-          this.users = data.data;
+          this.data = data.data;
           this.success();
         } else {
           this.error();
@@ -266,6 +416,90 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    async btngetCategoryChild(row) {
+      this.dataCategorychild.category_id = row.id;
+      this.dataCategorychild.name = '';
+      this.categoryname = row.name;
+      loadingInstance = Loading.service({ fullscreen: true });
+      const data = await getCategoryChild(this.dataCategorychild);
+      if (data.data) {
+        this.categorychild = data.data.data;
+        loadingInstance.close();
+      }
+    },
+    async btngetCategoryChild1() {
+      loadingInstance = Loading.service({ fullscreen: true });
+      this.dataCategorychild.name='';
+      const data = await getCategoryChild(this.dataCategorychild);
+      if (data.data) {
+        this.categorychild = data.data.data;
+        loadingInstance.close();
+        this.dialogcategorychild= false;
+      }
+    },
+    btnUpdateChild(row) {
+      this.dataCategorychild = Object.assign({}, row);
+      this.dialogcategorychild= true
+      this.dialogStatus1 = "update";
+      // this.$refs.dataform3.clearValidate();
+    },
+    btnDeleteChild(row) {
+      this.dataCategorychild = Object.assign({}, row);
+      this.deleteDL1 = true;
+    },
+    btnCreatechild() {
+      this.dialogcategorychild= true
+      this.dialogStatus1 = "create";
+      // this.$refs.dataform3.clearValidate();
+
+    },
+    btnSearchchild() {},
+    handleCreate1: async function () {
+      this.$refs.dataform3.validate((valid) => {
+        if (valid) {
+          // loadingInstance = Loading.service({ fullscreen: true });
+          try {
+            createCategoryChild(this.dataCategorychild).then((result) => {
+              if (result.data.status == true) {
+                this.btngetCategoryChild1();
+                // console.log(this.categorychild);
+                this.success();
+              } else {
+                this.error(result.data.message);
+              }
+            });
+          } catch (error) {
+            console.log(error);
+            this.error();
+          }
+        }
+      });
+    },
+    handleUpdate1: async function () {
+      this.$refs.dataform3.validate((valid) => {
+        if (valid) {
+          try {
+            updateCategoryChild(this.dataCategorychild.id, this.dataCategorychild).then(
+              (result) => {
+                if (result.data.status == true) {
+                   this.btngetCategoryChild1();
+                  this.success();
+                }
+              }
+            );
+          } catch (error) {
+            this.error();
+          }
+        }
+      });
+    },
+    handleDelete1: async function () {
+      this.deleteDL = false;
+      // loadingInstance = Loading.service({ fullscreen: true });
+      const data = await deleteCategoryChild(this.dataCategorychild.id);
+      this.checkStatus(data.data);
+      this.btngetCategoryChild1();
     },
   },
 };
