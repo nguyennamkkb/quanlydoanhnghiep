@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\CategoryChildController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\CustomerTypeController;
 use App\Http\Controllers\Api\EnterpriseController;
+use App\Http\Controllers\Api\SpecificitieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +81,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('enterprise', [EnterpriseController::class, 'store']); // them moi thong tin
     Route::put('enterprise/{id}', [EnterpriseController::class, 'update']); // sua thong tin
     Route::delete('enterprise/{id}', [EnterpriseController::class, 'destroy']); // xoa thong tin
+    //Dac tinh san pham
+    Route::get('specificities', [SpecificitieController::class, 'index']); // lay thong toan bo thong tin
+    Route::post('specificities', [SpecificitieController::class, 'store']); // them moi thong tin
+    Route::put('specificities/{id}', [SpecificitieController::class, 'update']); // sua thong tin
+    Route::delete('specificities/{id}', [SpecificitieController::class, 'destroy']); // xoa thong tin
 
 });
 

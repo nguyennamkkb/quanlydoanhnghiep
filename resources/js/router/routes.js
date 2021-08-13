@@ -24,6 +24,7 @@ export default [
             { path: 'user', name: 'dashboard.user', component: page('dashboard/user/index.vue') },
             { path: 'category', name: 'dashboard.category', component: page('dashboard/category/index.vue') },
             { path: 'customer', name: 'dashboard.customer', component: page('dashboard/customer/index.vue') },
+            { path: 'specificities', name: 'dashboard.specificities', component: page('dashboard/category/specificities.vue') },
 
         ]
     },

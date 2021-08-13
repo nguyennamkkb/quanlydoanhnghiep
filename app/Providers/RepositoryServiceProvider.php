@@ -33,6 +33,10 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\CategoryChild\CategoryChildRepositoryInterface::class,
             \App\Repositories\CategoryChild\CategoryChildRepositoryEloquent::class,
         ],
+        'specificitie' => [ 
+            \App\Repositories\Specificities\SpecificitiesRepositoryInterface::class,
+            \App\Repositories\Specificities\SpecificitiesRepositoryEloquent::class,
+        ],
     ];
     /**
      * Bootstrap services.
