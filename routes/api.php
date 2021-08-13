@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CategoryChildController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\CustomerTypeController;
 use App\Http\Controllers\Api\EnterpriseController;
 
 /*
@@ -69,6 +70,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('customer', [CustomerController::class, 'store']); // them moi thong tin
     Route::put('customer/{id}', [CustomerController::class, 'update']); // sua thong tin
     Route::delete('customer/{id}', [CustomerController::class, 'destroy']); // xoa thong tin
+
+    Route::get('customertype', [CustomerTypeController::class, 'index']); // lay thong toan bo thong tin
+    Route::post('customertype', [CustomerTypeController::class, 'store']); // them moi thong tin
+    Route::put('customertype/{id}', [CustomerTypeController::class, 'update']); // sua thong tin
+    Route::delete('customertype/{id}', [CustomerTypeController::class, 'destroy']); // xoa thong tin
     //Khách hàng
     Route::get('enterprise', [EnterpriseController::class, 'index']); // lay thong toan bo thong tin
     Route::post('enterprise', [EnterpriseController::class, 'store']); // them moi thong tin

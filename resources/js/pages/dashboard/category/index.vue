@@ -30,11 +30,7 @@
               </el-form>
 
               <el-table :data="resdata.data" style="width: 100%">
-                <!-- <el-table-column label="Id" width="40">
-                  <template slot-scope="scope">
-                    <span style="margin-left: 10px">{{ scope.row.id }}</span>
-                  </template>
-                </el-table-column> -->
+
                 <el-table-column label="Tên">
                   <template slot-scope="scope">
                     <span style="margin-left: 10px">{{ scope.row.name }}</span>
@@ -125,8 +121,6 @@
       </div>
     </div>
     <div>
-
-      
       <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogcategory">
         <el-form :model="dataCategory" :rules="rules" ref="dataform2">
           <el-form-item label="Tên" prop="name" :label-width="formLabelWidth">
@@ -147,30 +141,41 @@
         :visible.sync="dialogcategorychild"
       >
         <el-form :model="dataCategorychild" :rules="rules1" ref="dataform3">
-          <el-form-item label="Chon danh muc" :label-width="formLabelWidth" v-if="dialogStatus1==='create'">
+          <el-form-item
+            label="Chon danh muc"
+            :label-width="formLabelWidth"
+            v-if="dialogStatus1 === 'create'"
+          >
             <el-select
               v-model="dataCategorychild.category_id"
               placeholder="Chọn"
               prop="category_id"
-              filterable 
+              filterable
               remote
               reserve-keyword
             >
-              <el-option v-for="item in listcCategory"  :key="item.id"
+              <el-option
+                v-for="item in listcCategory"
+                :key="item.id"
                 :label="item.name"
-                :value="item.id"></el-option>
-             
+                :value="item.id"
+              ></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Tên" prop="name" :label-width="formLabelWidth">
-            <el-input v-model="dataCategorychild.name" autocomplete="off"></el-input>
+            <el-input
+              v-model="dataCategorychild.name"
+              autocomplete="off"
+            ></el-input>
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="dialogcategorychild = false">hủy</el-button>
           <el-button
             type="primary"
-            @click="dialogStatus1 === 'create' ? handleCreate1() : handleUpdate1()"
+            @click="
+              dialogStatus1 === 'create' ? handleCreate1() : handleUpdate1()
+            "
             >Xác nhận</el-button
           >
         </span>
@@ -183,7 +188,7 @@
         </span>
       </el-dialog>
       <el-dialog title="Cảnh báo" :visible.sync="deleteDL1" width="20%" center>
-        <span>Xóa danh mục sản phẩm  con  </span>
+        <span>Xóa danh mục sản phẩm con </span>
         <span slot="footer" class="dialog-footer">
           <el-button @click="deleteDL1 = false">Hủy</el-button>
           <el-button type="primary" @click="handleDelete1()">Đồng ý</el-button>
@@ -224,7 +229,7 @@ export default {
         create: "Thêm mới Danh mục con",
       },
       dialogStatus: "",
-      dialogStatus1:"",
+      dialogStatus1: "",
       listQuery: {
         page: 1,
         limit: 20,
@@ -269,7 +274,6 @@ export default {
             message: "Tên không được bỏ trống",
             trigger: "change",
           },
-          
         ],
         category_id: [
           {
@@ -277,27 +281,25 @@ export default {
             message: "Danh mục không được bỏ trống",
             trigger: "change",
           },
-          
         ],
-        
       },
       formLabelWidth: "120px",
       search: {
         keyword: "",
       },
-      dataCategorychild:{
-        id:undefined,
-        name:'',
-        category_id:undefined,
+      dataCategorychild: {
+        id: undefined,
+        name: "",
+        category_id: undefined,
       },
-      listcCategory:[],
-      categorychild:null,
-      categoryname:'',
-      temp:{
-        id:undefined,
-        name:'',
-        category_id:undefined
-      }
+      listcCategory: [],
+      categorychild: null,
+      categoryname: "",
+      temp: {
+        id: undefined,
+        name: "",
+        category_id: undefined,
+      },
     };
   },
   created() {
@@ -315,7 +317,7 @@ export default {
       const data = await getCategory();
       if (data.data) {
         this.resdata = data.data;
-        this.listcCategory=data.data.data;
+        this.listcCategory = data.data.data;
         loadingInstance.close();
       }
     },
@@ -419,7 +421,7 @@ export default {
     },
     async btngetCategoryChild(row) {
       this.dataCategorychild.category_id = row.id;
-      this.dataCategorychild.name = '';
+      this.dataCategorychild.name = "";
       this.categoryname = row.name;
       loadingInstance = Loading.service({ fullscreen: true });
       const data = await getCategoryChild(this.dataCategorychild);
@@ -430,17 +432,17 @@ export default {
     },
     async btngetCategoryChild1() {
       loadingInstance = Loading.service({ fullscreen: true });
-      this.dataCategorychild.name='';
+      this.dataCategorychild.name = "";
       const data = await getCategoryChild(this.dataCategorychild);
       if (data.data) {
         this.categorychild = data.data.data;
         loadingInstance.close();
-        this.dialogcategorychild= false;
+        this.dialogcategorychild = false;
       }
     },
     btnUpdateChild(row) {
       this.dataCategorychild = Object.assign({}, row);
-      this.dialogcategorychild= true
+      this.dialogcategorychild = true;
       this.dialogStatus1 = "update";
       // this.$refs.dataform3.clearValidate();
     },
@@ -449,10 +451,9 @@ export default {
       this.deleteDL1 = true;
     },
     btnCreatechild() {
-      this.dialogcategorychild= true
+      this.dialogcategorychild = true;
       this.dialogStatus1 = "create";
       // this.$refs.dataform3.clearValidate();
-
     },
     btnSearchchild() {},
     handleCreate1: async function () {
@@ -480,14 +481,15 @@ export default {
       this.$refs.dataform3.validate((valid) => {
         if (valid) {
           try {
-            updateCategoryChild(this.dataCategorychild.id, this.dataCategorychild).then(
-              (result) => {
-                if (result.data.status == true) {
-                   this.btngetCategoryChild1();
-                  this.success();
-                }
+            updateCategoryChild(
+              this.dataCategorychild.id,
+              this.dataCategorychild
+            ).then((result) => {
+              if (result.data.status == true) {
+                this.btngetCategoryChild1();
+                this.success();
               }
-            );
+            });
           } catch (error) {
             this.error();
           }
