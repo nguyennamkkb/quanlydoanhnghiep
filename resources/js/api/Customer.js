@@ -8,10 +8,11 @@ export function getCustomer(data) {
         params: data
     })
 }
-export function createCustomer() {
+export function createCustomer(data) {
     return Client({
         url: resource + '/customer',
         method: 'post',
+        params: data
     })
 }
 export function updateCustomer(id, data) {

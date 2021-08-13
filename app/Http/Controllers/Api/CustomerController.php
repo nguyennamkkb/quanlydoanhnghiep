@@ -27,8 +27,9 @@ class CustomerController extends Controller
         $keyword = $request->keyword;
         $address = $request->address;
         $phone = $request->phone;
+        $customerType_id = $request->customerType_id;
         $limit = $request->limit;
-        $list = $this->CustomerRepository->findBy($keyword,$address, $phone)->paginate($limit);
+        $list = $this->CustomerRepository->findBy($customerType_id,$keyword,$address, $phone)->paginate($limit);
         return CustomersResource::collection($list);
     }
     

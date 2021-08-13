@@ -16,7 +16,7 @@ class CustomerRepositoryEloquent extends RepositoryEloquent implements CustomerR
         return Customer::class;
     }
 
-    public function findBy($keyword,$address, $phone)
+    public function findBy($customerType_id,$keyword,$address, $phone)
     {
         $query = $this->model->newQuery();
         if (!empty($address)) {
@@ -28,6 +28,9 @@ class CustomerRepositoryEloquent extends RepositoryEloquent implements CustomerR
         }
         if (!empty($keyword)) {
             $query = $this->model->where('name', 'like', "%$keyword%");
+        }
+        if (!empty($customerType_id)) {
+            $query = $this->model->where('customerType_id', "$customerType_id");
         }
 
         return $query->orderBy('name', 'desc');

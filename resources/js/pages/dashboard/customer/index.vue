@@ -1,9 +1,9 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <h3>Loại khách hàng</h3>
-      <el-col :span="10"
-        ><div class="grid-content bg-purple">
+      <el-col :span="10">
+        <h4>Loại khách hàng</h4>
+        <div class="grid-content bg-purple">
           <div class="filter-container">
             <el-input
               :placeholder="'Tên'"
@@ -74,7 +74,93 @@
             </el-table-column>
           </el-table></div
       ></el-col>
-      <el-col :span="10"><div class="grid-content bg-purple"></div></el-col>
+      <el-col :span="10">
+        <h4>Khách hàng  <span style="color:#ff0a0a">{{Tenloai}}</span>  </h4>
+        <div class="grid-content bg-purple">
+          <div class="filter-container">
+            <el-input
+              :placeholder="'Tên'"
+              v-model="listQuery.keyword"
+              style="width: 200px"
+              class="filter-item"
+              @keyup.enter.native="handleFilter"
+            />
+            <!-- <el-select
+        v-model="listQuery.status"
+        :placeholder="'Trạng thái'"
+        clearable
+        class="filter-item"
+        style="width: 160px"
+        @change="handleFilter"
+      >
+        <el-option
+          v-for="item in statusOptions"
+          :key="item.key"
+          :label="item.display_name"
+          :value="item.key"
+        />
+      </el-select> -->
+            <el-button
+              class="filter-item"
+              type="primary"
+              icon="el-icon-search"
+              @click="handleFilter"
+              >Tìm kiếm</el-button
+            >
+            <el-button
+              class="filter-item"
+              style="margin-left: 10px"
+              type="primary"
+              icon="el-icon-circle-plus-outline"
+              @click="handleCreate2"
+            ></el-button>
+          </div>
+
+          <el-table :data="list2" style="width: 100%">
+            <el-table-column label="Tên">
+              <template slot-scope="scope">
+                <span style="margin-left: 10px">{{ scope.row.name }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="Địa chỉ">
+              <template slot-scope="scope">
+                <span style="margin-left: 10px">{{ scope.row.address }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="Số điện thoại">
+              <template slot-scope="scope">
+                <span style="margin-left: 10px">{{ scope.row.phone }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="Email">
+              <template slot-scope="scope">
+                <span style="margin-left: 10px">{{ scope.row.email }}</span>
+              </template>
+            </el-table-column>
+            <!-- <el-table-column label="Tên">
+              <template slot-scope="scope">
+                <span style="margin-left: 10px">{{ scope.row.customerType_id }}</span>
+              </template>
+            </el-table-column> -->
+
+            <el-table-column label="Thao tác">
+              <template slot-scope="scope">
+                <el-button
+                  type="primary"
+                  icon="el-icon-edit"
+                  circle
+                  @click="handleUpdate2(scope.row)"
+                ></el-button>
+                <el-button
+                  type="danger"
+                  icon="el-icon-delete"
+                  circle
+                  @click="handleDelete2(scope.row)"
+                ></el-button>
+              </template>
+            </el-table-column>
+          </el-table></div
+      ></el-col>
     </el-row>
 
     <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
@@ -102,24 +188,50 @@
       </div>
     </el-dialog>
     <!-- dialog customer -->
-    <el-dialog :title="textMap2[dialogStatus2]" :visible.sync="dialogFormVisible2">
+    <el-dialog
+      :title="textMap2[dialogStatus2]"
+      :visible.sync="dialogFormVisible2"
+    >
       <el-form
-        ref="dataForm"
+        ref="dataForm2"
         :rules="rules2"
         :model="temp2"
         label-position="left"
         label-width="150px"
-        style="width: 400px; margin-left: 50px"
+        style="width: auto"
       >
         <el-form-item :label="'Tên'" prop="name">
           <el-input v-model="temp2.name" />
+        </el-form-item>
+        <el-form-item :label="'Địa chỉ'" prop="address">
+          <el-input v-model="temp2.address" />
+        </el-form-item>
+        <el-form-item :label="'Số điện thoại'" prop="phone">
+          <el-input v-model="temp2.phone" />
+        </el-form-item>
+        <el-form-item :label="'Email'" prop="email">
+          <el-input v-model="temp2.email" />
+        </el-form-item>
+        <el-form-item :label="'Loại khách hàng'" prop="customerType_id">
+          <el-select
+            v-model="temp2.customerType_id"
+            placeholder="Chọn"
+            prop="customerType_id"
+          >
+            <el-option
+              v-for="item in list"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible2 = false">Huỷ bỏ</el-button>
         <el-button
           type="primary"
-          @click="dialogStatus2 === 'create' ? createData() : updateData()"
+          @click="dialogStatus2 === 'create' ? createData2() : updateData2()"
           >Cập nhật</el-button
         >
       </div>
@@ -152,6 +264,7 @@ export default {
   },
   data() {
     return {
+      Tenloai: "",
       tableKey: 0,
       list: null,
       list2: null,
@@ -179,11 +292,18 @@ export default {
       temp2: {
         id: undefined,
         name: "",
+        address: "",
+        phone: "",
+        email: "",
+        customerType_id: "",
       },
       dialogFormVisible: false,
-      dialogFormVisible1: false,
+      dialogFormVisible2: false,
       dialogStatus: "",
       dialogStatus2: "",
+      query1: {
+        customerType_id: undefined,
+      },
       textMap: {
         update: "Sửa Loại khách hàng",
         create: "Thêm mới loại khách hàng",
@@ -203,6 +323,34 @@ export default {
       },
       rules2: {
         name: [
+          {
+            required: true,
+            message: "Tên khách hàng không được bỏ trống",
+            trigger: "change",
+          },
+        ],
+        address: [
+          {
+            required: true,
+            message: "Tên khách hàng không được bỏ trống",
+            trigger: "change",
+          },
+        ],
+        phone: [
+          {
+            required: true,
+            message: "Tên khách hàng không được bỏ trống",
+            trigger: "change",
+          },
+        ],
+        email: [
+          {
+            required: true,
+            message: "Tên khách hàng không được bỏ trống",
+            trigger: "change",
+          },
+        ],
+        customerType_id: [
           {
             required: true,
             message: "Tên khách hàng không được bỏ trống",
@@ -236,6 +384,14 @@ export default {
         id: undefined,
         name: "",
       };
+      this.temp2 = {
+        id: undefined,
+        name: "",
+        address: "",
+        phone: "",
+        email: "",
+        customerType_id: "",
+      };
     },
     handleCreate() {
       this.resetTemp();
@@ -243,6 +399,14 @@ export default {
       this.dialogFormVisible = true;
       this.$nextTick(() => {
         this.$refs["dataForm"].clearValidate();
+      });
+    },
+    handleCreate2() {
+      this.resetTemp();
+      this.dialogStatus2 = "create";
+      this.dialogFormVisible2 = true;
+      this.$nextTick(() => {
+        this.$refs["dataForm2"].clearValidate();
       });
     },
     createData() {
@@ -263,12 +427,38 @@ export default {
         }
       });
     },
+    createData2() {
+      this.$refs["dataForm2"].validate((valid) => {
+        if (valid) {
+          console.log(this.temp2);
+          createCustomer(this.temp2).then(() => {
+            // this.listQuery.page = 1;
+            this.btngetlishcustomer();
+            this.dialogFormVisible2 = false;
+            this.$notify({
+              title: "Thông báo",
+              message: "Tạo thành công",
+              type: "success",
+              duration: 2000,
+            });
+          });
+        }
+      });
+    },
     handleUpdate(row) {
       this.temp = Object.assign({}, row); // copy obj
       this.dialogStatus = "update";
       this.dialogFormVisible = true;
       this.$nextTick(() => {
         this.$refs["dataForm"].clearValidate();
+      });
+    },
+    handleUpdate2(row) {
+      this.temp2 = Object.assign({}, row); // copy obj
+      this.dialogStatus2 = "update";
+      this.dialogFormVisible2 = true;
+      this.$nextTick(() => {
+        this.$refs["dataForm2"].clearValidate();
       });
     },
     updateData() {
@@ -278,6 +468,23 @@ export default {
           updateCustomerType(tempData.id, tempData).then(() => {
             this.getList();
             this.dialogFormVisible = false;
+            this.$notify({
+              title: "Thông báo",
+              message: "Cập nhật thành công",
+              type: "success",
+              duration: 2000,
+            });
+          });
+        }
+      });
+    },
+    updateData2() {
+      this.$refs["dataForm2"].validate((valid) => {
+        if (valid) {
+          const tempData = Object.assign({}, this.temp);
+          updateCustomerType(tempData.id, tempData).then(() => {
+            this.btngetlishcustomer();
+            this.dialogFormVisible2 = false;
             this.$notify({
               title: "Thông báo",
               message: "Cập nhật thành công",
@@ -299,31 +506,38 @@ export default {
         });
       });
     },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
-    handleDeleteSelect() {
-      var category_id = [];
-      this.multipleSelection.forEach((item) => {
-        category_id.push(item.id);
-      });
-      console.log(category_id);
-      deleteMultiCode(category_id).then(() => {
-        this.multipleSelection = [];
-        this.getList();
+    handleDelete2(row) {
+      deleteCustomer(row.id).then(() => {
+        this.btngetlishcustomer();
         this.$notify({
           title: "Thông báo",
-          message: "Xoá danh mục thành công",
+          message: "Xoá thành công",
           type: "success",
           duration: 2000,
         });
       });
     },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
     btngetcustomer(row) {
-      this.listQuerycustomer = Object.assign({}, row);
-      getCustomerType(this.listQuerycustomer).then((response) => {
-        this.list = response.data.data;
-        this.total = response.data.meta.total;
+      //   this.listQuerycustomer = Object.assign({}, row);
+      this.Tenloai= row.name
+      this.query1.customerType_id = row.id;
+      getCustomer(this.query1).then((response) => {
+        this.list2 = response.data.data;
+        // this.total = response.data.meta.total;
+        // Just to simulate the time of the request
+        setTimeout(() => {
+          //   this.listLoading = false
+        }, 0.5 * 1000);
+      });
+    },
+
+    btngetlishcustomer() {
+      getCustomer(this.query1).then((response) => {
+        this.list2 = response.data.data;
+        // this.total = response.data.meta.total;
         // Just to simulate the time of the request
         setTimeout(() => {
           //   this.listLoading = false
