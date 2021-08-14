@@ -65,7 +65,8 @@
                 
                 <router-link aria-current="page" :to="{ name: 'dashboard.category' }"><el-menu-item index="4-1" >Loại hàng hóa</el-menu-item></router-link>
                 <router-link aria-current="page" :to="{ name: 'dashboard.specificities' }"><el-menu-item index="4-2" >Đặc tính</el-menu-item></router-link>
-                <el-menu-item index="4-3">kho hàng</el-menu-item>
+                <router-link aria-current="page" :to="{ name: 'dashboard.price' }"><el-menu-item index="4-3" >Giá</el-menu-item></router-link>
+                <router-link aria-current="page" :to="{ name: 'dashboard.price' }"><el-menu-item index="4-3" >Giá</el-menu-item></router-link>
               </el-submenu>
               <router-link aria-current="page" :to="{ name: 'dashboard.customer' }">
                 <el-menu-item index="5">
@@ -73,19 +74,13 @@
                   <span>Nhà cung cấp</span>
                 </el-menu-item>
               </router-link>
-              <router-link aria-current="page" to="code">
-                <el-menu-item index="6">
-                  <i class="el-icon-setting"></i>
-                  <span>Khách hàng mua</span>
-                </el-menu-item>
-              </router-link>
-              <router-link aria-current="page" to="code">
-                <el-menu-item index="6">
+              <router-link aria-current="page" :to="{ name: 'dashboard.employee' }">
+                <el-menu-item index="7">
                   <i class="el-icon-setting"></i>
                   <span>Nhân viên</span>
                 </el-menu-item>
               </router-link>
-              <el-submenu index="7">
+              <el-submenu index="8">
                 <template slot="title">
                   <i class="el-icon-location"></i>
                   <span>Nhập hàng</span>
@@ -93,13 +88,13 @@
                 <el-menu-item index="8-1">Lập phiếu nhập</el-menu-item>
                 <el-menu-item index="8-2">Danh sách phiếu nhập</el-menu-item>
               </el-submenu>
-              <el-submenu index="8">
+              <el-submenu index="9">
                 <template slot="title">
                   <i class="el-icon-location"></i>
                   <span>Xuất hàng</span>
                 </template>
-                <el-menu-item index="8-1">Lập phiếu xuất</el-menu-item>
-                <el-menu-item index="8-2">Danh sách phiếu xuất</el-menu-item>
+                <el-menu-item index="9-1">Lập phiếu xuất</el-menu-item>
+                <el-menu-item index="9-2">Danh sách phiếu xuất</el-menu-item>
               </el-submenu>
             </el-menu>
           </nav>

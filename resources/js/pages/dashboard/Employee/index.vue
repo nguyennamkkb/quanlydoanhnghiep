@@ -68,7 +68,7 @@
                   type="success"
                   icon="el-icon-right"
                   circle
-                  @click="btngetcustomer(scope.row)"
+                  @click="btngetEmployee(scope.row)"
                 ></el-button>
               </template>
             </el-table-column>
@@ -139,7 +139,7 @@
             </el-table-column>
             <!-- <el-table-column label="Tên">
               <template slot-scope="scope">
-                <span style="margin-left: 10px">{{ scope.row.customerType_id }}</span>
+                <span style="margin-left: 10px">{{ scope.row.employeeType_id }}</span>
               </template>
             </el-table-column> -->
 
@@ -164,7 +164,7 @@
     </el-row>
 
     <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
-    <!-- dialog customer type -->
+    <!-- dialog Employee type -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form
         ref="dataForm"
@@ -187,7 +187,7 @@
         >
       </div>
     </el-dialog>
-    <!-- dialog customer -->
+    <!-- dialog Employee -->
     <el-dialog
       :title="textMap2[dialogStatus2]"
       :visible.sync="dialogFormVisible2"
@@ -212,11 +212,11 @@
         <el-form-item :label="'Email'" prop="email">
           <el-input v-model="temp2.email" />
         </el-form-item>
-        <el-form-item :label="'Loại khách hàng'" prop="customerType_id">
+        <el-form-item :label="'Loại khách hàng'" prop="employeeType_id">
           <el-select
-            v-model="temp2.customerType_id"
+            v-model="temp2.employeeType_id"
             placeholder="Chọn"
-            prop="customerType_id"
+            prop="employeeType_id"
           >
             <el-option
               v-for="item in list"
@@ -241,17 +241,17 @@
 
 <script>
 import {
-  getCustomerType,
-  createCustomerType,
-  updateCustomerType,
-  deleteCustomerType,
-} from "../../../api/CustomerType";
+  getEmployeeType,
+  createEmployeeType,
+  updateEmployeeType,
+  deleteEmployeeType,
+} from "../../../api/EmployeeType";
 import {
-  getCustomer,
-  createCustomer,
-  updateCustomer,
-  deleteCustomer,
-} from "../../../api/Customer";
+  getEmployee,
+  createEmployee,
+  updateEmployee,
+  deleteEmployee,
+} from "../../../api/Employee";
 export default {
   filters: {
     statusFilter(status) {
@@ -275,11 +275,11 @@ export default {
         limit: 20,
         keyword: undefined,
       },
-      listQuerycustomer: {
+      listQueryEmployee: {
         page: 1,
         limit: 20,
         keyword: undefined,
-        customer_id: undefined,
+        employee_id: undefined,
       },
       statusOptions: [
         { key: "available", display_name: "Hoạt động" },
@@ -295,14 +295,14 @@ export default {
         address: "",
         phone: "",
         email: "",
-        customerType_id: "",
+        employeeType_id: "",
       },
       dialogFormVisible: false,
       dialogFormVisible2: false,
       dialogStatus: "",
       dialogStatus2: "",
       query1: {
-        customerType_id: undefined,
+        employeeType_id: undefined,
       },
       textMap: {
         update: "Sửa Loại khách hàng",
@@ -350,7 +350,7 @@ export default {
             trigger: "change",
           },
         ],
-        customerType_id: [
+        employeeType_id: [
           {
             required: true,
             message: "Tên khách hàng không được bỏ trống",
@@ -366,7 +366,7 @@ export default {
   methods: {
     getList() {
       //   this.listLoading = true
-      getCustomerType(this.listQuery).then((response) => {
+      getEmployeeType(this.listQuery).then((response) => {
         this.list = response.data.data;
         this.total = response.data.meta.total;
         // Just to simulate the time of the request
@@ -390,7 +390,7 @@ export default {
         address: "",
         phone: "",
         email: "",
-        customerType_id: "",
+        employeeType_id: "",
       };
     },
     handleCreate() {
@@ -412,8 +412,8 @@ export default {
     createData() {
       this.$refs["dataForm"].validate((valid) => {
         if (valid) {
-          console.log(this.temp);
-          createCustomerType(this.temp).then(() => {
+          // console.log(this.temp);
+          createEmployeeType(this.temp).then(() => {
             this.listQuery.page = 1;
             this.getList();
             this.dialogFormVisible = false;
@@ -431,9 +431,9 @@ export default {
       this.$refs["dataForm2"].validate((valid) => {
         if (valid) {
           console.log(this.temp2);
-          createCustomer(this.temp2).then(() => {
+          createEmployee(this.temp2).then(() => {
             // this.listQuery.page = 1;
-            this.btngetlishcustomer();
+            this.btngetlishEmployee();
             this.dialogFormVisible2 = false;
             this.$notify({
               title: "Thông báo",
@@ -465,7 +465,7 @@ export default {
       this.$refs["dataForm"].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp);
-          updateCustomerType(tempData.id, tempData).then(() => {
+          updateEmployeeType(tempData.id, tempData).then(() => {
             this.getList();
             this.dialogFormVisible = false;
             this.$notify({
@@ -482,8 +482,8 @@ export default {
       this.$refs["dataForm2"].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp);
-          updateCustomerType(tempData.id, tempData).then(() => {
-            this.btngetlishcustomer();
+          updateEmployee(tempData.id, tempData).then(() => {
+            this.btngetlishEmployee();
             this.dialogFormVisible2 = false;
             this.$notify({
               title: "Thông báo",
@@ -496,7 +496,7 @@ export default {
       });
     },
     handleDelete(row) {
-      deleteCustomerType(row.id).then(() => {
+      deleteEmployeeType(row.id).then(() => {
         this.getList();
         this.$notify({
           title: "Thông báo",
@@ -507,8 +507,8 @@ export default {
       });
     },
     handleDelete2(row) {
-      deleteCustomer(row.id).then(() => {
-        this.btngetlishcustomer();
+      deleteEmployee(row.id).then(() => {
+        this.btngetlishEmployee();
         this.$notify({
           title: "Thông báo",
           message: "Xoá thành công",
@@ -520,11 +520,11 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
-    btngetcustomer(row) {
-      //   this.listQuerycustomer = Object.assign({}, row);
+    btngetEmployee(row) {
+      //   this.listQueryEmployee = Object.assign({}, row);
       this.Tenloai= row.name
-      this.query1.customerType_id = row.id;
-      getCustomer(this.query1).then((response) => {
+      this.query1.employeeType_id = row.id;
+      getEmployee(this.query1).then((response) => {
         this.list2 = response.data.data;
         // this.total = response.data.meta.total;
         // Just to simulate the time of the request
@@ -534,8 +534,8 @@ export default {
       });
     },
 
-    btngetlishcustomer() {
-      getCustomer(this.query1).then((response) => {
+    btngetlishEmployee() {
+      getEmployee(this.query1).then((response) => {
         this.list2 = response.data.data;
         // this.total = response.data.meta.total;
         // Just to simulate the time of the request

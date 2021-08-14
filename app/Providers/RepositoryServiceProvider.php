@@ -29,6 +29,14 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\CustomerType\CustomerTypeRepositoryInterface::class,
             \App\Repositories\CustomerType\CustomerTypeRepositoryEloquent::class,
         ],
+        'employeeType' => [ 
+            \App\Repositories\EmployeeType\EmployeeTypeRepositoryInterface::class,
+            \App\Repositories\EmployeeType\EmployeeTypeRepositoryEloquent::class,
+        ],
+        'employee' => [ 
+            \App\Repositories\Employee\EmployeeRepositoryInterface::class,
+            \App\Repositories\Employee\EmployeeRepositoryEloquent::class,
+        ],
         'categorychild' => [ 
             \App\Repositories\CategoryChild\CategoryChildRepositoryInterface::class,
             \App\Repositories\CategoryChild\CategoryChildRepositoryEloquent::class,

@@ -8,10 +8,11 @@ export function getEmployee(data) {
         params: data
     })
 }
-export function createEmployee() {
+export function createEmployee(data) {
     return Client({
         url: resource + '/employee',
         method: 'post',
+        params: data
     })
 }
 export function updateEmployee(id, data) {

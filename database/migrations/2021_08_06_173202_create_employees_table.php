@@ -21,7 +21,6 @@ class CreateEmployeesTable extends Migration
             $table->string('email')->nullable();
             $table->string('image')->nullable();
             $table->integer('employeeType_id');
-            $table->integer('emterprise_id');
             $table->timestamps();
         });
     }

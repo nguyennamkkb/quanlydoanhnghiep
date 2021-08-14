@@ -1,6 +1,7 @@
 import Client from '../plugins/axios'
 const resource = '/api';
 
+
 export function getSpecificities(data) {
     return Client({
         url: resource + '/specificities',

@@ -4,14 +4,14 @@ namespace App\Repositories\Specificities;
 
 use App\Repositories\Eloquent\RepositoryEloquent;
 use App\Repositories\Specificities\SpecificitiesRepositoryInterface;
-use App\Models\Specificities;
+use App\Models\Specificity;
 
 
 class SpecificitiesRepositoryEloquent extends RepositoryEloquent implements SpecificitiesRepositoryInterface
 {
     public function model()
     {
-        return Specificities::class;
+        return Specificity::class;
     }
 
     public function findBy($keyword)

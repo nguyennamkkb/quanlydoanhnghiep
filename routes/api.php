@@ -20,6 +20,8 @@ use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\CustomerTypeController;
 use App\Http\Controllers\Api\EnterpriseController;
 use App\Http\Controllers\Api\SpecificitieController;
+use App\Http\Controllers\Api\EmployeeTypeController;
+use App\Http\Controllers\Api\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +88,16 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('specificities', [SpecificitieController::class, 'store']); // them moi thong tin
     Route::put('specificities/{id}', [SpecificitieController::class, 'update']); // sua thong tin
     Route::delete('specificities/{id}', [SpecificitieController::class, 'destroy']); // xoa thong tin
+    //Loai nhan vien
+    Route::get('employeeType', [EmployeeTypeController::class, 'index']); // lay thong toan bo thong tin
+    Route::post('employeeType', [EmployeeTypeController::class, 'store']); // them moi thong tin
+    Route::put('employeeType/{id}', [EmployeeTypeController::class, 'update']); // sua thong tin
+    Route::delete('employeeType/{id}', [EmployeeTypeController::class, 'destroy']); // xoa thong tin
+    //nhan vien
+    Route::get('employee', [EmployeeController::class, 'index']); // lay thong toan bo thong tin
+    Route::post('employee', [EmployeeController::class, 'store']); // them moi thong tin
+    Route::put('employee/{id}', [EmployeeController::class, 'update']); // sua thong tin
+    Route::delete('employee/{id}', [EmployeeController::class, 'destroy']); // xoa thong tin
 
 });
 

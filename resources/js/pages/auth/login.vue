@@ -99,7 +99,7 @@ export default {
   methods: {
     async login() {
       // Submit the form.
-      console.log("asdasdasdasd");
+      // console.log("asdasdasdasd");
       const { data } = await this.form.post("/api/login");
       
       // Save the token.
