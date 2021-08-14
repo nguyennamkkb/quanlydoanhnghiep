@@ -5,6 +5,6 @@ export default function TestApi(query) {
     return Client({
         url: 'api/test',
         method: 'post',
-        params: query
+        data: query
     })
 }

@@ -5,7 +5,8 @@ export function getCategory(data) {
     return Client({
         url: resource + '/category',
         method: 'get',
-        params: data
+        params: data,
+
     })
 }
 export function createCategory(data) {
