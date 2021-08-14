@@ -25,7 +25,10 @@ export default [
             { path: 'category', name: 'dashboard.category', component: page('dashboard/category/index.vue') },
             { path: 'customer', name: 'dashboard.customer', component: page('dashboard/customer/index.vue') },
             { path: 'specificities', name: 'dashboard.specificities', component: page('dashboard/category/specificities.vue') },
+            { path: 'price', name: 'dashboard.price', component: page('dashboard/category/price.vue') },
+            { path: 'unit', name: 'dashboard.unit', component: page('dashboard/category/unit.vue') },
             { path: 'employee', name: 'dashboard.employee', component: page('dashboard/Employee/index.vue') },
+            { path: 'input', name: 'dashboard.input', component: page('dashboard/Receipt/input.vue') },
 
         ]
     },

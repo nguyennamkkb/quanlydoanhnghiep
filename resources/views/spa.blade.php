@@ -17,7 +17,7 @@ $config = [
   <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}">
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app" ></div>
 
   {{-- Global configuration object --}}
   <script>

@@ -22,6 +22,8 @@ use App\Http\Controllers\Api\EnterpriseController;
 use App\Http\Controllers\Api\SpecificitieController;
 use App\Http\Controllers\Api\EmployeeTypeController;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\UnitController;
+use App\Http\Controllers\Api\PriceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,6 +100,16 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('employee', [EmployeeController::class, 'store']); // them moi thong tin
     Route::put('employee/{id}', [EmployeeController::class, 'update']); // sua thong tin
     Route::delete('employee/{id}', [EmployeeController::class, 'destroy']); // xoa thong tin
+    //don vi tinh
+    Route::get('unit', [UnitController::class, 'index']); // lay thong toan bo thong tin
+    Route::post('unit', [UnitController::class, 'store']); // them moi thong tin
+    Route::put('unit/{id}', [UnitController::class, 'update']); // sua thong tin
+    Route::delete('unit/{id}', [UnitController::class, 'destroy']); // xoa thong tin
+    //gia
+    Route::get('price', [PriceController::class, 'index']); // lay thong toan bo thong tin
+    Route::post('price', [PriceController::class, 'store']); // them moi thong tin
+    Route::put('price/{id}', [PriceController::class, 'update']); // sua thong tin
+    Route::delete('price/{id}', [PriceController::class, 'destroy']); // xoa thong tin
 
 });
 

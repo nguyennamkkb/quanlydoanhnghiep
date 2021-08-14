@@ -16,10 +16,11 @@ class CreateInputsTable extends Migration
         Schema::create('inputs', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date'); 
-            $table->integer('supplier_id'); 
-            $table->string('totalweight_id'); 
-            $table->integer('importer_id'); 
-            $table->integer('carrier_id'); 
+            $table->integer('customer_id'); // lay tu bang customer
+            $table->integer('importer_id'); // lay tu bang customer
+            $table->integer('carrier_id'); // lay tu bang customer
+            $table->float('totalmoney'); 
+            $table->string('note'); 
             $table->timestamps();
         });
     }

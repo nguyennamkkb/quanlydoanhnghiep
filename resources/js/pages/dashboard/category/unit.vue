@@ -103,11 +103,11 @@
 
 <script>
 import {
-  getSpecificities,
-  createSpecificities,
-  updateSpecificities,
-  deleteSpecificities,
-} from "../../../api/specificities";
+  getUnit,
+  createUnit,
+  updateUnit,
+  deleteUnit,
+} from "../../../api/Unit";
 
 export default {
   filters: {
@@ -142,14 +142,14 @@ export default {
       dialogFormVisible: false,
       dialogStatus: "",
       textMap: {
-        update: "Sửa Loại đặc tính",
-        create: "Thêm mới loại đặc tính",
+        update: "Sửa Loại khách hàng",
+        create: "Thêm mới loại khách hàng",
       },
       rules: {
         name: [
           {
             required: true,
-            message: "Tên đặc tính không được bỏ trống",
+            message: "Tên khách hàng không được bỏ trống",
             trigger: "change",
           },
         ],
@@ -162,7 +162,7 @@ export default {
   methods: {
     getList() {
       //   this.listLoading = true
-      getSpecificities(this.listQuery).then((response) => {
+      getUnit(this.listQuery).then((response) => {
         this.list = response.data.data;
         this.total = response.data.meta.total;
         // Just to simulate the time of the request
@@ -193,7 +193,7 @@ export default {
       this.$refs["dataForm"].validate((valid) => {
         if (valid) {
           console.log(this.temp);
-          createSpecificities(this.temp).then(() => {
+          createUnit(this.temp).then(() => {
             this.listQuery.page = 1;
             this.getList();
             this.dialogFormVisible = false;
@@ -219,7 +219,7 @@ export default {
       this.$refs["dataForm"].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp);
-          updateSpecificities(tempData.id, tempData).then(() => {
+          updateUnit(tempData.id, tempData).then(() => {
             this.getList();
             this.dialogFormVisible = false;
             this.$notify({
@@ -233,7 +233,7 @@ export default {
       });
     },
     handleDelete(row) {
-      deleteSpecificities(row.id).then(() => {
+      deleteUnit(row.id).then(() => {
         this.getList();
         this.$notify({
           title: "Thông báo",

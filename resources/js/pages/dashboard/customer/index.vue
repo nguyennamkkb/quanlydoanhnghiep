@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-row :gutter="20">
       <el-col :span="10">
-        <h4>Loại khách hàng</h4>
+        <h4>Loại công việc</h4>
         <div class="grid-content bg-purple">
           <div class="filter-container">
             <el-input
@@ -212,7 +212,7 @@
         <el-form-item :label="'Email'" prop="email">
           <el-input v-model="temp2.email" />
         </el-form-item>
-        <el-form-item :label="'Loại khách hàng'" prop="customerType_id">
+        <el-form-item :label="'Loại công việc'" prop="customerType_id">
           <el-select
             v-model="temp2.customerType_id"
             placeholder="Chọn"
@@ -305,18 +305,18 @@ export default {
         customerType_id: undefined,
       },
       textMap: {
-        update: "Sửa Loại khách hàng",
-        create: "Thêm mới loại khách hàng",
+        update: "Sửa Loại công việc",
+        create: "Thêm mới loại công việc",
       },
       textMap2: {
-        update: "Sửa Loại khách hàng",
-        create: "Thêm mới loại khách hàng",
+        update: "Sửa Loại công việc",
+        create: "Thêm mới loại công việc",
       },
       rules: {
         name: [
           {
             required: true,
-            message: "Tên khách hàng không được bỏ trống",
+            message: "Tên công việc không được bỏ trống",
             trigger: "change",
           },
         ],
@@ -325,35 +325,35 @@ export default {
         name: [
           {
             required: true,
-            message: "Tên khách hàng không được bỏ trống",
+            message: "Tên công việc không được bỏ trống",
             trigger: "change",
           },
         ],
         address: [
           {
             required: true,
-            message: "Tên khách hàng không được bỏ trống",
+            message: "Tên công việc không được bỏ trống",
             trigger: "change",
           },
         ],
         phone: [
           {
             required: true,
-            message: "Tên khách hàng không được bỏ trống",
+            message: "Tên công việc không được bỏ trống",
             trigger: "change",
           },
         ],
         email: [
           {
             required: true,
-            message: "Tên khách hàng không được bỏ trống",
+            message: "Tên công việc không được bỏ trống",
             trigger: "change",
           },
         ],
         customerType_id: [
           {
             required: true,
-            message: "Tên khách hàng không được bỏ trống",
+            message: "Tên công việc không được bỏ trống",
             trigger: "change",
           },
         ],

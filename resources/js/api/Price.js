@@ -14,10 +14,11 @@ export function getPrice() {
         method: 'get',
     })
 }
-export function createPrice() {
+export function createPrice(data) {
     return Client({
         url: resource + '/price',
         method: 'post',
+        params: data
     })
 }
 export function updatePrice(id, data) {

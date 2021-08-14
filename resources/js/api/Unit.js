@@ -8,10 +8,11 @@ export function getUnit(data) {
         params: data
     })
 }
-export function createUnit() {
+export function createUnit(data) {
     return Client({
         url: resource + '/unit',
         method: 'post',
+        params: data
     })
 }
 export function updateUnit(id, data) {
