@@ -29,6 +29,12 @@ class CategoryChildController extends Controller
         $list = $this->categoryChildRepository->findBy($catgoryId,$keyword)->paginate($limit);
         return CategoryChildResource::collection($list);
     }
+    public function showbyCategoryId(Request $request)
+    {
+        $categoryId = $request->category_id;
+        $list = $this->categoryChildRepository->findByCategoryid($categoryId)->get();
+        return  CategoryChildResource::collection($list);
+    }
     
     public function store(categoryChildRequest $request)
     {

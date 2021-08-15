@@ -5,27 +5,72 @@
 
     <el-form ref="form" :model="temp" label-width="130px">
       <el-row :gutter="20">
-        <el-col :span="10"
-          ><div class="grid-content bg-purple">
-            <el-form-item label="Ngày nhập">
+        <el-col :span="10">
+          <div class="grid-content bg-purple">
+            <el-form-item label="Ngày nhập" style="font-weight: bold">
               <el-date-picker
                 type="date"
                 placeholder="(Năm-Tháng-ngày)"
-                v-model="temp.date1"
+                v-model="temp.date"
                 style="width: auto"
-              ></el-date-picker>
-            </el-form-item></div
-        ></el-col>
-        <el-col :span="10"
-          ><div class="grid-content bg-purple">
-            <el-form-item label="Người vận chuyển">
+                
+              >
+              </el-date-picker>
+            </el-form-item>
+          </div>
+        </el-col>
+        <el-col :span="10">
+          <div class="grid-content bg-purple">
+            <el-form-item label="Ng vận chuyển" style="font-weight: bold">
               <el-select
                 v-model="temp.carrier_id"
                 placeholder="Chọn người vận chuyển"
                 style="width: auto"
               >
-                <el-option label="Minh" value="shanghai"></el-option>
-                <el-option label="ABC" value="beijing"></el-option>
+                <el-option
+                  v-for="item in listEmployees"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="10">
+          <div class="grid-content bg-purple">
+            <el-form-item label="Khách hàng" style="font-weight: bold">
+              <el-select
+                v-model="temp.region"
+                placeholder="Chọn khách hàng"
+                style="width: auto"
+              >
+                <el-option
+                  v-for="item in listCustomers"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </div>
+        </el-col>
+        <el-col :span="10">
+          <div class="grid-content bg-purple">
+            <el-form-item label="Ng kiểm hàng" style="font-weight: bold">
+              <el-select
+                v-model="temp.importer_id"
+                placeholder="Người kiểm"
+                style="width: auto"
+              >
+                <el-option
+                  v-for="item in listEmployees"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                ></el-option>
               </el-select>
             </el-form-item></div
         ></el-col>
@@ -33,41 +78,36 @@
       <el-row :gutter="20">
         <el-col :span="10"
           ><div class="grid-content bg-purple">
-            <el-form-item label="Khách hàng">
+            <el-form-item label="Mục hàng hóa" style="font-weight: bold">
               <el-select
-                v-model="temp.region"
-                placeholder="Loại khách hàng"
+                v-model="temp.category_id"
+                placeholder="Chọn loại hàng"
                 style="width: auto"
+                @change="getListCatagoryChild"
               >
-                <el-option label="Khách 1" value="shanghai"></el-option>
-                <el-option label="Khách 2" value="beijing"></el-option>
+                <el-option
+                  v-for="item in listCategories"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                ></el-option>
               </el-select>
-            </el-form-item></div
-        ></el-col>
-        <el-col :span="10"
-          ><div class="grid-content bg-purple">
-            <el-form-item label="Người kiểm hàng">
-              <el-select
-                v-model="temp.importer_id"
-                placeholder="Người kiểm"
-                style="width: auto"
+            </el-form-item>
+          </div>
+        </el-col>
+        <el-col :span="10">
+          <div class="grid-content bg-purple">
+            <el-form-item label="Ghi chú" style="font-weight: bold">
+              <el-input
+                type="textarea"
+                placeholder="Nhập ghi chú"
+                v-model="temp.note"
               >
-                <el-option label="Nam" value="shanghai"></el-option>
-                <el-option label="Thực" value="beijing"></el-option>
-              </el-select>
-            </el-form-item></div
-        ></el-col>
+              </el-input>
+            </el-form-item>
+          </div>
+        </el-col>
       </el-row>
-
-      <el-form-item label="Ghi chú">
-        <el-input
-          type="textarea"
-          :autosize="{ minRows: 2, maxRows: 4 }"
-          placeholder="Nhập ghi chú"
-          v-model="temp.note"
-        >
-        </el-input>
-      </el-form-item>
 
       <!-- <el-form-item size="large">
         <el-button type="primary" @click="onSubmit">Create</el-button>
@@ -87,55 +127,70 @@
       </thead>
       <tbody>
         <!-- <tr v-for="(user, index) in users"> -->
-        <tr v-for="item in inputDetails" :key="item.id">
+        <tr  v-for="(item, index) in inputDetails" :key="index">
           <td>
             <el-select
               v-model="item.categorychildren_id"
               placeholder="Loại"
               style="width: auto"
+               @change="CalculateTotal()"
             >
-              <el-option label="Tăm 34" value="34"></el-option>
-              <el-option label="Tăm 40" value="40"></el-option>
+              <el-option
+                v-for="item in listCategoryChilds"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+              ></el-option>
             </el-select>
           </td>
           <td>
-            <input v-model="item.weight" class="form-control" type="number" />
+            <input v-model="item.weight" class="form-control" type="number"  @change="CalculateTotal()" />
           </td>
           <td>
             <el-select
-              v-model="temp.item.unit_id"
+              v-model="item.unit"
               placeholder="Loại"
               style="width: auto"
+              @change="CalculateTotal()"
             >
-              <el-option label="Kg" value="1"></el-option>
-              <el-option label="Kiện" value="2"></el-option>
+              <el-option
+                v-for="item in listUnits"
+                :key="item.id"
+                :label="item.name"
+                :value="item.name"
+              ></el-option>
             </el-select>
           </td>
           <td>
             <el-select
-              v-model="temp.item.price_id"
-              placeholder="Loại"
+              v-model="item.price"
+              placeholder="Giá"
               style="width: auto"
+              @change="CalculateTotal()"
             >
-              <el-option label="10000" value="10000"></el-option>
-              <el-option label="20000" value="20000"></el-option>
+              <el-option
+                v-for="item in listPrices"
+                :key="item.id"
+                :label="item.name"
+                :value="item.name"
+              ></el-option>
             </el-select>
           </td>
           <td>
-            <input type="text" v-model="temp.item.total" disabled />
+            <input type="text" v-model="item.total" disabled  />
           </td>
           <td>
-            <el-button
+            <el-button v-if="index ==lenTable-1"
               type="danger"
               icon="el-icon-delete"
               circle
-              @click="deleteRow()"
+              @click="deleteRow(item)"
             ></el-button>
           </td>
         </tr>
         <tr>
           <td colspan="4" style="text-align: right">Tổng tiền</td>
-          <td colspan="1">1000000</td>
+          <td colspan="1">{{temp.totalmoney }}</td>
           <td colspan="1">
             <el-button
               type="primary"
@@ -147,69 +202,122 @@
         </tr>
       </tbody>
     </table>
-    <el-button type="primary" @click="getvalue">Tạo phiếu xuất</el-button>
+    <el-button type="primary" @click="getvalue" style="float: right"
+      >Tạo phiếu xuất</el-button
+    >
   </div>
 </template>
 <script>
+import { getInput } from "../../../api/Input";
+import { getCategoryChildbyCategoryId } from "../../../api/CategoryChild";
+
 export default {
   data() {
     return {
+      listCustomers: null,
+      listEmployees: null,
+      listCategories: null,
+      listUnits: null,
+      listPrices: null,
+      listCategoryChilds: null,
       inputDetails: [
         {
-          categorychildren_id: "",
-          weight: "",
-          unit_id: "",
-          price_id: "",
-          total: "",
+          customer_id: undefined,
+          categorychildren_id: undefined,
+          weight: 0,
+          unit: undefined,
+          price: undefined,
+          total: 0,
         },
       ],
       temp: {
-        date: undefined,
+        date: Date(),
         customer_id: undefined,
         importer_id: undefined,
         carrier_id: undefined,
         note: "",
         totalmoney: undefined,
-        item: {
-          customer_id: undefined,
-          categorychildren_id: undefined,
-          weight: 0,
-          unit_id: undefined,
-          price_id: undefined,
-          total: 1,
-          prepay: undefined,
-        },
+        item: [
+          {
+            customer_id: undefined,
+            categorychildren_id: undefined,
+            weight: 0,
+            unit: undefined,
+            price: undefined,
+            total: 1,
+          },
+        ],
       },
-      item: {
-        customer_id: undefined,
-        categorychildren_id: undefined,
-        weight: 0,
-        unit_id: undefined,
-        price_id: undefined,
-        total: 1,
-        prepay: undefined,
-      },
+      totalAmount:0,
+      lenTable:0,
     };
   },
+  created() {
+    this.getList();
+  },
   methods: {
-    onSubmit() {
-      console.log("submit!");
+    getList: async function () {
+      const data = await getInput();
+      this.listCustomers = data.data.customer;
+      this.listCategories = data.data.category;
+      this.listEmployees = data.data.employee;
+      this.listUnits = data.data.unit;
+      this.listPrices = data.data.price;
     },
     addRow: function () {
       this.inputDetails.push({
         categorychildren_id: undefined,
         weight: undefined,
-        unit_id: undefined,
-        price_id: undefined,
+        unit: undefined,
+        price: undefined,
         total: "",
       });
+      this.CalculateTotal();
     },
-    deleteRow() {
+    deleteRow(row) {
       this.inputDetails.pop();
+      this.CalculateTotal();
     },
     getvalue() {
+      this.temp.item = Object.assign({}, this.inputDetails);
       console.log(this.temp);
-      console.log(this.inputDetails);
+    },
+    getData: async function () {
+      // const data1 = await getCategoryChild(this.temp)
+    },
+    getListCatagoryChild() {
+      const dt = {
+        category_id: this.temp.category_id,
+      };
+      getCategoryChildbyCategoryId(dt)
+        .then((result) => {
+          // console.log(result.data.data);
+          this.listCategoryChilds = result.data.data;
+        })
+        .catch((err) => {});
+    },
+    CalculateTotal() {
+      // console.log(this.inputDetails);
+      // console.log(this.inputDetails[0].price);
+      
+      this.temp.totalmoney =0;
+      let datatable = this.inputDetails;
+      let index =0;
+      this.lenTable = datatable.length
+      datatable.forEach((element) => {
+        index++;
+        let soluong =element.weight;
+        let donvi = element.unit != undefined? parseInt(element.unit.split(" ")[1]):'';
+        let dongia =element.price;
+        let thanhtien;
+        if(isNaN(donvi))  donvi=1;
+        thanhtien = soluong*donvi*dongia;
+        if(isNaN(thanhtien))  thanhtien=0;
+        // console.log('tong tien'+ thanhtien);     
+        datatable[index-1].total =thanhtien
+        this.temp.totalmoney+=thanhtien;
+      });
+
     },
   },
 };

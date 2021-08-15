@@ -8,9 +8,9 @@ export function getCategoryChild(data) {
         params: data
     })
 }
-export function getCategoryChildbyId(id, data) {
+export function getCategoryChildbyCategoryId(data) {
     return Client({
-        url: resource + '/categoryChild/' + id,
+        url: resource + '/categoryChildbyid',
         method: 'get',
         params: data
     })
@@ -19,14 +19,14 @@ export function createCategoryChild(data) {
     return Client({
         url: resource + '/categoryChild',
         method: 'post',
-        params: data
+        data
     })
 }
 export function updateCategoryChild(id, data) {
     return Client({
         url: resource + '/categoryChild/' + id,
         method: 'put',
-        params: data
+        data
     })
 }
 export function deleteCategoryChild(id) {

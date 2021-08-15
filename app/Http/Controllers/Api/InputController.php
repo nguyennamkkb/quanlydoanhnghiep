@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\Input\InputRepositoryInterface;
+use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Price\PriceRepositoryInterface;
+use App\Repositories\Employee\EmployeeRepositoryInterface;
+use App\Repositories\Customer\CustomerRepositoryInterface;
+use App\Repositories\Unit\UnitRepositoryInterface;
 use App\Http\Resources\InputResource;
 use App\Models\Code;
 use App\Http\Requests\InputRequest;
@@ -13,23 +18,51 @@ use Illuminate\Support\Facades\DB;
 class InputController extends Controller
 {
     protected $InputRepository;
+    protected $categoryRepository;
+    protected $PriceRepository;
+    protected $EmployeeRepository;
+    protected $CustomerRepository;
+    protected $UnitRepository;
+    // protected $InputRepository;
+    // protected $InputRepository;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(InputRepositoryInterface $InputRepository)
+    public function __construct(
+        InputRepositoryInterface $InputRepository,
+        PriceRepositoryInterface $PriceRepository,
+        EmployeeRepositoryInterface $EmployeeRepository,
+        CustomerRepositoryInterface $CustomerRepository,
+        CategoryRepositoryInterface $categoryRepository,
+        UnitRepositoryInterface $UnitRepository
+        )
     {
         $this->InputRepository = $InputRepository;
+        $this->PriceRepository = $PriceRepository;
+        $this->EmployeeRepository = $EmployeeRepository;
+        $this->CustomerRepository = $CustomerRepository;
+        $this->categoryRepository = $categoryRepository;
+        $this->UnitRepository = $UnitRepository;
     }
-    public function index(Request $request)
+    public function index()
     {
-        // $keyword = $request->keyword;
-        // $address = $request->address;
-        // $phone = $request->phone;
-        // $limit = $request->limit;
-        // $list = $this->InputRepository->findBy($keyword,$address, $phone)->paginate($limit);
-        // return InputResource::collection($list);
+        $input = InputResource::collection($this->InputRepository->all());
+        $price = InputResource::collection($this->PriceRepository->all());
+        $employee = InputResource::collection($this->EmployeeRepository->all());
+        $customer = InputResource::collection($this->CustomerRepository->all());
+        $category = InputResource::collection($this->categoryRepository->all());
+        $unit = InputResource::collection($this->UnitRepository->all());
+
+        return response()->json(
+            ['input' => $input,
+            'price' => $price,
+            'employee' => $employee,
+            'customer' => $customer,
+            'category' => $category,
+            'unit' => $unit,
+            ], 200);
     }
     
     public function store(InputRequest $request)

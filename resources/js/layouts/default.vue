@@ -71,7 +71,7 @@
               <router-link aria-current="page" :to="{ name: 'dashboard.customer' }">
                 <el-menu-item index="5">
                   <i class="el-icon-setting"></i>
-                  <span>Nhà cung cấp</span>
+                  <span>Khách hàng</span>
                 </el-menu-item>
               </router-link>
               <router-link aria-current="page" :to="{ name: 'dashboard.employee' }">

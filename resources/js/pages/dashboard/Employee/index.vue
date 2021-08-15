@@ -75,7 +75,7 @@
           </el-table></div
       ></el-col>
       <el-col :span="14">
-        <h4>Khách hàng  <span style="color:#ff0a0a">{{Tenloai}}</span>  </h4>
+        <h4>Công việc <span style="color:#ff0a0a">{{Tenloai}}</span>  </h4>
         <div class="grid-content bg-purple">
           <div class="filter-container">
             <el-input

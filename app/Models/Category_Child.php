@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Category_Child extends Model
 {
     use HasFactory;
-    protected $table = 'category__children';
+    // protected $table = 'category__children';
 
 }

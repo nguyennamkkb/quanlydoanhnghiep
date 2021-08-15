@@ -30,5 +30,14 @@ class CategoryChildRepositoryEloquent extends RepositoryEloquent implements Cate
 
         return $query->orderBy('id', 'desc');
     }
+    public function findByCategoryid($categoryid)
+    {
+        $query = $this->model->newQuery();
+      
+        if (!empty($categoryid)) {
+            $query = $this->model->where('category_id','=',$categoryid);
+        }
+        return $query;
+    }
 
 }

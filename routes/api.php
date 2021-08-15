@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\EmployeeTypeController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\PriceController;
+use App\Http\Controllers\Api\InputController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('categoryChild', [CategoryChildController::class, 'index']); // lay thong toan bo thong tin
     Route::post('categoryChild', [CategoryChildController::class, 'store']); // them moi thong tin
     Route::put('categoryChild/{id}', [CategoryChildController::class, 'update']); // sua thong tin
+    Route::get('categoryChildbyid', [CategoryChildController::class, 'showbyCategoryId']); // sua thong tin
     Route::delete('categoryChild/{id}', [CategoryChildController::class, 'destroy']); // xoa thong tin
 
     //Khách hàng
@@ -110,6 +112,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('price', [PriceController::class, 'store']); // them moi thong tin
     Route::put('price/{id}', [PriceController::class, 'update']); // sua thong tin
     Route::delete('price/{id}', [PriceController::class, 'destroy']); // xoa thong tin
+    // phieu nhap
+    Route::get('input', [InputController::class, 'index']); // lay thong toan bo thong tin
+    Route::post('input', [InputController::class, 'store']); // them moi thong tin
+    Route::put('input/{id}', [InputController::class, 'update']); // sua thong tin
+    Route::delete('input/{id}', [InputController::class, 'destroy']); // xoa thong tin
 
 });
 
