@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Input;
+use App\Models\Category_Child;
 
 class InputDetail extends Model
 {
@@ -13,5 +14,9 @@ class InputDetail extends Model
     public function input()
     {
         return $this->belongsTo(Input::class, 'input_id');
+    }
+    public function categorychildren()
+    {
+        return $this->belongsTo(Category_Child::class, 'categorychildren_id');
     }
 }

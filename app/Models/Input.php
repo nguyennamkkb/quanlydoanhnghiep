@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\InputDetail;
 use App\Models\Customer;
+use App\Models\Employees;
 
 
 class Input extends Model
@@ -21,8 +22,13 @@ class Input extends Model
     {
         return $this->belongsTo(Customer::class, 'customer_id');
     }
-    // public function inputdetail()
-    // {
-    //     return $this->hasMany(InputDetail::class, 'input_id', 'id');
-    // }
+    public function importer()
+    {
+        return $this->belongsTo(Employees::class, 'importer_id');
+    }
+    public function carrier()
+    {
+        return $this->belongsTo(Employees::class, 'carrier_id');
+    }
+   
 }

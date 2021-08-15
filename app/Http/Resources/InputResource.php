@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\inputDetailResource;
 
 class InputResource extends JsonResource
 {
@@ -17,15 +18,12 @@ class InputResource extends JsonResource
         return [
             'id' => $this->id,
             'date' => $this->date,
-            'customer' => new CustomersResource($this->customer->only('name')),
-            'importer_id' => $this->importer_id,
-            'carrier_id' => $this->carrier_id,
+            'customer' =>  new FreeResource ($this->customer->only('name')),
+            'importer_id' => new FreeResource($this->importer->only('name')),
+            'carrier_id' =>new FreeResource($this->carrier->only('name')),
             'totalmoney' => $this->totalmoney,
             'note' => $this->note,
-            // 'created_at' => (string)$this->created_at,
-            // 'updated_at' => (string)$this->updated_at,
-            'item' => new inputDetaiResource($this->inputdetail),
-            // 'enterprise' =>  $this->enterprises,
+            'item' =>  inputDetailResource::collection($this->inputdetail),
             
         ];
     }
