@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\Input\InputRepositoryInterface;
+use App\Repositories\InputDetail\InputDetailRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Price\PriceRepositoryInterface;
 use App\Repositories\Employee\EmployeeRepositoryInterface;
@@ -14,6 +15,7 @@ use App\Http\Resources\InputResource;
 use App\Models\Code;
 use App\Http\Requests\InputRequest;
 use Illuminate\Support\Facades\DB;
+use Tymon\JWTAuth\Http\Parser\InputSource;
 
 class InputController extends Controller
 {
@@ -23,6 +25,7 @@ class InputController extends Controller
     protected $EmployeeRepository;
     protected $CustomerRepository;
     protected $UnitRepository;
+    protected $InputDetailRepository;
     // protected $InputRepository;
     // protected $InputRepository;
     /**
@@ -36,17 +39,27 @@ class InputController extends Controller
         EmployeeRepositoryInterface $EmployeeRepository,
         CustomerRepositoryInterface $CustomerRepository,
         CategoryRepositoryInterface $categoryRepository,
-        UnitRepositoryInterface $UnitRepository
+        UnitRepositoryInterface $UnitRepository,
+        InputDetailRepositoryInterface $InputDetailRepository
         )
     {
         $this->InputRepository = $InputRepository;
+        $this->InputDetailRepository = $InputDetailRepository;
         $this->PriceRepository = $PriceRepository;
         $this->EmployeeRepository = $EmployeeRepository;
         $this->CustomerRepository = $CustomerRepository;
         $this->categoryRepository = $categoryRepository;
         $this->UnitRepository = $UnitRepository;
     }
-    public function index()
+    public function index(Request $request)
+    {
+        $keyword = $request->keyword;
+        $limit = $request->limit;
+        $list = $this->InputRepository->findBy($keyword)->paginate($limit);
+        return InputResource::collection($list);
+       
+    }
+    public function getlistValueInput()
     {
         $input = InputResource::collection($this->InputRepository->all());
         $price = InputResource::collection($this->PriceRepository->all());
@@ -65,18 +78,34 @@ class InputController extends Controller
             ], 200);
     }
     
-    public function store(InputRequest $request)
+    
+    public function store(Request $request)
     {
-        $req = $request->validated();
         DB::beginTransaction();
         try {
-            $this->InputRepository->insertGetId([
-                'date' => $req['date'],
-                'supplier_id' => $req['supplier_id'],
-                'totalweight_id' => $req['totalweight_id'],
-                'importer_id' => $req['importer_id'],
-                'carrier_id' => $req['carrier_id'],
+            $input = $this->InputRepository->insertGetId([
+                'date' => $request['date'],
+                'customer_id' => $request['customer_id'],
+                'importer_id' => $request['importer_id'],
+                'carrier_id' => $request['carrier_id'],
+                'note' => $request['note'],
+                'totalmoney' => $request['totalmoney'],
             ]);
+            // dd(#request['item']);
+            if (!empty($request['item']) && $input != NULL) {
+                foreach ($request['item'] as $value) {
+                    $this->InputDetailRepository->insertGetId([
+                        'input_id' => $input,
+                        'customer_id' => $request['customer_id'],
+                        'categorychildren_id' => $value['categorychildren_id'],
+                        'weight' => $value['weight'],
+                        'unit' => $value['unit'],
+                        'price' => $value['price'],
+                        'total' => $value['total'],
+                        'prepay' => $value['prepay'],
+                    ]);
+                }
+            }
             DB::commit();
             return response()->json(['status' => true], 200);  
         } catch (\Exception $e) {

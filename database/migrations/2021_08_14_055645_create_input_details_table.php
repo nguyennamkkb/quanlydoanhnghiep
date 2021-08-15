@@ -15,13 +15,14 @@ class CreateInputDetailsTable extends Migration
     {
         Schema::create('input_details', function (Blueprint $table) {
             $table->id();
+            $table->integer('input_id');
             $table->integer('customer_id');
             $table->integer('categorychildren_id');
-            $table->integer('weight');
-            $table->integer('unit_id');
-            $table->integer('price_id');
+            $table->string('weight');
+            $table->string('unit');
+            $table->string('price');
             $table->float('total');
-            $table->float('prepay');
+            $table->float('prepay')->nullable();
             $table->timestamps();
         });
     }

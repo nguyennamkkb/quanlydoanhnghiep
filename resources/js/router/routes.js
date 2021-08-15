@@ -29,6 +29,7 @@ export default [
             { path: 'unit', name: 'dashboard.unit', component: page('dashboard/category/unit.vue') },
             { path: 'employee', name: 'dashboard.employee', component: page('dashboard/Employee/index.vue') },
             { path: 'input', name: 'dashboard.input', component: page('dashboard/Receipt/input.vue') },
+            { path: 'inputlist', name: 'dashboard.inputlist', component: page('dashboard/Receipt/index.vue') },
 
         ]
     },

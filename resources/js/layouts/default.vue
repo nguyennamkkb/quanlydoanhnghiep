@@ -86,7 +86,8 @@
                   <span>Nhập hàng</span>
                 </template>
                  <router-link aria-current="page" :to="{ name: 'dashboard.input' }"><el-menu-item index="8-1">Lập phiếu nhập</el-menu-item></router-link>
-                <el-menu-item index="8-2">Danh sách phiếu nhập</el-menu-item>
+                 <router-link aria-current="page" :to="{ name: 'dashboard.inputlist' }"><el-menu-item index="8-3">Danh sách phiếu nhập</el-menu-item></router-link>
+                <!-- <el-menu-item index="8-2"></el-menu-item> -->
               </el-submenu>
               <el-submenu index="9">
                 <template slot="title">

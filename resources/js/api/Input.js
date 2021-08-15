@@ -1,9 +1,16 @@
 import Client from '../plugins/axios'
 const resource = '/api';
 
-export function getInput() {
+export function getInput(data) {
     return Client({
         url: resource + '/input',
+        method: 'get',
+        params: data
+    })
+}
+export function getValueInput() {
+    return Client({
+        url: resource + '/valueinput',
         method: 'get',
         // params: data
     })

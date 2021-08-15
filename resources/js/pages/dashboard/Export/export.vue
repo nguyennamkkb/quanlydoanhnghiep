@@ -13,6 +13,7 @@
                 placeholder="(Năm-Tháng-ngày)"
                 v-model="temp.date"
                 style="width: auto"
+                
               >
               </el-date-picker>
               <!-- <input type="date" v-model="temp.date" placeholder="(Năm-Tháng-ngày)"  style="width: auto"> -->
@@ -43,7 +44,7 @@
           <div class="grid-content bg-purple">
             <el-form-item label="Khách hàng" style="font-weight: bold">
               <el-select
-                v-model="temp.customer_id"
+                v-model="temp.region"
                 placeholder="Chọn khách hàng"
                 style="width: auto"
               >
@@ -127,13 +128,13 @@
       </thead>
       <tbody>
         <!-- <tr v-for="(user, index) in users"> -->
-        <tr v-for="(item, index) in inputDetails" :key="index">
+        <tr  v-for="(item, index) in inputDetails" :key="index">
           <td>
             <el-select
               v-model="item.categorychildren_id"
               placeholder="Loại"
               style="width: auto"
-              @change="CalculateTotal()"
+               @change="CalculateTotal()"
             >
               <el-option
                 v-for="item in listCategoryChilds"
@@ -144,12 +145,7 @@
             </el-select>
           </td>
           <td>
-            <input
-              v-model="item.weight"
-              class="form-control"
-              type="number"
-              @change="CalculateTotal()"
-            />
+            <input v-model="item.weight" class="form-control" type="number"  @change="CalculateTotal()" />
           </td>
           <td>
             <el-select
@@ -182,21 +178,20 @@
             </el-select>
           </td>
           <td>
-            <input type="text" v-model="item.total" disabled />
+            <input type="text" v-model="item.total" disabled  />
           </td>
           <td>
-            <el-button
-              v-if="index == lenTable - 1"
+            <el-button v-if="index ==lenTable-1"
               type="danger"
               icon="el-icon-delete"
               circle
-              @click="deleteRow()"
+              @click="deleteRow(item)"
             ></el-button>
           </td>
         </tr>
         <tr>
           <td colspan="4" style="text-align: right">Tổng tiền</td>
-          <td colspan="1">{{ temp.totalmoney }}</td>
+          <td colspan="1">{{temp.totalmoney }}</td>
           <td colspan="1">
             <el-button
               type="primary"
@@ -208,15 +203,14 @@
         </tr>
       </tbody>
     </table>
-    <el-button type="primary" @click="getvalueInput" style="float: right"
+    <el-button type="primary" @click="getvalue" style="float: right"
       >Tạo phiếu xuất</el-button
     >
   </div>
 </template>
 <script>
-import { getValueInput, createInput } from "../../../api/Input";
+import { getInput,createInput } from "../../../api/Input";
 import { getCategoryChildbyCategoryId } from "../../../api/CategoryChild";
-import { convertToDate } from "../../../handle/handleDate";
 
 export default {
   data() {
@@ -229,12 +223,12 @@ export default {
       listCategoryChilds: null,
       inputDetails: [
         {
+          customer_id: undefined,
           categorychildren_id: undefined,
           weight: 0,
           unit: undefined,
           price: undefined,
           total: 0,
-          prepay: 0,
         },
       ],
       temp: {
@@ -246,35 +240,25 @@ export default {
         totalmoney: undefined,
         item: [
           {
+            customer_id: undefined,
             categorychildren_id: undefined,
             weight: 0,
             unit: undefined,
             price: undefined,
-            total: 0,
-            prepay: 0,
+            total: 1,
           },
         ],
       },
-      totalAmount: 0,
-      lenTable: 0,
+      totalAmount:0,
+      lenTable:0,
     };
   },
   created() {
     this.getList();
-    // var a =convertToDate(Date());
-    // console.log(a)
   },
   methods: {
-    notifyMes(mes,type) {
-      this.$notify({
-        title: "Thông báo",
-        message: mes,
-        type: type ==1 ? "success": "error",
-        duration: 2000,
-      });
-    },
     getList: async function () {
-      const data = await getValueInput();
+      const data = await getInput();
       this.listCustomers = data.data.customer;
       this.listCategories = data.data.category;
       this.listEmployees = data.data.employee;
@@ -284,28 +268,26 @@ export default {
     addRow: function () {
       this.inputDetails.push({
         categorychildren_id: undefined,
-        weight: 0,
+        weight: undefined,
         unit: undefined,
         price: undefined,
-        total: 0,
-        prepay: 0,
+        total: "",
       });
       this.CalculateTotal();
     },
-    deleteRow() {
+    deleteRow(row) {
       this.inputDetails.pop();
       this.CalculateTotal();
     },
-    getvalueInput() {
+    getvalue() {
       this.temp.item = Object.assign({}, this.inputDetails);
-      // console.log(this.temp);
-      createInput(this.temp)
-        .then((result) => {
-          if(result.data.status == true){
-            this.notifyMes("Tạo phiếu nhập thành công",1)
-          }
-        })
-        .catch((err) => {this.notifyMes("Lỗi tạo phiếu nhập",0)});
+      console.log(typeof(this.temp.date));
+      
+      // createInput(this.temp).then((result) => {
+      //   console.log(result.data);
+      // }).catch((err) => {
+        
+      // });
     },
     getData: async function () {
       // const data1 = await getCategoryChild(this.temp)
@@ -324,27 +306,25 @@ export default {
     CalculateTotal() {
       // console.log(this.inputDetails);
       // console.log(this.inputDetails[0].price);
-
-      this.temp.totalmoney = 0;
+      
+      this.temp.totalmoney =0;
       let datatable = this.inputDetails;
-      let index = 0;
-      this.lenTable = datatable.length;
+      let index =0;
+      this.lenTable = datatable.length
       datatable.forEach((element) => {
         index++;
-        let soluong = element.weight;
-        let donvi =
-          element.unit != undefined ? parseInt(element.unit.split(" ")[1]) : "";
-        let dongia = element.price;
+        let soluong =element.weight;
+        let donvi = element.unit != undefined? parseInt(element.unit.split(" ")[1]):'';
+        let dongia =element.price;
         let thanhtien;
-        if (isNaN(donvi)) donvi = 1;
-        thanhtien = soluong * donvi * dongia;
-        if (isNaN(thanhtien)) thanhtien = 0;
-        // console.log('tong tien'+ thanhtien);
-        datatable[index - 1].total = thanhtien;
-        this.temp.totalmoney += thanhtien;
-        element.customer_id = this.temp.customer_id;
+        if(isNaN(donvi))  donvi=1;
+        thanhtien = soluong*donvi*dongia;
+        if(isNaN(thanhtien))  thanhtien=0;
+        // console.log('tong tien'+ thanhtien);     
+        datatable[index-1].total =thanhtien
+        this.temp.totalmoney+=thanhtien;
       });
-      this.temp.date = convertToDate(this.temp.date);
+
     },
   },
 };

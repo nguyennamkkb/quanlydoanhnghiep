@@ -311,7 +311,7 @@ export default {
         create: "Thêm mới loại công việc",
       },
       textMap2: {
-        update: "Sửa Loại công việc",
+        update: "Sửa công việc",
         create: "Thêm mới loại công việc",
       },
       rules: {
@@ -366,6 +366,14 @@ export default {
     this.getList();
   },
   methods: {
+    notifyMes(mes,type) {
+      this.$notify({
+        title: "Thông báo",
+        message: mes,
+        type: type ==1 ? "success": "error",
+        duration: 2000,
+      });
+    },
     getList() {
       //   this.listLoading = true
       getCustomerType(this.listQuery).then((response) => {
@@ -419,12 +427,8 @@ export default {
             this.listQuery.page = 1;
             this.getList();
             this.dialogFormVisible = false;
-            this.$notify({
-              title: "Thông báo",
-              message: "Tạo thành công",
-              type: "success",
-              duration: 2000,
-            });
+            this.notifyMes("Tạo thành công",1)
+            
           });
         }
       });
@@ -437,12 +441,8 @@ export default {
             // this.listQuery.page = 1;
             this.btngetlishcustomer();
             this.dialogFormVisible2 = false;
-            this.$notify({
-              title: "Thông báo",
-              message: "Tạo thành công",
-              type: "success",
-              duration: 2000,
-            });
+            this.notifyMes("Tạo thành công",1)
+           
           });
         }
       });
@@ -470,12 +470,8 @@ export default {
           updateCustomerType(tempData.id, tempData).then(() => {
             this.getList();
             this.dialogFormVisible = false;
-            this.$notify({
-              title: "Thông báo",
-              message: "Cập nhật thành công",
-              type: "success",
-              duration: 2000,
-            });
+            this.notifyMes("Cập nhật thành công",1)
+            
           });
         }
       });
@@ -483,16 +479,11 @@ export default {
     updateData2() {
       this.$refs["dataForm2"].validate((valid) => {
         if (valid) {
-          const tempData = Object.assign({}, this.temp);
-          updateCustomerType(tempData.id, tempData).then(() => {
+          const tempData = Object.assign({}, this.temp2);
+          updateCustomer(tempData.id, tempData).then(() => {
             this.btngetlishcustomer();
             this.dialogFormVisible2 = false;
-            this.$notify({
-              title: "Thông báo",
-              message: "Cập nhật thành công",
-              type: "success",
-              duration: 2000,
-            });
+            this.notifyMes("Cập nhật thành công",1)
           });
         }
       });
@@ -500,23 +491,15 @@ export default {
     handleDelete(row) {
       deleteCustomerType(row.id).then(() => {
         this.getList();
-        this.$notify({
-          title: "Thông báo",
-          message: "Xoá thành công",
-          type: "success",
-          duration: 2000,
-        });
+        this.notifyMes("Xoá thành công",1)
+        
       });
     },
     handleDelete2(row) {
       deleteCustomer(row.id).then(() => {
         this.btngetlishcustomer();
-        this.$notify({
-          title: "Thông báo",
-          message: "Xoá thành công",
-          type: "success",
-          duration: 2000,
-        });
+        this.notifyMes("Xoá thành công",1)
+        
       });
     },
     handleSelectionChange(val) {

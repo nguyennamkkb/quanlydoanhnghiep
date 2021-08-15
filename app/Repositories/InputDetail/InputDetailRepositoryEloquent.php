@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Repositories\Input;
+namespace App\Repositories\InputDetail;
 
 use App\Repositories\Eloquent\RepositoryEloquent;
-use App\Repositories\Input\InputRepositoryInterface;
-use App\Models\Input;
+use App\Repositories\InputDetail\InputDetailRepositoryInterface;
+use App\Models\InputDetail;
 use App\Traits\ResponseAPI;
 use App\Http\Resources\CodeResource;
 
 
-class InputRepositoryEloquent extends RepositoryEloquent implements InputRepositoryInterface
+class InputDetailRepositoryEloquent extends RepositoryEloquent implements InputDetailRepositoryInterface
 {
     public function model()
     {
-        return Input::class;
+        return InputDetail::class;
     }
 
     public function findBy($keyword)
