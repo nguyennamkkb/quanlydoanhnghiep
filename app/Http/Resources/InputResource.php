@@ -18,11 +18,12 @@ class InputResource extends JsonResource
         return [
             'id' => $this->id,
             'date' => $this->date,
-            'customer' =>  new FreeResource ($this->customer->only('name')),
-            'importer_id' => new FreeResource($this->importer->only('name')),
-            'carrier_id' =>new FreeResource($this->carrier->only('name')),
+            'customer' =>  $this->customer->name,
+            'importer' => $this->importer->name,
+            'carrier' => $this->carrier->name,
             'totalmoney' => $this->totalmoney,
             'note' => $this->note,
+            'prepay' => $this->prepay,
             'item' =>  inputDetailResource::collection($this->inputdetail),
             
         ];

@@ -22,7 +22,7 @@ class CreateInputDetailsTable extends Migration
             $table->string('unit');
             $table->string('price');
             $table->float('total');
-            $table->float('prepay')->nullable();
+            
             $table->timestamps();
         });
     }

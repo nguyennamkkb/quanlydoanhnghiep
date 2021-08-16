@@ -195,6 +195,19 @@
           </td>
         </tr>
         <tr>
+          <td colspan="4" style="text-align: right">Trả trước</td>
+          <td colspan="1">  <input
+              v-model="temp.prepay"
+              class="form-control"
+              type="number"
+              
+              @change="CalculateTotal()"
+            /></td>
+          <td colspan="1">
+           
+          </td>
+        </tr>
+        <tr>
           <td colspan="4" style="text-align: right">Tổng tiền</td>
           <td colspan="1">{{ temp.totalmoney }}</td>
           <td colspan="1">
@@ -234,7 +247,6 @@ export default {
           unit: undefined,
           price: undefined,
           total: 0,
-          prepay: 0,
         },
       ],
       temp: {
@@ -244,6 +256,7 @@ export default {
         carrier_id: undefined,
         note: "",
         totalmoney: undefined,
+        prepay: 0,
         item: [
           {
             categorychildren_id: undefined,
@@ -251,12 +264,13 @@ export default {
             unit: undefined,
             price: undefined,
             total: 0,
-            prepay: 0,
+            
           },
         ],
       },
       totalAmount: 0,
       lenTable: 0,
+      total1:0,
     };
   },
   created() {
@@ -288,7 +302,6 @@ export default {
         unit: undefined,
         price: undefined,
         total: 0,
-        prepay: 0,
       });
       this.CalculateTotal();
     },
@@ -324,8 +337,7 @@ export default {
     CalculateTotal() {
       // console.log(this.inputDetails);
       // console.log(this.inputDetails[0].price);
-
-      this.temp.totalmoney = 0;
+      this.total1 = 0;
       let datatable = this.inputDetails;
       let index = 0;
       this.lenTable = datatable.length;
@@ -341,9 +353,10 @@ export default {
         if (isNaN(thanhtien)) thanhtien = 0;
         // console.log('tong tien'+ thanhtien);
         datatable[index - 1].total = thanhtien;
-        this.temp.totalmoney += thanhtien;
+        this.total1 += thanhtien;
         element.customer_id = this.temp.customer_id;
       });
+      this.temp.totalmoney = this.total1 - this.temp.prepay;
       this.temp.date = convertToDate(this.temp.date);
     },
   },

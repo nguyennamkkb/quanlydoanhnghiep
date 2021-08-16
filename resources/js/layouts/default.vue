@@ -63,10 +63,10 @@
                   <span>Danh mục chung</span>
                 </template>
                 
-                <router-link aria-current="page"  :to="{ name: 'dashboard.category' }"><el-menu-item index="4-1" >Loại hàng hóa</el-menu-item></router-link>
-                <router-link aria-current="page" :to="{ name: 'dashboard.specificities' }"><el-menu-item index="4-2" >Đặc tính</el-menu-item></router-link>
-                <router-link aria-current="page" :to="{ name: 'dashboard.price' }"><el-menu-item index="4-3" >Giá</el-menu-item></router-link>
-                <router-link aria-current="page" :to="{ name: 'dashboard.unit' }"><el-menu-item index="4-4" >Đơn vị tính</el-menu-item></router-link>
+                <router-link  :to="{ name: 'dashboard.category' }"><el-menu-item index="4-1" >Loại hàng hóa</el-menu-item></router-link>
+                <router-link :to="{ name: 'dashboard.specificities' }"><el-menu-item index="4-2" >Đặc tính</el-menu-item></router-link>
+                <router-link  :to="{ name: 'dashboard.price' }"><el-menu-item index="4-3" >Giá</el-menu-item></router-link>
+                <router-link  :to="{ name: 'dashboard.unit' }"><el-menu-item index="4-4" >Đơn vị tính</el-menu-item></router-link>
               </el-submenu>
               <router-link aria-current="page" :to="{ name: 'dashboard.customer' }">
                 <el-menu-item index="5">

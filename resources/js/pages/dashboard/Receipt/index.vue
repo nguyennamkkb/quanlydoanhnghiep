@@ -1,18 +1,16 @@
 <template>
   <div class="app-container">
-    <el-row :gutter="20">
-      <el-col :span="10">
-        <h4>Dặc tính hàng hóa</h4>
-        <div class="grid-content bg-purple">
-          <div class="filter-container">
-            <el-input
-              :placeholder="'Tên'"
-              v-model="listQuery.keyword"
-              style="width: 200px"
-              class="filter-item"
-              @keyup.enter.native="handleFilter"
-            />
-            <!-- <el-select
+    <h4>Dặc tính hàng hóa</h4>
+    <div class="grid-content bg-purple">
+      <div class="filter-container">
+        <el-input
+          :placeholder="'Tên'"
+          v-model="listQuery.keyword"
+          style="width: 200px"
+          class="filter-item"
+          @keyup.enter.native="handleFilter"
+        />
+        <!-- <el-select
         v-model="listQuery.status"
         :placeholder="'Trạng thái'"
         clearable
@@ -27,50 +25,83 @@
           :value="item.key"
         />
       </el-select> -->
+        <el-button
+          class="filter-item"
+          type="primary"
+          icon="el-icon-search"
+          @click="handleFilter"
+          >Tìm kiếm</el-button
+        >
+        <el-button
+          class="filter-item"
+          style="margin-left: 10px"
+          type="primary"
+          icon="el-icon-circle-plus-outline"
+          @click="handleCreate"
+        ></el-button>
+      </div>
+
+      <el-table :data="list" style="width: 100%; margin-top: 20px" border>
+        <el-table-column label="Ngày">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.date }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="Khách hàng">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.customer }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="Người nhập">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.importer }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="Người chở">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.carrier }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="Đã trả trước">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.prepay }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="Tổng tiền">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.totalmoney }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="Trạng thái">
+          <template slot-scope="">
+            <span style="margin-left: 10px">Trạng thái</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Thao tác">
+          <template slot-scope="scope">
             <el-button
-              class="filter-item"
-              type="primary"
-              icon="el-icon-search"
-              @click="handleFilter"
-              >Tìm kiếm</el-button
-            >
-            <el-button
-              class="filter-item"
-              style="margin-left: 10px"
-              type="primary"
-              icon="el-icon-circle-plus-outline"
-              @click="handleCreate"
+              type="success"
+              icon="el-icon-view"
+              circle
+              @click="viewInputDetail(scope.row)"
             ></el-button>
-          </div>
-
-          <el-table :data="list" style="width: 100%">
-            <el-table-column label="Tên">
-              <template slot-scope="scope">
-                <span style="margin-left: 10px">{{ scope.row.name }}</span>
-              </template>
-            </el-table-column>
-
-            <el-table-column label="Thao tác">
-              <template slot-scope="scope">
-                <el-button
-                  type="primary"
-                  icon="el-icon-edit"
-                  circle
-                  @click="handleUpdate(scope.row)"
-                ></el-button>
-                <el-button
-                  type="danger"
-                  icon="el-icon-delete"
-                  circle
-                  @click="handleDelete(scope.row)"
-                ></el-button>
-               
-              </template>
-            </el-table-column>
-          </el-table></div
-      ></el-col>
-
-    </el-row>
+            <el-button
+              type="primary"
+              icon="el-icon-edit"
+              circle
+              @click="handleUpdate(scope.row)"
+            ></el-button>
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              circle
+              @click="handleDelete(scope.row)"
+            ></el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
 
     <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
     <!-- dialog customer type -->
@@ -97,15 +128,55 @@
       </div>
     </el-dialog>
     <!-- dialog customer -->
-
+    <el-drawer
+      title="Thông tin nhập hàng"
+      :visible.sync="inputDetailDr"
+      direction="rtl"
+      size="70%"
+    >
+      <el-row>
+        <el-col :span="8">
+          <div class="grid-content">Ngày: {{ temp.date }}</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="grid-content">Khách hàng: {{ temp.customer }}</div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="8">
+          <div class="grid-content">Người kiểm tra: {{ temp.importer }}</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="grid-content">Người chở: {{ temp.carrier }}</div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="4">
+          <div class="grid-content">Tổng tiền: {{ temp.totalmoney }}</div>
+        </el-col>
+        <el-col :span="4">
+          <div class="grid-content">Đã trả: {{ temp.prepay }}</div>
+        </el-col>
+        <el-col :span="4">
+          <div class="grid-content">
+            Trạng thái thanh toán: {{ temp.status }}
+          </div>
+        </el-col>
+        <el-col :span="4">
+          <div class="grid-content">Ghi chí: {{ temp.note }}</div>
+        </el-col>
+      </el-row>
+      <el-table :data="temp.item">
+        <el-table-column property="date" label="Ngày"></el-table-column>
+        <el-table-column property="name" label="Name"></el-table-column>
+        <el-table-column property="address" label="Address"></el-table-column>
+      </el-table>
+    </el-drawer>
   </div>
 </template>
 
 <script>
-import {
-  getInput,
- 
-} from "../../../api/Input";
+import { getInput } from "../../../api/Input";
 
 export default {
   filters: {
@@ -119,6 +190,7 @@ export default {
   },
   data() {
     return {
+      inputDetailDr: false,
       Tenloai: "",
       tableKey: 0,
       list: null,
@@ -152,7 +224,26 @@ export default {
           },
         ],
       },
-    }; 
+      temp: {
+        date: undefined,
+        customer_id: undefined,
+        importer_id: undefined,
+        carrier_id: undefined,
+        note: "",
+        totalmoney: undefined,
+        prepay: 0,
+        status: 0,
+        item: [
+          {
+            categorychildren_id: undefined,
+            weight: 0,
+            unit: undefined,
+            price: undefined,
+            total: 0,
+          },
+        ],
+      },
+    };
   },
   created() {
     this.getList();
@@ -161,7 +252,7 @@ export default {
     getList() {
       //   this.listLoading = true
       getInput(this.listQuery).then((response) => {
-        // this.list = response.data.data;
+        this.list = response.data.data;
         // this.total = response.data.meta.total;
         console.log(response.data.data);
         // Just to simulate the time of the request
@@ -244,6 +335,11 @@ export default {
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
+    },
+    viewInputDetail(row) {
+      this.temp = Object.assign({}, row);
+      // console.log(row);
+      this.inputDetailDr = true;
     },
   },
 };

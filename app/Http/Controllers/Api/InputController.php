@@ -14,6 +14,7 @@ use App\Repositories\Unit\UnitRepositoryInterface;
 use App\Http\Resources\InputResource;
 use App\Models\Code;
 use App\Http\Requests\InputRequest;
+use App\Http\Resources\FreeResource;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Http\Parser\InputSource;
 
@@ -61,12 +62,12 @@ class InputController extends Controller
     }
     public function getlistValueInput()
     {
-        $input = InputResource::collection($this->InputRepository->all());
-        $price = InputResource::collection($this->PriceRepository->all());
-        $employee = InputResource::collection($this->EmployeeRepository->all());
-        $customer = InputResource::collection($this->CustomerRepository->all());
-        $category = InputResource::collection($this->categoryRepository->all());
-        $unit = InputResource::collection($this->UnitRepository->all());
+        $input = FreeResource::collection($this->InputRepository->all());
+        $price = FreeResource::collection($this->PriceRepository->all());
+        $employee = FreeResource::collection($this->EmployeeRepository->all());
+        $customer = FreeResource::collection($this->CustomerRepository->all());
+        $category = FreeResource::collection($this->categoryRepository->all());
+        $unit = FreeResource::collection($this->UnitRepository->all());
 
         return response()->json(
             ['input' => $input,
@@ -89,9 +90,9 @@ class InputController extends Controller
                 'importer_id' => $request['importer_id'],
                 'carrier_id' => $request['carrier_id'],
                 'note' => $request['note'],
+                'prepay' => $request['prepay'],
                 'totalmoney' => $request['totalmoney'],
             ]);
-            // dd(#request['item']);
             if (!empty($request['item']) && $input != NULL) {
                 foreach ($request['item'] as $value) {
                     $this->InputDetailRepository->insertGetId([
@@ -102,7 +103,6 @@ class InputController extends Controller
                         'unit' => $value['unit'],
                         'price' => $value['price'],
                         'total' => $value['total'],
-                        'prepay' => $value['prepay'],
                     ]);
                 }
             }

@@ -20,6 +20,7 @@ class CreateInputsTable extends Migration
             $table->integer('importer_id'); 
             $table->integer('carrier_id'); 
             $table->float('totalmoney'); 
+            $table->float('prepay')->nullable();
             $table->string('note')->nullable(); 
             $table->timestamps();
         });
