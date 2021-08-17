@@ -21,7 +21,7 @@ class CreateInputDetailsTable extends Migration
             $table->string('weight');
             $table->string('unit');
             $table->string('price');
-            $table->float('total');
+            $table->double('total',11,0);
             
             $table->timestamps();
         });

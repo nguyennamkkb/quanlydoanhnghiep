@@ -111,7 +111,7 @@ class InputController extends Controller
             return response()->json(['status' => true], 200);  
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['status' => false], 422);
+            return response()->json(['status' => $e], 200);
         }
     }
     public function update(InputRequest $request, $id)

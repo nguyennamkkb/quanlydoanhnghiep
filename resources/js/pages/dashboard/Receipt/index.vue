@@ -74,7 +74,7 @@
         </el-table-column>
         <el-table-column label="Tổng tiền">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.totalmoney }}</span>
+            <span style="margin-left: 10px">{{  convertCurrency(scope.row.totalmoney) }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Trạng thái">
@@ -182,7 +182,8 @@
         <el-col :span="6">
           <div class="grid-content">
             <span style="font-weight: bold">Trạng thái: </span>
-            {{ temp.status }}
+            <span v-if="temp.status==0" style="color:red">Chưa TT</span>
+            <span v-if="temp.status!=0" style="color:green">Đã TT</span>
           </div>
         </el-col>
         <el-col :span="6">
@@ -207,6 +208,7 @@
 
 <script>
 import { getInput } from "../../../api/Input";
+import {convertStringCurrency} from "../../../handle/Cmd"
 
 export default {
   filters: {
@@ -280,13 +282,18 @@ export default {
     this.getList();
   },
   methods: {
+    convertCurrency(str){
+      return convertStringCurrency(str);
+    },
     getList() {
       //   this.listLoading = true
       getInput(this.listQuery).then((response) => {
         this.list = response.data.data;
-        // this.total = response.data.meta.total;
-        console.log(response.data.data);
-        // Just to simulate the time of the request
+        // this.list.totalmoney =
+        // this.list.item.price = convertStringCurrency(this.list.totalmoney)
+        // this.list.item.total = convertStringCurrency(this.list.totalmoney)
+        // this.list.item.weight = convertStringCurrency(this.list.totalmoney)
+
         setTimeout(() => {
           //   this.listLoading = false
         }, 0.5 * 1000);

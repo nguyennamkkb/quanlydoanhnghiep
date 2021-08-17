@@ -22,9 +22,10 @@ class InputResource extends JsonResource
             'customer' =>  $this->customer->name,
             'importer' => $this->importer->name,
             'carrier' => $this->carrier->name,
-            'totalmoney' => $this->totalmoney,
+            'totalmoney' => (string)$this->totalmoney,
             'note' => $this->note,
-            'prepay' => $this->prepay,
+            'prepay' =>(string) $this->prepay,
+            'status' => $this->status,
             'item' =>  inputDetailResource::collection($this->inputdetail),
             
         ];
