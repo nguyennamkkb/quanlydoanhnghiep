@@ -18,6 +18,7 @@ class InputResource extends JsonResource
         return [
             'id' => $this->id,
             'date' => $this->date,
+            'category' =>  $this->category->name,
             'customer' =>  $this->customer->name,
             'importer' => $this->importer->name,
             'carrier' => $this->carrier->name,

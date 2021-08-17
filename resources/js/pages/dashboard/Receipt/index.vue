@@ -47,6 +47,11 @@
             <span style="margin-left: 10px">{{ scope.row.date }}</span>
           </template>
         </el-table-column>
+        <el-table-column label="Loại hàng">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.category }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="Khách hàng">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.customer }}</span>
@@ -105,7 +110,7 @@
 
     <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
     <!-- dialog customer type -->
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+    <!-- <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form
         ref="dataForm"
         :rules="rules"
@@ -126,50 +131,75 @@
           >Cập nhật</el-button
         >
       </div>
-    </el-dialog>
+    </el-dialog> -->
     <!-- dialog customer -->
     <el-drawer
-      title="Thông tin nhập hàng"
+      :title="inputDetailDrtitle"
       :visible.sync="inputDetailDr"
       direction="rtl"
       size="70%"
+     
     >
-      <el-row>
-        <el-col :span="8">
-          <div class="grid-content">Ngày: {{ temp.date }}</div>
-        </el-col>
-        <el-col :span="8">
-          <div class="grid-content">Khách hàng: {{ temp.customer }}</div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="8">
-          <div class="grid-content">Người kiểm tra: {{ temp.importer }}</div>
-        </el-col>
-        <el-col :span="8">
-          <div class="grid-content">Người chở: {{ temp.carrier }}</div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="4">
-          <div class="grid-content">Tổng tiền: {{ temp.totalmoney }}</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content">Đã trả: {{ temp.prepay }}</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content">
-            Trạng thái thanh toán: {{ temp.status }}
+      <!-- <h5>Thông tin nhập hàng {{temp.category}}</h5> -->
+      <el-row style="padding: 10px">
+        <el-col :span="12">
+          <div class="grid-content Compact">
+            <span style="font-weight: bold">Ngày: </span> {{ temp.date }}
           </div>
         </el-col>
-        <el-col :span="4">
-          <div class="grid-content">Ghi chí: {{ temp.note }}</div>
+        <el-col :span="12">
+          <div class="grid-content Compact">
+            <span style="font-weight: bold">Khách hàng: </span>
+            {{ temp.customer }}
+          </div>
         </el-col>
       </el-row>
-      <el-table :data="temp.item">
-        <el-table-column property="date" label="Ngày"></el-table-column>
-        <el-table-column property="name" label="Name"></el-table-column>
-        <el-table-column property="address" label="Address"></el-table-column>
+      <el-row style="padding: 10px">
+        <el-col :span="12">
+          <div class="grid-content Compact">
+            <span style="font-weight: bold">Người kiểm tra: </span
+            >{{ temp.importer }}
+          </div>
+        </el-col>
+        <el-col :span="12">
+          <div class="grid-content">
+            <span style="font-weight: bold">Người chở: </span>{{ temp.carrier }}
+          </div>
+        </el-col>
+      </el-row>
+      <el-row style="padding: 10px">
+        <el-col :span="6">
+          <div class="grid-content">
+            <span style="font-weight: bold">Tổng tiền: </span>
+            {{ temp.totalmoney }}
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="grid-content">
+            <span style="font-weight: bold">Đã trả: </span>{{ temp.prepay }}
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="grid-content">
+            <span style="font-weight: bold">Trạng thái: </span>
+            {{ temp.status }}
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="grid-content">
+            <span style="font-weight: bold">Ghi chú: </span> {{ temp.note }}
+          </div>
+        </el-col>
+      </el-row>
+      <el-table :data="temp.item" class="table table-striped" border>
+        <el-table-column
+          property="categorychildren"
+          label="Loại"
+        ></el-table-column>
+        <el-table-column property="weight" label="Số lượng"></el-table-column>
+        <el-table-column property="unit" label="Đơn vị tính"></el-table-column>
+        <el-table-column property="price" label="Giá"></el-table-column>
+        <el-table-column property="total" label="Thành tiền"></el-table-column>
       </el-table>
     </el-drawer>
   </div>
@@ -190,6 +220,7 @@ export default {
   },
   data() {
     return {
+      inputDetailDrtitle: "",
       inputDetailDr: false,
       Tenloai: "",
       tableKey: 0,
@@ -339,6 +370,7 @@ export default {
     viewInputDetail(row) {
       this.temp = Object.assign({}, row);
       // console.log(row);
+      this.inputDetailDrtitle = "Thông tin nhập " + row.category;
       this.inputDetailDr = true;
     },
   },

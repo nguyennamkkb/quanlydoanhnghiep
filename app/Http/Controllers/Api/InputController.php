@@ -89,6 +89,7 @@ class InputController extends Controller
                 'customer_id' => $request['customer_id'],
                 'importer_id' => $request['importer_id'],
                 'carrier_id' => $request['carrier_id'],
+                'category_id' => $request['category_id'],
                 'note' => $request['note'],
                 'prepay' => $request['prepay'],
                 'totalmoney' => $request['totalmoney'],
@@ -123,7 +124,8 @@ class InputController extends Controller
                 'supplier_id' => $req['supplier_id'],
                 'totalweight_id' => $req['totalweight_id'],
                 'importer_id' => $req['importer_id'],
-                'carrier_id' => $req['carrier_id'],
+                'carrier _id' => $req['carrier_id'],
+                // 'carrier _id' => $req['carrier_id'],
             ]);
             DB::commit();
             return response()->json(['status' => true], 200);  

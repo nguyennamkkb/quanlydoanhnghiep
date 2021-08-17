@@ -255,8 +255,10 @@ export default {
         importer_id: undefined,
         carrier_id: undefined,
         note: "",
-        totalmoney: undefined,
+        totalmoney: undefined, 
+        category_id: undefined, 
         prepay: 0,
+        
         item: [
           {
             categorychildren_id: undefined,

@@ -30,5 +30,9 @@ class Input extends Model
     {
         return $this->belongsTo(Employees::class, 'carrier_id');
     }
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
    
 }
