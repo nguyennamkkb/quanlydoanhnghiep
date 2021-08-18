@@ -312,6 +312,7 @@ export default {
       this.CalculateTotal();
     },
     getvalueInput() {
+      this.temp.date = convertToDate(this.temp.date);
       this.temp.item = Object.assign({}, this.inputDetails);
       // console.log(this.temp);
       createInput(this.temp)
@@ -359,7 +360,7 @@ export default {
         element.customer_id = this.temp.customer_id;
       });
       this.temp.totalmoney = this.total1 - this.temp.prepay;
-      this.temp.date = convertToDate(this.temp.date);
+      
     },
   },
 };

@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\inputDetailResource;
+use App\Http\Controllers\Api\CmdController;
 
 class InputResource extends JsonResource
 {
@@ -22,9 +23,9 @@ class InputResource extends JsonResource
             'customer' =>  $this->customer->name,
             'importer' => $this->importer->name,
             'carrier' => $this->carrier->name,
-            'totalmoney' => (string)$this->totalmoney,
+            'totalmoney' => CmdController::formatNumberCur($this->totalmoney),
             'note' => $this->note,
-            'prepay' =>(string) $this->prepay,
+            'prepay' =>CmdController::formatNumberCur($this->prepay),
             'status' => $this->status,
             'item' =>  inputDetailResource::collection($this->inputdetail),
             

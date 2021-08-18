@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\PriceController;
 use App\Http\Controllers\Api\InputController;
+use App\Http\Controllers\Api\WarehouseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -118,6 +119,16 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('input', [InputController::class, 'store']); // them moi thong tin
     Route::put('input/{id}', [InputController::class, 'update']); // sua thong tin
     Route::delete('input/{id}', [InputController::class, 'destroy']); // xoa thong tin
+
+    
+    // phieu nhap
+    Route::get('warehouse', [WarehouseController::class, 'index']); // lay thong toan bo thong tin
+    // Route::get('valueinput', [InputController::class, 'getlistValueInput']); // lay thong toan bo thong tin
+    // Route::post('input', [InputController::class, 'store']); // them moi thong tin
+    // Route::put('input/{id}', [InputController::class, 'update']); // sua thong tin
+    // Route::delete('input/{id}', [InputController::class, 'destroy']); // xoa thong tin
+
+
 
 });
 

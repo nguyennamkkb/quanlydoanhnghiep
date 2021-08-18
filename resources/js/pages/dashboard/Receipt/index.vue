@@ -1,30 +1,70 @@
 <template>
   <div class="app-container">
-    <h4>Dặc tính hàng hóa</h4>
+    <h4>Kho hàng</h4>
     <div class="grid-content bg-purple">
       <div class="filter-container">
-        <el-input
-          :placeholder="'Tên'"
-          v-model="listQuery.keyword"
-          style="width: 200px"
+        Từ:
+        <el-date-picker
+          v-model="listQuery.from"
+          type="date"
+          placeholder="Từ ngày"
+           @change="handleFilter"
+        >
+        </el-date-picker>
+        Đến:
+        <el-date-picker
+          v-model="listQuery.to"
+          type="date"
+          placeholder="Dến ngày"
+           @change="handleFilter"
+        >
+        </el-date-picker>
+        Loại
+        <el-select
+          v-model="listQuery.category_id"
+          :placeholder="'Loại'"
           class="filter-item"
-          @keyup.enter.native="handleFilter"
-        />
-        <!-- <el-select
-        v-model="listQuery.status"
-        :placeholder="'Trạng thái'"
-        clearable
-        class="filter-item"
-        style="width: 160px"
-        @change="handleFilter"
-      >
-        <el-option
-          v-for="item in statusOptions"
-          :key="item.key"
-          :label="item.display_name"
-          :value="item.key"
-        />
-      </el-select> -->
+          style="width: 160px"
+          @change="handleFilter"
+        >
+          <el-option
+            
+            :label="'Tất cả'"
+            :value="undefined"
+          />
+          <el-option
+            v-for="item in listcategory"
+            :key="item.key"
+            :label="item.name"
+            :value="item.id"
+          />
+        </el-select>
+        Trạng thái
+        <el-select
+          :placeholder="'Loại'"
+          class="filter-item"
+          style="width: 160px"
+          @change="handleFilter"
+           v-model="listQuery.status"
+        >
+          <el-option
+            
+            :label="'Tất cả'"
+            :value="undefined"
+          />
+          <el-option
+            
+            :label="'Đã TT'"
+            :value="1"
+          />
+          <el-option
+            
+            :label="'Chưa TT'"
+            :value="0"
+          />
+          
+        </el-select>
+
         <el-button
           class="filter-item"
           type="primary"
@@ -32,29 +72,27 @@
           @click="handleFilter"
           >Tìm kiếm</el-button
         >
-        <el-button
-          class="filter-item"
-          style="margin-left: 10px"
-          type="primary"
-          icon="el-icon-circle-plus-outline"
-          @click="handleCreate"
-        ></el-button>
       </div>
 
       <el-table :data="list" style="width: 100%; margin-top: 20px" border>
         <el-table-column label="Ngày">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.date }}</span>
+            <span style="margin-left: 10px" class="text-primary">{{
+              scope.row.date
+            }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Khách hàng">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px" class="text-success">{{
+              scope.row.customer
+            }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Loại hàng">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.category }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="Khách hàng">
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.customer }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Người nhập">
@@ -74,12 +112,17 @@
         </el-table-column>
         <el-table-column label="Tổng tiền">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{  convertCurrency(scope.row.totalmoney) }}</span>
+            <span style="margin-left: 10px">{{ scope.row.totalmoney }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Trạng thái">
-          <template slot-scope="">
-            <span style="margin-left: 10px">Trạng thái</span>
+          <template slot-scope="scope">
+            <span v-if="scope.row.status == 0" style="margin-left: 10px"
+              ><el-tag type="danger">Chưa TT</el-tag></span
+            >
+            <span v-if="scope.row.status != 0" style="margin-left: 10px"
+              ><el-tag type="success">Đã TT</el-tag></span
+            >
           </template>
         </el-table-column>
 
@@ -91,7 +134,7 @@
               circle
               @click="viewInputDetail(scope.row)"
             ></el-button>
-            <el-button
+            <!-- <el-button
               type="primary"
               icon="el-icon-edit"
               circle
@@ -102,7 +145,7 @@
               icon="el-icon-delete"
               circle
               @click="handleDelete(scope.row)"
-            ></el-button>
+            ></el-button> -->
           </template>
         </el-table-column>
       </el-table>
@@ -138,7 +181,6 @@
       :visible.sync="inputDetailDr"
       direction="rtl"
       size="70%"
-     
     >
       <!-- <h5>Thông tin nhập hàng {{temp.category}}</h5> -->
       <el-row style="padding: 10px">
@@ -182,8 +224,8 @@
         <el-col :span="6">
           <div class="grid-content">
             <span style="font-weight: bold">Trạng thái: </span>
-            <span v-if="temp.status==0" style="color:red">Chưa TT</span>
-            <span v-if="temp.status!=0" style="color:green">Đã TT</span>
+            <span v-if="temp.status == 0" style="color: red">Chưa TT</span>
+            <span v-if="temp.status != 0" style="color: green">Đã TT</span>
           </div>
         </el-col>
         <el-col :span="6">
@@ -207,8 +249,10 @@
 </template>
 
 <script>
-import { getInput } from "../../../api/Input";
-import {convertStringCurrency} from "../../../handle/Cmd"
+// import { getWarehouse } from "../../../api/Input";
+import { getWarehouse } from "../../../api/Warehouse";
+import { getCategory } from "../../../api/Category";
+import { convertToDate } from "../../../handle/handleDate";
 
 export default {
   filters: {
@@ -232,8 +276,12 @@ export default {
       listQuery: {
         page: 1,
         limit: 20,
-        keyword: undefined,
+        from: undefined,
+        to: undefined,
+        category_id: undefined,
+        status:undefined,
       },
+      listcategory: null,
       statusOptions: [
         { key: "available", display_name: "Hoạt động" },
         { key: "disable", display_name: "Không hoạt động" },
@@ -280,27 +328,27 @@ export default {
   },
   created() {
     this.getList();
+    this.getListCategory();
   },
   methods: {
-    convertCurrency(str){
-      return convertStringCurrency(str);
-    },
     getList() {
       //   this.listLoading = true
-      getInput(this.listQuery).then((response) => {
+      // console.log(this.listQuery);
+      getWarehouse(this.listQuery).then((response) => {
         this.list = response.data.data;
-        // this.list.totalmoney =
-        // this.list.item.price = convertStringCurrency(this.list.totalmoney)
-        // this.list.item.total = convertStringCurrency(this.list.totalmoney)
-        // this.list.item.weight = convertStringCurrency(this.list.totalmoney)
-
-        setTimeout(() => {
-          //   this.listLoading = false
-        }, 0.5 * 1000);
+        setTimeout(() => {}, 0.5 * 1000);
       });
     },
+    getListCategory() {
+      getCategory().then((response) => {
+        this.listcategory = response.data.data;
+      });
+    },
+    getListWarehouse() {},
     handleFilter() {
       this.listQuery.page = 1;
+      this.listQuery.from = convertToDate(this.listQuery.from);
+      this.listQuery.to = convertToDate(this.listQuery.to);
       this.getList();
     },
     resetTemp() {

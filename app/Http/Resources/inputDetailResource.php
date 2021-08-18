@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Controllers\Api\CmdController;
 
 class inputDetailResource extends JsonResource
 {
@@ -20,11 +21,10 @@ class inputDetailResource extends JsonResource
 
         return [
             'categorychildren' => $this->categorychildren->name,
-            'price' => $this->price,
+            'price' =>CmdController::formatNumberCur( $this->price),
             'unit' => $this->unit,
-            'weight' => $this->weight,
-            'total' => (string)$this->total,
-            'prepay' => (string) $this->prepay,
+            'weight' =>CmdController::formatNumberCur( $this->weight), 
+            'total' => CmdController::formatNumberCur( $this->total), 
             // 'created_at' => (string)$this->created_at,
             // 'updated_at' => (string)$this->updated_at,
         ];

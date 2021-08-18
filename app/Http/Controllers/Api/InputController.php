@@ -56,7 +56,7 @@ class InputController extends Controller
     {
         $keyword = $request->keyword;
         $limit = $request->limit;
-        $list = $this->InputRepository->findBy($keyword)->paginate($limit);
+        $list = $this->InputRepository->getinput()->paginate($limit);
         return InputResource::collection($list);
        
     }

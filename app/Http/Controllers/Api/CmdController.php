@@ -33,4 +33,9 @@ class CmdController extends Controller
 
         return $today;
     }
+    public static function formatNumberCur($str)
+    {
+        $num = number_format($str, 0, ',', '.');
+        return $num;
+    }
 }

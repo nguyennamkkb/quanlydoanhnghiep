@@ -5,5 +5,6 @@ use App\Repositories\Contracts\RepositoryInterface;
 
 interface InputRepositoryInterface extends RepositoryInterface
 {
-    public function findBy($keyword);
+    public function findBy($dateFrom, $dateTo,$category_id,$status);
+    public function getinput();
 }
