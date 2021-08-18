@@ -20,18 +20,24 @@ class InputRepositoryEloquent extends RepositoryEloquent implements InputReposit
     {
         // dd($dateFrom, $dateTo, $category_id, $status);
         $query = $this->model->newQuery();
-        if (!empty($dateTo) && !empty($dateFrom)) {
-            $query = $this->model->whereBetween('date', [$dateFrom,$dateTo]);
-        }
         if (!empty($category_id)) {
-            $query = $this->model->where('category_id', '=', "$category_id");
+            $query = $this->model->where('category_id', 'like', "$category_id");
         }
         if (!empty($status)) {
-            $query = $this->model->where('status', '=', "$status");
+            $query = $this->model->Where('status', '=', "$status");
         }
+        if (!empty($dateTo)) {
+            if (!empty($category_id)) {
+                $query = $this->model->whereBetween('date', [$dateFrom,$dateTo])->where('category_id', 'like', "$category_id");
+            }else{
+                $query = $this->model->whereBetween('date', [$dateFrom,$dateTo]);
+            }
+            
+        }
+        
     
-
-        return $query->orderBy('date', 'desc');
+        // dd($query->toSql());
+        return $query;
     }
     public function getinput()
     {
