@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\EnterpriseController;
 use App\Http\Controllers\Api\SpecificitieController;
 use App\Http\Controllers\Api\EmployeeTypeController;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\ExportController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\PriceController;
 use App\Http\Controllers\Api\InputController;
@@ -120,13 +121,20 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('input/{id}', [InputController::class, 'update']); // sua thong tin
     Route::delete('input/{id}', [InputController::class, 'destroy']); // xoa thong tin
 
-    
+
     // phieu nhap
     Route::get('warehouse', [WarehouseController::class, 'index']); // lay thong toan bo thong tin
     // Route::get('valueinput', [InputController::class, 'getlistValueInput']); // lay thong toan bo thong tin
     // Route::post('input', [InputController::class, 'store']); // them moi thong tin
     // Route::put('input/{id}', [InputController::class, 'update']); // sua thong tin
     // Route::delete('input/{id}', [InputController::class, 'destroy']); // xoa thong tin
+
+    // phieu xuat
+    Route::get('export', [ExportController::class, 'index']); // lay thong toan bo thong tin
+    // Route::get('valueinput', [InputController::class, 'getlistValueInput']); // lay thong toan bo thong tin
+    Route::post('export', [ExportController::class, 'store']); // them moi thong tin
+    Route::put('export/{id}', [ExportController::class, 'update']); // sua thong tin
+    Route::delete('export/{id}', [ExportController::class, 'destroy']); // xoa thong tin
 
 
 

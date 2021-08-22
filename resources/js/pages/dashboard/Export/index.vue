@@ -74,7 +74,7 @@
         >
       </div>
 
-      <el-table :data="list" style="width: 100%; margin-top: 20px" border>
+      <el-table :data="list" style="width: 100%; margin-top: 20px table-striped" border>
         <el-table-column label="Ngày">
           <template slot-scope="scope">
             <span style="margin-left: 10px" class="text-primary">{{
@@ -108,6 +108,11 @@
         <el-table-column label="Đã trả trước">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.prepay }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="Cước">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.freight }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Tổng tiền">
@@ -252,7 +257,7 @@
 
 <script>
 // import { getWarehouse } from "../../../api/Input";
-import { getWarehouse } from "../../../api/Warehouse";
+import { getExport } from "../../../api/Export";
 import { getCategory } from "../../../api/Category";
 import { convertToDate } from "../../../handle/handleDate";
 
@@ -317,6 +322,7 @@ export default {
         totalmoney: undefined,
         prepay: 0,
         status: 0,
+        freight:undefined,
         item: [
           {
             categorychildren_id: undefined,
@@ -344,7 +350,7 @@ export default {
     getList() {
       //   this.listLoading = true
       // console.log(this.listQuery);
-      getWarehouse(this.listQuery).then((response) => {
+      getExport(this.listQuery).then((response) => {
         this.list = response.data.data;
         setTimeout(() => {}, 0.5 * 1000);
       });

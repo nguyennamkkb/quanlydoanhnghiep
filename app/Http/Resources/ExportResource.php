@@ -21,11 +21,12 @@ class ExportResource extends JsonResource
             'customer' =>  $this->customer->name,
             'importer' => $this->importer->name,
             'carrier' => $this->carrier->name,
+            'freight' =>CmdController::formatNumberCur($this->freight),
             'totalmoney' => CmdController::formatNumberCur($this->totalmoney),
             'note' => $this->note,
             'prepay' => CmdController::formatNumberCur($this->prepay),
             'status' => $this->status,
-            'item' =>  inputDetailResource::collection($this->inputdetail),
+            'item' =>  inputDetailResource::collection($this->exportdetail),
         ];
     }
 }

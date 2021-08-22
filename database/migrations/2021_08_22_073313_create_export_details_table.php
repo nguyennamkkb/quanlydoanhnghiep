@@ -15,7 +15,7 @@ class CreateExportDetailsTable extends Migration
     {
         Schema::create('export_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('input_id');
+            $table->integer('export_id');
             $table->integer('customer_id');
             $table->integer('categorychildren_id');
             $table->string('weight');

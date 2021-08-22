@@ -198,7 +198,12 @@
             </el-select> -->
           </td>
           <td>
-            <input type="text" v-model="item.total" disabled />
+            <input
+              style="padding-left: 15px"
+              type="text"
+              v-model="item.total"
+              disabled
+            />
           </td>
           <td>
             <el-button
@@ -223,8 +228,20 @@
           <td colspan="1"></td>
         </tr>
         <tr>
+          <td colspan="4" style="text-align: right">Cước vận chuyển</td>
+          <td colspan="1">
+            <input
+              v-model="temp.freight"
+              class="form-control"
+              type="number"
+              @change="CalculateTotal()"
+            />
+          </td>
+          <td colspan="1"></td>
+        </tr>
+        <tr>
           <td colspan="4" style="text-align: right">Tổng tiền</td>
-          <td colspan="1">{{ temp.totalmoney }}</td>
+          <td colspan="1" style="padding-left: 30px">{{ temp.totalmoney }}</td>
           <td colspan="1">
             <el-button
               type="primary"
@@ -242,7 +259,8 @@
   </div>
 </template>
 <script>
-import { getValueInput, createInput } from "../../../api/Input";
+import { getValueInput } from "../../../api/Input";
+import { createExport } from "../../../api/Export";
 import { getCategoryChildbyCategoryId } from "../../../api/CategoryChild";
 import { convertToDate } from "../../../handle/handleDate";
 import { convertnametovalue } from "../../../handle/cmd";
@@ -262,8 +280,8 @@ export default {
           weight: undefined,
           unit: "kg",
           price: "",
-          total: 0
-        }
+          total: 0,
+        },
       ],
       temp: {
         date: Date(),
@@ -274,20 +292,20 @@ export default {
         totalmoney: undefined,
         category_id: undefined,
         prepay: 0,
-
+        freight: 0,
         item: [
           {
             categorychildren_id: undefined,
             weight: 0,
             unit: undefined,
             price: "",
-            total: 0
-          }
-        ]
+            total: 0,
+          },
+        ],
       },
       totalAmount: 0,
       lenTable: 0,
-      total1: 0
+      total1: 0,
     };
   },
   created() {
@@ -305,7 +323,7 @@ export default {
       cb(results);
     },
     createFilterPrice(queryString) {
-      return price => {
+      return (price) => {
         // console.log(link.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0)
         return (
           price.value
@@ -320,10 +338,10 @@ export default {
         title: "Thông báo",
         message: mes,
         type: type == 1 ? "success" : "error",
-        duration: 2000
+        duration: 2000,
       });
     },
-    getList: async function() {
+    getList: async function () {
       const data = await getValueInput();
       this.listCustomers = data.data.customer;
       this.listCategories = data.data.category;
@@ -331,15 +349,14 @@ export default {
       this.listUnits = data.data.unit;
       this.listPrices = data.data.price;
       this.listPrices = convertnametovalue(this.listPrices);
-      
     },
-    addRow: function() {
+    addRow: function () {
       this.inputDetails.push({
         categorychildren_id: undefined,
         weight: undefined,
         unit: "kg",
         price: "",
-        total: 0
+        total: 0,
       });
       this.CalculateTotal();
     },
@@ -351,42 +368,40 @@ export default {
       this.temp.date = convertToDate(this.temp.date);
       this.temp.item = Object.assign({}, this.inputDetails);
       // console.log(this.temp);
-      createInput(this.temp)
-        .then(result => {
+      createExport(this.temp)
+        .then((result) => {
           if (result.data.status == true) {
             this.notifyMes("Tạo phiếu xuất thành công", 1);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           this.notifyMes("Lỗi tạo phiếu xuất", 0);
         });
     },
-    getData: async function() {
+    getData: async function () {
       // const data1 = await getCategoryChild(this.temp)
     },
     getListCatagoryChild() {
       const dt = {
-        category_id: this.temp.category_id
+        category_id: this.temp.category_id,
       };
       getCategoryChildbyCategoryId(dt)
-        .then(result => {
+        .then((result) => {
           // console.log(result.data.data);
           this.listCategoryChilds = result.data.data;
         })
-        .catch(err => {});
+        .catch((err) => {});
     },
     CalculateTotal() {
-      // console.log(this.inputDetails);
-      // console.log(this.inputDetails[0].price);
       this.total1 = 0;
       let datatable = this.inputDetails;
       let index = 0;
       this.lenTable = datatable.length;
-      datatable.forEach(element => {
+      
+      datatable.forEach((element) => {
         let dongia = Number(element.price);
-        // console.log(element);
         index++;
-        let soluong = element.weight;
+        let soluong = Number(element.weight);
         let donvi =
           element.unit != undefined ? parseInt(element.unit.split(" ")[1]) : "";
 
@@ -394,16 +409,17 @@ export default {
         if (isNaN(donvi)) donvi = 1;
         thanhtien = soluong * donvi * dongia;
         if (isNaN(thanhtien)) thanhtien = 0;
-        // console.log('tong tien'+ thanhtien);
+
         datatable[index - 1].total = thanhtien;
         this.total1 += thanhtien;
         element.customer_id = this.temp.customer_id;
       });
-      this.temp.totalmoney = this.total1 - this.temp.prepay;
+
+      this.temp.totalmoney = this.total1 - this.temp.prepay - this.temp.freight ;
     },
     convertnametovalue(str) {
       return str;
-    }
-  }
+    },
+  },
 };
 </script>

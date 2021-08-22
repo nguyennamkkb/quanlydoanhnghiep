@@ -60,7 +60,7 @@ class InputController extends Controller
     }
     public function getlistValueInput()
     {
-        $input = FreeResource::collection($this->InputRepository->all());
+        // $input = FreeResource::collection($this->InputRepository->all());
         $price = FreeResource::collection($this->PriceRepository->all());
         $employee = FreeResource::collection($this->EmployeeRepository->all());
         $customer = FreeResource::collection($this->CustomerRepository->all());
@@ -69,7 +69,7 @@ class InputController extends Controller
 
         return response()->json(
             [
-                'input' => $input,
+                // 'input' => $input,
                 'price' => $price,
                 'employee' => $employee,
                 'customer' => $customer,
