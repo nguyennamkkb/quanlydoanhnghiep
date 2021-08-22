@@ -210,6 +210,12 @@
             ></el-button>
           </td>
         </tr>
+
+        <tr>
+          <td colspan="4" style="text-align: right">Tổng tiền</td>
+          <td colspan="1">{{ this.temp.totalmoney }}</td>
+          <td colspan="1"></td>
+        </tr>
         <tr>
           <td colspan="4" style="text-align: right">Trả trước</td>
           <td colspan="1">
@@ -220,11 +226,6 @@
               @change="CalculateTotal()"
             />
           </td>
-          <td colspan="1"></td>
-        </tr>
-        <tr>
-          <td colspan="4" style="text-align: right">Tổng tiền</td>
-          <td colspan="1">{{ temp.totalmoney }}</td>
           <td colspan="1">
             <el-button
               type="primary"
@@ -262,9 +263,10 @@ export default {
           weight: undefined,
           unit: "kg",
           price: "",
-          total: 0
-        }
+          total: 0,
+        },
       ],
+      totalmoney: undefined,
       temp: {
         date: Date(),
         customer_id: undefined,
@@ -281,13 +283,13 @@ export default {
             weight: 0,
             unit: undefined,
             price: "",
-            total: 0
-          }
-        ]
+            total: 0,
+          },
+        ],
       },
       totalAmount: 0,
       lenTable: 0,
-      total1: 0
+      total1: 0,
     };
   },
   created() {
@@ -305,7 +307,7 @@ export default {
       cb(results);
     },
     createFilterPrice(queryString) {
-      return price => {
+      return (price) => {
         // console.log(link.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0)
         return (
           price.value
@@ -320,10 +322,10 @@ export default {
         title: "Thông báo",
         message: mes,
         type: type == 1 ? "success" : "error",
-        duration: 2000
+        duration: 2000,
       });
     },
-    getList: async function() {
+    getList: async function () {
       const data = await getValueInput();
       this.listCustomers = data.data.customer;
       this.listCategories = data.data.category;
@@ -331,15 +333,14 @@ export default {
       this.listUnits = data.data.unit;
       this.listPrices = data.data.price;
       this.listPrices = convertnametovalue(this.listPrices);
-      
     },
-    addRow: function() {
+    addRow: function () {
       this.inputDetails.push({
         categorychildren_id: undefined,
         weight: undefined,
         unit: "kg",
         price: "",
-        total: 0
+        total: 0,
       });
       this.CalculateTotal();
     },
@@ -352,28 +353,28 @@ export default {
       this.temp.item = Object.assign({}, this.inputDetails);
       // console.log(this.temp);
       createInput(this.temp)
-        .then(result => {
+        .then((result) => {
           if (result.data.status == true) {
             this.notifyMes("Tạo phiếu nhập thành công", 1);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           this.notifyMes("Lỗi tạo phiếu nhập", 0);
         });
     },
-    getData: async function() {
+    getData: async function () {
       // const data1 = await getCategoryChild(this.temp)
     },
     getListCatagoryChild() {
       const dt = {
-        category_id: this.temp.category_id
+        category_id: this.temp.category_id,
       };
       getCategoryChildbyCategoryId(dt)
-        .then(result => {
+        .then((result) => {
           // console.log(result.data.data);
           this.listCategoryChilds = result.data.data;
         })
-        .catch(err => {});
+        .catch((err) => {});
     },
     CalculateTotal() {
       // console.log(this.inputDetails);
@@ -382,7 +383,7 @@ export default {
       let datatable = this.inputDetails;
       let index = 0;
       this.lenTable = datatable.length;
-      datatable.forEach(element => {
+      datatable.forEach((element) => {
         let dongia = Number(element.price);
         // console.log(element);
         index++;
@@ -399,11 +400,11 @@ export default {
         this.total1 += thanhtien;
         element.customer_id = this.temp.customer_id;
       });
-      this.temp.totalmoney = this.total1 - this.temp.prepay;
+      this.temp.totalmoney = this.total1;
     },
     convertnametovalue(str) {
       return str;
-    }
-  }
+    },
+  },
 };
 </script>

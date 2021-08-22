@@ -22,7 +22,6 @@ class CreateInputDetailsTable extends Migration
             $table->string('unit');
             $table->string('price');
             $table->double('total',11,0);
-            
             $table->timestamps();
         });
     }

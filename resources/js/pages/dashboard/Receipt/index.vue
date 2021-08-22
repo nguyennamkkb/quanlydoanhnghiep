@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <h4>Kho hàng</h4>
+    <h4>Nhập hàng, mua hàng</h4>
     <div class="grid-content bg-purple">
       <div class="filter-container">
         Từ:

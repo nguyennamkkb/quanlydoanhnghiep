@@ -415,7 +415,7 @@ export default {
         element.customer_id = this.temp.customer_id;
       });
 
-      this.temp.totalmoney = this.total1 - this.temp.prepay - this.temp.freight ;
+      this.temp.totalmoney = this.total1  ;
     },
     convertnametovalue(str) {
       return str;

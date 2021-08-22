@@ -56,7 +56,6 @@ class ExportController extends Controller
         $dateTo = $request->to;
         $category_id = $request->category_id;
         $status = $request->status;
-
         $limit = $request->limit;
         $list = $this->ExportRepository->findBy($dateFrom, $dateTo,$category_id, $status)->paginate($limit);
         return ExportResource::collection($list);

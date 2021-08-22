@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <h4>Kho hàng</h4>
+    <h4>Xuất hàng, bán hàng</h4>
     <div class="grid-content bg-purple">
       <div class="filter-container">
         Từ:
@@ -8,7 +8,7 @@
           v-model="listQuery.from"
           type="date"
           placeholder="Từ ngày"
-           @change="handleFilter"
+          @change="handleFilter"
         >
         </el-date-picker>
         Đến:
@@ -16,7 +16,7 @@
           v-model="listQuery.to"
           type="date"
           placeholder="Dến ngày"
-           @change="handleFilter"
+          @change="handleFilter"
         >
         </el-date-picker>
         Loại
@@ -27,11 +27,7 @@
           style="width: 160px"
           @change="handleFilter"
         >
-          <el-option
-            
-            :label="'Tất cả'"
-            :value="undefined"
-          />
+          <el-option :label="'Tất cả'" :value="undefined" />
           <el-option
             v-for="item in listcategory"
             :key="item.key"
@@ -45,24 +41,11 @@
           class="filter-item"
           style="width: 160px"
           @change="handleFilter"
-           v-model="listQuery.status"
+          v-model="listQuery.status"
         >
-          <el-option
-            
-            :label="'Tất cả'"
-            :value="0"
-          />
-          <el-option
-            
-            :label="'Đã TT'"
-            :value="2"
-          />
-          <el-option
-            
-            :label="'Chưa TT'"
-            :value="1"
-          />
-          
+          <el-option :label="'Tất cả'" :value="0" />
+          <el-option :label="'Đã đủ'" :value="2" />
+          <el-option :label="' Chưa dủ'" :value="1" />
         </el-select>
 
         <el-button
@@ -74,65 +57,78 @@
         >
       </div>
 
-      <el-table :data="list" style="width: 100%; margin-top: 20px table-striped" border>
-        <el-table-column label="Ngày">
+      <el-table
+        :data="list"
+        class="table table-striped"
+        style="width: auto%; margin-top: 20px"
+        border
+      >
+        <el-table-column label="Ngày" :width="95">
           <template slot-scope="scope">
-            <span style="margin-left: 10px" class="text-primary">{{
+            <span style="text-align: center" class="text-primary">{{
               scope.row.date
             }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="Khách hàng">
+        <el-table-column label="Khách hàng" width="auto">
           <template slot-scope="scope">
-            <span style="margin-left: 10px" class="text-success">{{
-              scope.row.customer
-            }}</span>
+            <span style="color: red !important"> {{ scope.row.customer }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Loại hàng">
+        <el-table-column label="Loại hàng" :width="95">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.category }}</span>
+            <el-tag style="text-align: center" type="success">{{
+              scope.row.category
+            }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="Người nhập">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.importer }}</span>
+            <span style="float: left" class="text-info">{{
+              scope.row.importer
+            }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Người chở">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.carrier }}</span>
+            <span style="float: left">{{ scope.row.carrier }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Đã trả trước">
+        <el-table-column label="Đã trả" :width="95">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.prepay }}</span>
+            <span style="float: right" class="text-primary">{{
+              scope.row.prepay
+            }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Cước">
+        <el-table-column label="Cước" :width="95">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.freight }}</span>
+            <span style="float: right">{{ scope.row.freight }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Tổng tiền">
+        <el-table-column label="Tổng tiền" :width="95">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.totalmoney }}</span>
+            <span style="float: right" class="text-success">{{
+              scope.row.totalmoney
+            }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Trạng thái">
+        <el-table-column label="Trạng thái" :width="95">
           <template slot-scope="scope">
-            <!-- <span v-if="scope.row.status == 1" style="margin-left: 10px"
-              ><el-tag type="danger">Chưa TT</el-tag></span
+            <!-- <span v-if="scope.row.status == 1"  
+              ><el-tag type="danger"> Chưa dủ</el-tag></span
             >
-            <span v-if="scope.row.status != 2" style="margin-left: 10px"
-              ><el-tag type="success">Đã TT</el-tag></span
+            <span v-if="scope.row.status != 2"  
+              ><el-tag type="success">Đã đủ</el-tag></span
             > -->
-             <el-tag :type="scope.row.status != '1' ? 'success':'danger'">{{ scope.row.status != "1" ? 'Đã TT' : 'Chưa TT' }}</el-tag>
+            <el-tag :type="scope.row.status != '1' ? 'success' : 'danger'">{{
+              scope.row.status != "1" ? "Đã đủ" : " Chưa dủ"
+            }}</el-tag>
           </template>
         </el-table-column>
 
-        <el-table-column label="Thao tác">
+        <el-table-column label="Thao tác" :width="95" align="center">
           <template slot-scope="scope">
             <el-button
               type="success"
@@ -230,9 +226,11 @@
         <el-col :span="6">
           <div class="grid-content">
             <span style="font-weight: bold">Trạng thái: </span>
-             <el-tag :type="temp.status != '1' ? 'success':'danger'">{{ temp.status != "1" ? 'Đã TT' : 'Chưa TT' }}</el-tag>
-            <!-- <span v-if='temp.status == "1" ' style="color: red">Chưa TT</span>
-            <span  v-if='temp.status != "1" ' style="color: green">Đã TT</span>  -->
+            <el-tag :type="temp.status != '1' ? 'success' : 'danger'">{{
+              temp.status != "1" ? "Đã đủ" : " Chưa dủ"
+            }}</el-tag>
+            <!-- <span v-if='temp.status == "1" ' style="color: red"> Chưa dủ</span>
+            <span  v-if='temp.status != "1" ' style="color: green">Đã đủ</span>  -->
           </div>
         </el-col>
         <el-col :span="6">
@@ -241,15 +239,40 @@
           </div>
         </el-col>
       </el-row>
-      <el-table :data="temp.item" class="table table-striped" border>
-        <el-table-column
-          property="categorychildren"
-          label="Loại"
-        ></el-table-column>
-        <el-table-column property="weight" label="Số lượng"></el-table-column>
-        <el-table-column property="unit" label="Đơn vị tính"></el-table-column>
-        <el-table-column property="price" label="Giá"></el-table-column>
-        <el-table-column property="total" label="Thành tiền"></el-table-column>
+      <el-table
+        :data="temp.item"
+        class="table table-striped"
+        width="100%"
+        border
+      >
+        <el-table-column label="Loại" >
+          <template slot-scope="scope">
+            <span  >{{ scope.row.categorychildren }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="Số lượng">
+          <template slot-scope="scope">
+            <span style="float:center" >{{ scope.row.weight }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Đơn vị tính" >
+          <template slot-scope="scope">
+            <span  >{{ scope.row.unit }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Giá" >
+          <template slot-scope="scope">
+            <span style="float:right">{{ scope.row.price }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Thành tiền" >
+          <template slot-scope="scope">
+            <span style="float:right" class="text-primary">{{ scope.row.total }}</span>
+          </template>
+        </el-table-column>
       </el-table>
     </el-drawer>
   </div>
@@ -286,7 +309,7 @@ export default {
         from: undefined,
         to: undefined,
         category_id: undefined,
-        status:1,
+        status: 1,
       },
       listcategory: null,
       statusOptions: [
@@ -312,7 +335,7 @@ export default {
           },
         ],
       },
-      
+
       temp: {
         date: undefined,
         customer_id: undefined,
@@ -322,7 +345,7 @@ export default {
         totalmoney: undefined,
         prepay: 0,
         status: 0,
-        freight:undefined,
+        freight: undefined,
         item: [
           {
             categorychildren_id: undefined,
@@ -342,10 +365,10 @@ export default {
   methods: {
     statusFilter(status) {
       const statusMap = {
-        available: 'success',
-        disable: 'danger'
-      }
-      return statusMap[status]
+        available: "success",
+        disable: "danger",
+      };
+      return statusMap[status];
     },
     getList() {
       //   this.listLoading = true
