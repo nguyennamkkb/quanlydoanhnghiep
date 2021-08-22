@@ -30,6 +30,8 @@ export default [
             { path: 'employee', name: 'dashboard.employee', component: page('dashboard/Employee/index.vue') },
             { path: 'input', name: 'dashboard.input', component: page('dashboard/Receipt/input.vue') },
             { path: 'inputlist', name: 'dashboard.inputlist', component: page('dashboard/Receipt/index.vue') },
+            { path: 'export', name: 'dashboard.export', component: page('dashboard/Export/export.vue') },
+            { path: 'exportlist', name: 'dashboard.exportlist', component: page('dashboard/Export/index.vue') },
 
         ]
     },

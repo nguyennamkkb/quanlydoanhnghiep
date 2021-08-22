@@ -9,3 +9,17 @@ function formatcurrency(n) {
         return i > 0 && c !== "," && (a.length - i) % 3 === 0 ? "." + c : c;
     });
 }
+
+export function convertnametovalue(str) {
+
+    var res = [];
+    str.forEach(element => {
+        res.push({
+            id: element.id,
+            value: element.name.toString(),
+
+        });
+    });
+    // console.log(res);
+    return res;
+}

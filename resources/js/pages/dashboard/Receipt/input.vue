@@ -26,6 +26,7 @@
                 v-model="temp.carrier_id"
                 placeholder="Chọn người vận chuyển"
                 style="width: auto"
+                filterable
               >
                 <el-option
                   v-for="item in listEmployees"
@@ -46,6 +47,7 @@
                 v-model="temp.customer_id"
                 placeholder="Chọn khách hàng"
                 style="width: auto"
+                filterable
               >
                 <el-option
                   v-for="item in listCustomers"
@@ -64,6 +66,7 @@
                 v-model="temp.importer_id"
                 placeholder="Người kiểm"
                 style="width: auto"
+                filterable
               >
                 <el-option
                   v-for="item in listEmployees"
@@ -84,6 +87,7 @@
                 placeholder="Chọn loại hàng"
                 style="width: auto"
                 @change="getListCatagoryChild"
+                filterable
               >
                 <el-option
                   v-for="item in listCategories"
@@ -134,6 +138,7 @@
               placeholder="Loại"
               style="width: auto"
               @change="CalculateTotal()"
+              filterable
             >
               <el-option
                 v-for="item in listCategoryChilds"
@@ -156,6 +161,7 @@
               v-model="item.unit"
               placeholder="Loại"
               style="width: auto"
+              filterable
               @change="CalculateTotal()"
             >
               <el-option
@@ -167,11 +173,21 @@
             </el-select>
           </td>
           <td>
-            <el-select
+            <el-autocomplete
+              class="inline-input"
+              v-model="item.price"
+              :fetch-suggestions="querySearchprice"
+              placeholder="Nhập giá"
+              @change="CalculateTotal"
+              @select="CalculateTotal"
+            ></el-autocomplete>
+
+            <!-- <el-select
               v-model="item.price"
               placeholder="Giá"
               style="width: auto"
-              @change="CalculateTotal()"
+              filterable
+              @change="CalculateTotal"
             >
               <el-option
                 v-for="item in listPrices"
@@ -179,7 +195,7 @@
                 :label="item.name"
                 :value="item.name"
               ></el-option>
-            </el-select>
+            </el-select> -->
           </td>
           <td>
             <input type="text" v-model="item.total" disabled />
@@ -196,16 +212,15 @@
         </tr>
         <tr>
           <td colspan="4" style="text-align: right">Trả trước</td>
-          <td colspan="1">  <input
+          <td colspan="1">
+            <input
               v-model="temp.prepay"
               class="form-control"
               type="number"
-              
               @change="CalculateTotal()"
-            /></td>
-          <td colspan="1">
-           
+            />
           </td>
+          <td colspan="1"></td>
         </tr>
         <tr>
           <td colspan="4" style="text-align: right">Tổng tiền</td>
@@ -230,6 +245,7 @@
 import { getValueInput, createInput } from "../../../api/Input";
 import { getCategoryChildbyCategoryId } from "../../../api/CategoryChild";
 import { convertToDate } from "../../../handle/handleDate";
+import { convertnametovalue } from "../../../handle/cmd";
 
 export default {
   data() {
@@ -243,11 +259,11 @@ export default {
       inputDetails: [
         {
           categorychildren_id: undefined,
-          weight: 0,
-          unit: undefined,
-          price: undefined,
-          total: 0,
-        },
+          weight: undefined,
+          unit: "kg",
+          price: "",
+          total: 0
+        }
       ],
       temp: {
         date: Date(),
@@ -255,24 +271,23 @@ export default {
         importer_id: undefined,
         carrier_id: undefined,
         note: "",
-        totalmoney: undefined, 
-        category_id: undefined, 
+        totalmoney: undefined,
+        category_id: undefined,
         prepay: 0,
-        
+
         item: [
           {
             categorychildren_id: undefined,
             weight: 0,
             unit: undefined,
-            price: undefined,
-            total: 0,
-            
-          },
-        ],
+            price: "",
+            total: 0
+          }
+        ]
       },
       totalAmount: 0,
       lenTable: 0,
-      total1:0,
+      total1: 0
     };
   },
   created() {
@@ -281,29 +296,50 @@ export default {
     // console.log(a)
   },
   methods: {
-    notifyMes(mes,type) {
+    querySearchprice(queryString, cb) {
+      var prices = this.listPrices;
+      var results = queryString
+        ? prices.filter(this.createFilterPrice(queryString))
+        : prices;
+      // call callback function to return suggestions
+      cb(results);
+    },
+    createFilterPrice(queryString) {
+      return price => {
+        // console.log(link.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0)
+        return (
+          price.value
+            .toString()
+            .toLowerCase()
+            .indexOf(queryString.toLowerCase()) === 0
+        );
+      };
+    },
+    notifyMes(mes, type) {
       this.$notify({
         title: "Thông báo",
         message: mes,
-        type: type ==1 ? "success": "error",
-        duration: 2000,
+        type: type == 1 ? "success" : "error",
+        duration: 2000
       });
     },
-    getList: async function () {
+    getList: async function() {
       const data = await getValueInput();
       this.listCustomers = data.data.customer;
       this.listCategories = data.data.category;
       this.listEmployees = data.data.employee;
       this.listUnits = data.data.unit;
       this.listPrices = data.data.price;
+      this.listPrices = convertnametovalue(this.listPrices);
+      
     },
-    addRow: function () {
+    addRow: function() {
       this.inputDetails.push({
         categorychildren_id: undefined,
-        weight: 0,
-        unit: undefined,
-        price: undefined,
-        total: 0,
+        weight: undefined,
+        unit: "kg",
+        price: "",
+        total: 0
       });
       this.CalculateTotal();
     },
@@ -316,26 +352,28 @@ export default {
       this.temp.item = Object.assign({}, this.inputDetails);
       // console.log(this.temp);
       createInput(this.temp)
-        .then((result) => {
-          if(result.data.status == true){
-            this.notifyMes("Tạo phiếu nhập thành công",1)
+        .then(result => {
+          if (result.data.status == true) {
+            this.notifyMes("Tạo phiếu nhập thành công", 1);
           }
         })
-        .catch((err) => {this.notifyMes("Lỗi tạo phiếu nhập",0)});
+        .catch(err => {
+          this.notifyMes("Lỗi tạo phiếu nhập", 0);
+        });
     },
-    getData: async function () {
+    getData: async function() {
       // const data1 = await getCategoryChild(this.temp)
     },
     getListCatagoryChild() {
       const dt = {
-        category_id: this.temp.category_id,
+        category_id: this.temp.category_id
       };
       getCategoryChildbyCategoryId(dt)
-        .then((result) => {
+        .then(result => {
           // console.log(result.data.data);
           this.listCategoryChilds = result.data.data;
         })
-        .catch((err) => {});
+        .catch(err => {});
     },
     CalculateTotal() {
       // console.log(this.inputDetails);
@@ -344,12 +382,14 @@ export default {
       let datatable = this.inputDetails;
       let index = 0;
       this.lenTable = datatable.length;
-      datatable.forEach((element) => {
+      datatable.forEach(element => {
+        let dongia = Number(element.price);
+        // console.log(element);
         index++;
         let soluong = element.weight;
         let donvi =
           element.unit != undefined ? parseInt(element.unit.split(" ")[1]) : "";
-        let dongia = element.price;
+
         let thanhtien;
         if (isNaN(donvi)) donvi = 1;
         thanhtien = soluong * donvi * dongia;
@@ -360,8 +400,10 @@ export default {
         element.customer_id = this.temp.customer_id;
       });
       this.temp.totalmoney = this.total1 - this.temp.prepay;
-      
     },
-  },
+    convertnametovalue(str) {
+      return str;
+    }
+  }
 };
 </script>

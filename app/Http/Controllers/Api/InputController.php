@@ -42,8 +42,7 @@ class InputController extends Controller
         CategoryRepositoryInterface $categoryRepository,
         UnitRepositoryInterface $UnitRepository,
         InputDetailRepositoryInterface $InputDetailRepository
-        )
-    {
+    ) {
         $this->InputRepository = $InputRepository;
         $this->InputDetailRepository = $InputDetailRepository;
         $this->PriceRepository = $PriceRepository;
@@ -58,7 +57,6 @@ class InputController extends Controller
         $limit = $request->limit;
         $list = $this->InputRepository->getinput()->paginate($limit);
         return InputResource::collection($list);
-       
     }
     public function getlistValueInput()
     {
@@ -70,16 +68,19 @@ class InputController extends Controller
         $unit = FreeResource::collection($this->UnitRepository->all());
 
         return response()->json(
-            ['input' => $input,
-            'price' => $price,
-            'employee' => $employee,
-            'customer' => $customer,
-            'category' => $category,
-            'unit' => $unit,
-            ], 200);
+            [
+                'input' => $input,
+                'price' => $price,
+                'employee' => $employee,
+                'customer' => $customer,
+                'category' => $category,
+                'unit' => $unit,
+            ],
+            200
+        );
     }
-    
-    
+
+
     public function store(Request $request)
     {
         DB::beginTransaction();
@@ -108,7 +109,7 @@ class InputController extends Controller
                 }
             }
             DB::commit();
-            return response()->json(['status' => true], 200);  
+            return response()->json(['status' => true], 200);
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(['status' => $e], 200);
@@ -119,7 +120,7 @@ class InputController extends Controller
         $req = $request->validated();
         DB::beginTransaction();
         try {
-            $this->InputRepository->update($id,[
+            $this->InputRepository->update($id, [
                 'date' => $req['date'],
                 'supplier_id' => $req['supplier_id'],
                 'totalweight_id' => $req['totalweight_id'],
@@ -128,7 +129,7 @@ class InputController extends Controller
                 // 'carrier _id' => $req['carrier_id'],
             ]);
             DB::commit();
-            return response()->json(['status' => true], 200);  
+            return response()->json(['status' => true], 200);
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(['status' => false], 422);
@@ -144,13 +145,12 @@ class InputController extends Controller
     public function destroy($id)
     {
 
-       $resp = $this->InputRepository->delete($id);
+        $resp = $this->InputRepository->delete($id);
 
-        if($resp) {
-            return response()->json(['status' => true], 200);    
-        }else {
+        if ($resp) {
+            return response()->json(['status' => true], 200);
+        } else {
             return response()->json(['status' => false], 422);
         }
-    
     }
 }

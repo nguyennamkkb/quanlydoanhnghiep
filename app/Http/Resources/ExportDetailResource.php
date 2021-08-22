@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Controllers\Api\CmdController;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class inputDetailResource extends JsonResource
+class ExportDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,6 @@ class inputDetailResource extends JsonResource
      */
     public function toArray($request)
     {
-        
-        // return new FreeResource($this->categorychildren->only);
-        // return parent::toArray($request);
-
         return [
             'categorychildren' => $this->categorychildren->name,
             'price' =>CmdController::formatNumberCur( $this->price),
@@ -26,6 +22,5 @@ class inputDetailResource extends JsonResource
             'weight' =>CmdController::formatNumberCur( $this->weight), 
             'total' => CmdController::formatNumberCur( $this->total), 
         ];
-
     }
 }

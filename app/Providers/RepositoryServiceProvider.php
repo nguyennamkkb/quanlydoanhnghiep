@@ -61,6 +61,14 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\InputDetail\InputDetailRepositoryInterface::class,
             \App\Repositories\InputDetail\InputDetailRepositoryEloquent::class,
         ],
+        'export' => [ 
+            \App\Repositories\Export\ExportRepositoryInterface::class,
+            \App\Repositories\Export\ExportRepositoryEloquent::class,
+        ],
+        'exportdetail' => [ 
+            \App\Repositories\ExportDetail\ExportDetailRepositoryInterface::class,
+            \App\Repositories\ExportDetail\ExportDetailRepositoryEloquent::class,
+        ],
     ];
     /**
      * Bootstrap services.

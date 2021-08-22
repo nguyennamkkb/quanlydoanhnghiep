@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Repositories\Input;
+namespace App\Repositories\Export;
 
 use App\Repositories\Eloquent\RepositoryEloquent;
-use App\Repositories\Input\InputRepositoryInterface;
-use App\Models\Input;
+use App\Repositories\Export\ExportRepositoryInterface;
+use App\Models\Export;
 use App\Traits\ResponseAPI;
 use App\Http\Resources\CodeResource;
 use Carbon\Carbon;
 
-class InputRepositoryEloquent extends RepositoryEloquent implements InputRepositoryInterface
+class ExportRepositoryEloquent extends RepositoryEloquent implements ExportRepositoryInterface
 {
     public function model()
     {
-        return Input::class;
+        return Export::class;
     }
 
     public function findBy($dateFrom, $dateTo, $category_id, $status)

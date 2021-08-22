@@ -94,8 +94,8 @@
                   <i class="el-icon-location"></i>
                   <span>Xuất hàng</span>
                 </template>
-                <el-menu-item index="9-1">Lập phiếu xuất</el-menu-item>
-                <el-menu-item index="9-2">Danh sách phiếu xuất</el-menu-item>
+                 <router-link aria-current="page" :to="{ name: 'dashboard.export' }"><el-menu-item index="9-1">Lập phiếu xuất</el-menu-item></router-link>
+                 <router-link aria-current="page" :to="{ name: 'dashboard.exportlist' }"><el-menu-item index="9-2">Danh sách phiếu xuất</el-menu-item></router-link>
               </el-submenu>
             </el-menu>
           </nav>

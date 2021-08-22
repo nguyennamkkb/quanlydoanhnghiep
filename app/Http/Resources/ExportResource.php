@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Resources;
-
-use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\inputDetailResource;
 use App\Http\Controllers\Api\CmdController;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class InputResource extends JsonResource
+class ExportResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
