@@ -245,32 +245,34 @@
         width="100%"
         border
       >
-        <el-table-column label="Loại" >
+        <el-table-column label="Loại">
           <template slot-scope="scope">
-            <span  >{{ scope.row.categorychildren }}</span>
+            <span>{{ scope.row.categorychildren }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Số lượng">
           <template slot-scope="scope">
-            <span style="float:center" >{{ scope.row.weight }}</span>
+            <span style="float: center">{{ scope.row.weight }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="Đơn vị tính" >
+        <el-table-column label="Đơn vị tính">
           <template slot-scope="scope">
-            <span  >{{ scope.row.unit }}</span>
+            <span>{{ scope.row.unit }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="Giá" >
+        <el-table-column label="Giá">
           <template slot-scope="scope">
-            <span style="float:right">{{ scope.row.price }}</span>
+            <span style="float: right">{{ scope.row.price }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="Thành tiền" >
+        <el-table-column label="Thành tiền">
           <template slot-scope="scope">
-            <span style="float:right" class="text-primary">{{ scope.row.total }}</span>
+            <span style="float: right" class="text-primary">{{
+              scope.row.total
+            }}</span>
           </template>
         </el-table-column>
       </el-table>
