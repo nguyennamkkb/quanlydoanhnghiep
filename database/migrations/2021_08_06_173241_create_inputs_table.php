@@ -24,6 +24,7 @@ class CreateInputsTable extends Migration
             $table->double('prepay',11,0)->nullable();
             $table->string('note')->nullable(); 
             $table->string('status',2)->default("1"); 
+            $table->string('status_export',2)->default("1"); 
             $table->timestamps();
         });
     }

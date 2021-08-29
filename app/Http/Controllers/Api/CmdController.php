@@ -38,4 +38,11 @@ class CmdController extends Controller
         $num = number_format($str, 0, ',', '.');
         return $num;
     }
+    
+    public static function replaceNumberFormat($str)
+    {
+        $num = str_replace('.','',$str);
+        return $num;
+    }
+
 }

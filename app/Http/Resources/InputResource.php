@@ -27,6 +27,7 @@ class InputResource extends JsonResource
             'note' => $this->note,
             'prepay' => CmdController::formatNumberCur($this->prepay),
             'status' => $this->status,
+            'status_export' => $this->status_export,
             'item' =>  inputDetailResource::collection($this->inputdetail),
         ];
     }

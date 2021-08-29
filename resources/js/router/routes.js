@@ -32,6 +32,9 @@ export default [
             { path: 'inputlist', name: 'dashboard.inputlist', component: page('dashboard/Receipt/index.vue') },
             { path: 'export', name: 'dashboard.export', component: page('dashboard/Export/export.vue') },
             { path: 'exportlist', name: 'dashboard.exportlist', component: page('dashboard/Export/index.vue') },
+            { path: 'thanhtoantam', name: 'dashboard.thanhtoantam', component: page('dashboard/Payment/Customerpays_tam.vue') },
+            { path: 'thanhtoanvau', name: 'dashboard.thanhtoanvau', component: page('dashboard/Payment/Customerpays_vau.vue') },
+            { path: 'thanhtoanluong', name: 'dashboard.thanhtoanluong', component: page('dashboard/Payment/Employeepays.vue') },
 
         ]
     },

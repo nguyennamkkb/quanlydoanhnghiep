@@ -27,6 +27,7 @@ use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\PriceController;
 use App\Http\Controllers\Api\InputController;
 use App\Http\Controllers\Api\WarehouseController;
+use App\Http\Controllers\Api\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -133,8 +134,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('export', [ExportController::class, 'index']); // lay thong toan bo thong tin
     // Route::get('valueinput', [InputController::class, 'getlistValueInput']); // lay thong toan bo thong tin
     Route::post('export', [ExportController::class, 'store']); // them moi thong tin
+    Route::post('exportFromInput', [ExportController::class, 'exportFromInput']); // them moi thong tin
     Route::put('export/{id}', [ExportController::class, 'update']); // sua thong tin
     Route::delete('export/{id}', [ExportController::class, 'destroy']); // xoa thong tin
+
+    //Thanh toan
+    Route::get('thanhtoanvau', [PaymentController::class, 'thanhtoanvau']); // lay thong toan bo thong tin
 
 
 

@@ -397,7 +397,7 @@ export default {
       let datatable = this.inputDetails;
       let index = 0;
       this.lenTable = datatable.length;
-      
+
       datatable.forEach((element) => {
         let dongia = Number(element.price);
         index++;
@@ -415,7 +415,7 @@ export default {
         element.customer_id = this.temp.customer_id;
       });
 
-      this.temp.totalmoney = this.total1  ;
+      this.temp.totalmoney = this.total1;
     },
     convertnametovalue(str) {
       return str;

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <div class="" style="background-color:white">
+      <div class="" style="background-color: white">
         <header
           class="
             navbar navbar-dark
@@ -62,31 +62,65 @@
                   <i class="el-icon-location"></i>
                   <span>Danh mục chung</span>
                 </template>
-                
-                <router-link  :to="{ name: 'dashboard.category' }"><el-menu-item index="4-1" >Loại hàng hóa</el-menu-item></router-link>
-                <router-link :to="{ name: 'dashboard.specificities' }"><el-menu-item index="4-2" >Đặc tính</el-menu-item></router-link>
-                <router-link  :to="{ name: 'dashboard.price' }"><el-menu-item index="4-3" >Giá</el-menu-item></router-link>
-                <router-link  :to="{ name: 'dashboard.unit' }"><el-menu-item index="4-4" >Đơn vị tính</el-menu-item></router-link>
+
+                <router-link :to="{ name: 'dashboard.category' }"
+                  ><el-menu-item index="4-1"
+                    >Loại hàng hóa</el-menu-item
+                  ></router-link
+                >
+                <router-link :to="{ name: 'dashboard.specificities' }"
+                  ><el-menu-item index="4-2"
+                    >Đặc tính</el-menu-item
+                  ></router-link
+                >
+                <router-link :to="{ name: 'dashboard.price' }"
+                  ><el-menu-item index="4-3">Giá</el-menu-item></router-link
+                >
+                <router-link :to="{ name: 'dashboard.unit' }"
+                  ><el-menu-item index="4-4"
+                    >Đơn vị tính</el-menu-item
+                  ></router-link
+                >
+                <router-link
+                  aria-current="page"
+                  :to="{ name: 'dashboard.customer' }"
+                >
+                  <el-menu-item index="4-5">
+                    <i class="el-icon-setting"></i>
+                    <span>Khách hàng</span>
+                  </el-menu-item>
+                </router-link>
+                <router-link
+                  aria-current="page"
+                  :to="{ name: 'dashboard.employee' }"
+                >
+                  <el-menu-item index="4-6">
+                    <i class="el-icon-setting"></i>
+                    <span>Nhân viên</span>
+                  </el-menu-item>
+                </router-link>
               </el-submenu>
-              <router-link aria-current="page" :to="{ name: 'dashboard.customer' }">
-                <el-menu-item index="5">
-                  <i class="el-icon-setting"></i>
-                  <span>Khách hàng</span>
-                </el-menu-item>
-              </router-link>
-              <router-link aria-current="page" :to="{ name: 'dashboard.employee' }">
-                <el-menu-item index="7">
-                  <i class="el-icon-setting"></i>
-                  <span>Nhân viên</span>
-                </el-menu-item>
-              </router-link>
+
               <el-submenu index="8">
                 <template slot="title">
                   <i class="el-icon-location"></i>
                   <span>Nhập hàng</span>
                 </template>
-                 <router-link aria-current="page" :to="{ name: 'dashboard.input' }"><el-menu-item index="8-1">Lập phiếu nhập</el-menu-item></router-link>
-                 <router-link aria-current="page" :to="{ name: 'dashboard.inputlist' }"><el-menu-item index="8-3">Danh sách phiếu nhập</el-menu-item></router-link>
+                <router-link
+                  aria-current="page"
+                  :to="{ name: 'dashboard.input' }"
+                >
+                  <el-menu-item index="8-1">
+                    Lập phiếu nhập</el-menu-item
+                  ></router-link
+                >
+                <router-link
+                  aria-current="page"
+                  :to="{ name: 'dashboard.inputlist' }"
+                  ><el-menu-item index="8-3"
+                    >Danh sách phiếu nhập</el-menu-item
+                  ></router-link
+                >
                 <!-- <el-menu-item index="8-2"></el-menu-item> -->
               </el-submenu>
               <el-submenu index="9">
@@ -94,8 +128,46 @@
                   <i class="el-icon-location"></i>
                   <span>Xuất hàng</span>
                 </template>
-                 <router-link aria-current="page" :to="{ name: 'dashboard.export' }"><el-menu-item index="9-1">Lập phiếu xuất</el-menu-item></router-link>
-                 <router-link aria-current="page" :to="{ name: 'dashboard.exportlist' }"><el-menu-item index="9-2">Danh sách phiếu xuất</el-menu-item></router-link>
+                <router-link
+                  aria-current="page"
+                  :to="{ name: 'dashboard.export' }"
+                  ><el-menu-item index="9-1"
+                    >Lập phiếu xuất</el-menu-item
+                  ></router-link
+                >
+                <router-link
+                  aria-current="page"
+                  :to="{ name: 'dashboard.exportlist' }"
+                  ><el-menu-item index="9-2"
+                    >Danh sách phiếu xuất</el-menu-item
+                  ></router-link
+                >
+              </el-submenu>
+              <el-submenu index="10">
+                <template slot="title">
+                  <i class="el-icon-location"></i>
+                  <span>Thanh toán</span>
+                </template>
+                <router-link
+                  aria-current="page"
+                  :to="{ name: 'dashboard.thanhtoantam' }"
+                >
+                  <el-menu-item index="10-1">Thanh toán chủ Tăm</el-menu-item>
+                </router-link>
+                <router-link
+                  aria-current="page"
+                  :to="{ name: 'dashboard.thanhtoanvau' }"
+                >
+                  <el-menu-item index="10-2"> Thanh toán chủ vầu </el-menu-item>
+                </router-link>
+                <router-link
+                  aria-current="page"
+                  :to="{ name: 'dashboard.thanhtoanluong' }"
+                >
+                  <el-menu-item index="10-3">
+                    Thanh toán Công nhân
+                  </el-menu-item>
+                </router-link>
               </el-submenu>
             </el-menu>
           </nav>

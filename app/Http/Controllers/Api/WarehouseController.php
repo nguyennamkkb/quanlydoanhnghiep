@@ -24,9 +24,9 @@ class WarehouseController extends Controller
         $dateTo = $request->to;
         $category_id = $request->category_id;
         $status = $request->status;
-
+        $status_export = $request->status_export;
         $limit = $request->limit;
-        $list = $this->InputRepository->findBy($dateFrom, $dateTo,$category_id, $status)->paginate($limit);
+        $list = $this->InputRepository->findBy($dateFrom, $dateTo,$category_id, $status,$status_export)->paginate($limit);
         return InputResource::collection($list);
     }
     

@@ -53,7 +53,6 @@ class InputController extends Controller
     }
     public function index(Request $request)
     {
-        $keyword = $request->keyword;
         $limit = $request->limit;
         $list = $this->InputRepository->getinput()->paginate($limit);
         return InputResource::collection($list);

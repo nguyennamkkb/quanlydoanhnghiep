@@ -29,6 +29,13 @@ export function createInput(data) {
         data
     })
 }
+export function exportFromInput(data) {
+    return Client({
+        url: resource + '/exportFromInput',
+        method: 'post',
+        data
+    })
+}
 export function updateInput(id, data) {
     return Client({
         url: resource + '/input/' + id,

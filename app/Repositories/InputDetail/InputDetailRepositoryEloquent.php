@@ -19,16 +19,11 @@ class InputDetailRepositoryEloquent extends RepositoryEloquent implements InputD
     public function findBy($keyword)
     {
         $query = $this->model->newQuery();
-        // if (!empty($address)) {
-
-        //     $query = $this->model->where('address', 'like', "%$address%");
-        // }
-        // if (!empty($phone)) {
-        //     $query = $this->model->where('phone', 'like', "%$phone%");
-        // }
-        // if (!empty($keyword)) {
-        //     $query = $this->model->where('name', 'like', "%$keyword%");
-        // }
+        return $query;
+    }
+    public function findByInputId($id)
+    {
+        $query = $this->model->newQuery()->where('input_id',$id);
 
         return $query;
     }
